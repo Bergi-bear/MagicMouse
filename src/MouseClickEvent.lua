@@ -23,6 +23,8 @@ function InitMouseClickEvent()
     TriggerAddAction(TrigDEPressLMB, function()
         if BlzGetTriggerPlayerMouseButton() == MOUSE_BUTTON_TYPE_LEFT then
             HERO[GetPlayerId(GetTriggerPlayer())].LMBIsPressed = false
+            ShapeDetectorClear()
+            ClearPoints()
         end
     end)
 end

@@ -26,6 +26,7 @@ do
             local dot = UnitFacingVector:dotProduct(AngleSourceVector)
             ]]
             print(">>>")
+            InitInputHandler()
         end)
     end
 end
