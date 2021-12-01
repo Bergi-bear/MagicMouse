@@ -3,6 +3,29 @@
 --- Created by Bergi.
 --- DateTime: 01.12.2021 17:05
 ---
-function Init()
-    print(1123)
+do
+    local InitGlobalsOrigin = InitGlobals
+    function InitGlobals()
+        InitGlobalsOrigin()
+        TimerStart(CreateTimer(), .01, false, function()
+            DestroyTimer(GetExpiredTimer())
+            print("<<<")
+            EnablePreSelect(false, false)
+            EnableDragSelect(false, false)
+            InitHEROTable()
+            InitMenu()
+            InitMouseMoveTrigger()
+            InitMouseClickEvent()
+
+            wGeometry = wGeometryInit()
+            --[[ -- образец использования
+            local Vector3 = wGeometry.Vector3
+            local UnitFacingVector = Vector3:new(math.cos(AngleUnitRad), math.sin(AngleUnitRad), 0)  -- вектор поворота юнита
+            local AngleSourceVector = Vector3:new(GetUnitX(caster) - GetUnitX(target), GetUnitY(caster) - GetUnitY(target), 0)  -- вектор получения от урона (by Doc)
+            AngleSourceVector = AngleSourceVector:normalize()
+            local dot = UnitFacingVector:dotProduct(AngleSourceVector)
+            ]]
+            print(">>>")
+        end)
+    end
 end
