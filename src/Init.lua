@@ -12,19 +12,16 @@ do
             print("<<<")
             EnablePreSelect(false, false)
             EnableDragSelect(false, false)
+            --FogEnable(true)
+            --SetFogStateRadius(Player(0), FOG_OF_WAR_VISIBLE, 0, 0, 2500, true)
+            --local m =
+            FogModifierStart(CreateFogModifierRect(Player(0), FOG_OF_WAR_VISIBLE, bj_mapInitialPlayableArea, true, false))
             InitHEROTable()
             InitMenu()
             InitMouseMoveTrigger()
             InitMouseClickEvent()
 
-            wGeometry = wGeometryInit()
-            --[[ -- образец использования
-            local Vector3 = wGeometry.Vector3
-            local UnitFacingVector = Vector3:new(math.cos(AngleUnitRad), math.sin(AngleUnitRad), 0)  -- вектор поворота юнита
-            local AngleSourceVector = Vector3:new(GetUnitX(caster) - GetUnitX(target), GetUnitY(caster) - GetUnitY(target), 0)  -- вектор получения от урона (by Doc)
-            AngleSourceVector = AngleSourceVector:normalize()
-            local dot = UnitFacingVector:dotProduct(AngleSourceVector)
-            ]]
+            --wGeometry = wGeometryInit()
             print(">>>")
             InitInputHandler()
         end)

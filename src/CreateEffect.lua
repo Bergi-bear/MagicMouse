@@ -4,6 +4,6 @@
 --- DateTime: 01.12.2021 18:19
 ---
 function CreateTMPEffect(x,y, effect)
-    SetFogStateRadius(Player(0), FOG_OF_WAR_VISIBLE, x, y, 400, true)
+    --SetFogStateRadius(Player(0), FOG_OF_WAR_VISIBLE, x, y, 400, true)
     return AddSpecialEffect(effect,x,y)
 end
