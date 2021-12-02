@@ -54,6 +54,17 @@ function Vector:normalize(clone)
 	return self
 end
 
+function Vector:differenceRegardingUp(other)
+	local a = self:angleBetweenUP()
+	local b = other:angleBetweenUP()
+
+	return math.max(a, b) - math.min(a, b);
+end
+
+function Vector:angleBetweenUP()
+	return math.acos(self:dot(Vector:new(0, 1, 0)) / 1 / self:length())
+end
+
 function Vector:angleBetween(other)
 	return math.acos(self:dot(other) / other:length() / self:length())
 end

@@ -12,8 +12,9 @@ end
 
 function InitInputHandler ()
 
-    local nimValueToExtend = 1/8 * 128
+    local nimValueToExtend = 1/16 * 128
     Points = { }
+    Effects = { }
 
     function ClearPoints() Points = { }  end
 
@@ -29,10 +30,10 @@ function InitInputHandler ()
             table.insert(Points, vector)
             --print("insert OK")
 
-            CreateTMPEffect(GetPlayerMouseX[0], GetPlayerMouseY[0])
+            table.insert(Effects, CreateTMPEffect(GetPlayerMouseX[0], GetPlayerMouseY[0], "units\\nightelf\\Wisp\\Wisp"))
 
-            ShapeDetectorAdd(#Points <= 1 and Vector:new(0, 0, 0) or VectorSubtract(vector, Points[#Points - 1]),
-                    #Points <= 2 and Vector:new(0, 0, 0) or VectorSubtract(Points[#Points - 1], Points[#Points - 2]),Points)
+            ShapeDetectorAdd(Points[#Points],
+                    #Points <= 1 and 0 or Points[#Points - 1])
         end
     end
 end

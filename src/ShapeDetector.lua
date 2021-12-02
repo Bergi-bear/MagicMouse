@@ -4,40 +4,45 @@
 --- DateTime: 01.12.2021 19:34
 ---
 ---
+
 squareCount = 0;
 sharpCount = 0;
 obtuseCount = 0;
+rangeForSquareAngle = 25
+
+sides = {}
+previousDirection = 0
+
 function Distance(vector1, vector2)
     return DistanceBetweenXY(vector1.x, vector1.y, vector2.x, vector2.y)
 end
 
-function DetectAngle(angle)
-    if angle < 90 + rangeForSquareAngle and angle > 90 - rangeForSquareAngle then
-        --print("SquareAngle! " .. angle)
-        squareCount = squareCount + 1
-
-    elseif (angle > 90) then
-        --print("SharpAngle! " .. angle)
-        sharpCount = sharpCount + 1
-
-    elseif (angle < 90) then
-        --print("ObtuseAngle! " .. angle)
-        obtuseCount = obtuseCount + 1
-    end
-end
-
 function ShapeDetectorAdd(current, previous)
-    rangeForSquareAngle = 15
 
-    if (current.x == current.y and current.x == current.z) or (previous.x == previous.y and previous.x == previous.z) then return end
+    if (current == 0 or previous == 0) then return end
 
-    local angle = math.deg(current:angleBetween(previous))
-    --print(angle)
+    local sensitivity = 15 -- degrees
+    local minimumDistanceForSide = 2 * 128
 
-    -- Detection Angles
-    DetectAngle(angle)
+    local direction = VectorSubtract(current, previous)
 
-
+    if (previousDirection == 0) then
+        table.insert(sides, Side:new(current))
+        previousDirection = direction
+    else
+        local angle = math.deg(direction:differenceRegardingUp(previousDirection))
+        --print(angle)
+        if (angle < sensitivity or angle > 180 - sensitivity) then
+            sides[#sides]:changeEnd(current)
+        else
+            if (sides[#sides]:length() > minimumDistanceForSide) then
+                table.insert(sides, Side:new(current))
+            else
+                sides[#sides] = Side:new(current)
+            end
+                previousDirection = direction
+        end
+    end
 end
 
 function ShapeDetectorClear()
@@ -47,42 +52,54 @@ function ShapeDetectorClear()
     local minDistanceForZ = 2 * 128
     local minDistanceForLine = 2 * 128
 
-    if (#Points < 1) then
-        return
+    local center = Vector:new(0,0,0)
+    for i = 1, #Points do
+        center.x = center.x + Points[i].x
+        center.y = center.y + Points[i].y
+    end
+    center.x = center.x / #Points
+    center.y = center.y / #Points
+    DestroyEffect(CreateTMPEffect(center.x, center.y, "units\\orc\\Peon\\Peon"))
+
+    for i = 1, 20 do
+        print("  ")
     end
 
-    -- Additional Angles
-    local angle = math.deg(VectorSubtract(Points[1], Points[#Points]):angleBetween(VectorSubtract(Points[2], Points[1])))
-    DetectAngle(angle)
+    for i = 1, #sides do
+        print(i.. ". ( ".. sides[i].start.x.. ", ".. sides[i].start.x.. " ) ; (".. sides[i].en.x.. ", ".. sides[i].en.y.. ")")
+    end
 
-    -- Detection Shapes
-    if (squareCount >= 3 and Distance(Points[1], Points[#Points]) < maxDistanceForSquare) then
+    -- angles
+    angles = { }
+    function getAngle(i, j)
+        local v1 = sides[i].en
+        local v2 = sides[j].start
+        return math.deg(math.atan(v2.x - v1.y, v2.x - v1.x))
+    end
 
-        print("It is Square!")
-
-    elseif (sharpCount >= 2 and Distance(Points[1], Points[#Points]) < maxDistanceForTriangle) then
-
-        print("It is Triangle!")
-
-    elseif (obtuseCount >= 10 and sharpCount <= 1 and squareCount <= 1 and Distance(Points[1], Points[#Points]) < maxDistanceForCircle) then
-
-        print("It is Circle!")
-
-    elseif (sharpCount == 2 and Distance(Points[1], Points[#Points]) > minDistanceForZ) then
-
-        print("It is definitely Z!")
-
-    elseif (Distance(Points[1], Points[#Points]) > minDistanceForLine) then
-        for i=1 , #Points do
-            if(i >= 3) then
-                if(math.deg(VectorSubtract(Points[i - 1], Points[i]):angleBetween(VectorSubtract(Points[i - 2], Points[i - 1]))) > 5) then return end
-            end
+    for i = 1, #sides do
+        if (i < #sides) then
+            table.insert(angles, getAngle(i + 1, i))
+        else
+            table.insert(angles, getAngle(1, #sides))
         end
-        print("It is definitely a Line!")
+    end
 
+    anglePrint = ""
+    for i = 1, #angles do
+        anglePrint = anglePrint .. "; " .. i .. " - " .. angles[i]
+    end
+    print(anglePrint)
+    print(#Points)
+
+    -- clearEffects
+    for i = 1, #Effects do
+        DestroyEffect(Effects[i])
     end
 
     squareCount = 0;
     sharpCount = 0;
     obtuseCount = 0;
+    sides = {}
+    previousDirection = 0
 end
