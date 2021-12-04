@@ -64,11 +64,11 @@ function ShapeDetectorClear()
     DestroyEffect(CreateTMPEffect(center.x, center.y, "units\\orc\\Peon\\Peon"))
 
     for i = 1, 20 do
-        print("  ")
+        --print("  ")
     end
 
     for i = 1, #sides do
-        print(i.. ". ( ".. sides[i].start.x.. ", ".. sides[i].start.x.. " ) ; (".. sides[i].en.x.. ", ".. sides[i].en.y.. ")")
+        --print(i.. ". ( ".. sides[i].start.x.. ", ".. sides[i].start.x.. " ) ; (".. sides[i].en.x.. ", ".. sides[i].en.y.. ")")
     end
 
     -- angles
@@ -89,8 +89,8 @@ function ShapeDetectorClear()
     for i = 1, #angles do
         anglePrint = anglePrint .. "; " .. i .. " - " .. angles[i]
     end
-    print(anglePrint)
-    print("Count: ".. #Points)
+   -- print(anglePrint)
+    --print("Count: ".. #Points)
 
     -- clearEffects
     for i = 1, #Effects do
