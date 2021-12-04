@@ -12,7 +12,7 @@ end
 
 function InitInputHandler ()
 
-    local nimValueToExtend = 1/16 * 128
+    local nimValueToExtend = 1/4 * 128
     Points = { }
     Effects = { }
 

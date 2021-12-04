@@ -5,11 +5,6 @@
 ---
 ---
 
-squareCount = 0;
-sharpCount = 0;
-obtuseCount = 0;
-rangeForSquareAngle = 25
-
 sides = {}
 previousDirection = 0
 
@@ -17,12 +12,25 @@ function Distance(vector1, vector2)
     return DistanceBetweenXY(vector1.x, vector1.y, vector2.x, vector2.y)
 end
 
+function DetectShape()
+    sum = 0
+    for i = 1, #angles do
+        sum = sum + angles[i]
+    end
+
+    for i = 1, #Shapes do
+        if (Shapes[i]:check(sum, angles, sides)) then
+            return
+        end
+    end
+end
+
 function ShapeDetectorAdd(current, previous)
 
     if (current == 0 or previous == 0) then return end
 
     local sensitivity = 15 -- degrees
-    local minimumDistanceForSide = 2 * 128
+    local minimumDistanceForSide = 1 * 128
 
     local direction = VectorSubtract(current, previous)
 
@@ -31,8 +39,8 @@ function ShapeDetectorAdd(current, previous)
         previousDirection = direction
     else
         local angle = math.deg(direction:differenceRegardingUp(previousDirection))
-        --print(angle)
-        if (angle < sensitivity or angle > 180 - sensitivity) then
+
+        if (angle < sensitivity) then
             sides[#sides]:changeEnd(current)
         else
             if (sides[#sides]:length() > minimumDistanceForSide) then
@@ -46,12 +54,6 @@ function ShapeDetectorAdd(current, previous)
 end
 
 function ShapeDetectorClear()
-    local maxDistanceForSquare = 2 * 128
-    local maxDistanceForTriangle = 2 * 128
-    local maxDistanceForCircle = 3 * 128
-    local minDistanceForZ = 2 * 128
-    local minDistanceForLine = 2 * 128
-
     local center = Vector:new(0,0,0)
     for i = 1, #Points do
         center.x = center.x + Points[i].x
@@ -72,14 +74,12 @@ function ShapeDetectorClear()
     -- angles
     angles = { }
     function getAngle(i, j)
-        local v1 = sides[i].en
-        local v2 = sides[j].start
-        return math.deg(math.atan(v2.x - v1.y, v2.x - v1.x))
+        return math.deg(sides[i]:getVector():angleBetween(sides[j]:getVector()))
     end
 
     for i = 1, #sides do
         if (i < #sides) then
-            table.insert(angles, getAngle(i + 1, i))
+            table.insert(angles, getAngle(i, i + 1))
         else
             table.insert(angles, getAngle(1, #sides))
         end
@@ -90,16 +90,15 @@ function ShapeDetectorClear()
         anglePrint = anglePrint .. "; " .. i .. " - " .. angles[i]
     end
     print(anglePrint)
-    print(#Points)
+    print("Count: ".. #Points)
 
     -- clearEffects
     for i = 1, #Effects do
         DestroyEffect(Effects[i])
     end
 
-    squareCount = 0;
-    sharpCount = 0;
-    obtuseCount = 0;
+    DetectShape()
+
     sides = {}
     previousDirection = 0
 end
