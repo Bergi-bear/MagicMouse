@@ -686,7 +686,7 @@ function ShapeDetectorClear()
     end
     center.x = center.x / #Points
     center.y = center.y / #Points
-    DestroyEffect(CreateTMPEffect(center.x, center.y, "units\\orc\\Peon\\Peon"))
+    DestroyEffect(CreateTMPEffect(center.x, center.y, "Abilities\\Spells\\Human\\HolyBolt\\HolyBoltSpecialArt"))
 
     for i = 1, 20 do
         --print("  ")
