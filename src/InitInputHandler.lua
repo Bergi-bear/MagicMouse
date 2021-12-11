@@ -7,33 +7,37 @@
 ---
 
 function VectorSubtract(vector1, vector2)
-    return Vector:new(vector1.x-vector2.x, vector1.y-vector2.y, vector1.z-vector2.z)
+    return Vector:new(vector1.x - vector2.x, vector1.y - vector2.y, vector1.z - vector2.z)
 end
 
-function InitInputHandler ()
+function InitInputHandler (data)
+    nimValueToExtend = 1 / 4 * 128
+    data.Points = {}
+    data.Effects = {}
+    data.sides = {}
+    data.previousDirection = 0
+end
 
-    local nimValueToExtend = 1/4 * 128
-    Points = { }
-    Effects = { }
+function ClearPoints(data)
+    data.Points = {}
+end
 
-    function ClearPoints() Points = { }  end
+function InputUpdate (data)
+    local vector = Vector:new(GetPlayerMouseX[data.pid], GetPlayerMouseY[data.pid], 0)
 
-    function InputUpdate ()
-        local vector = Vector:new(GetPlayerMouseX[0], GetPlayerMouseY[0], 0)
-
-        if HERO[0].LMBIsPressed then
-            --print(#Points,Points[#Points])
-            if (#Points > 0 and
-                    DistanceBetweenXY(GetPlayerMouseX[0], GetPlayerMouseY[0], Points[#Points].x, Points[#Points].y) < nimValueToExtend) then
-                return
-            end
-            table.insert(Points, vector)
-            --print("insert OK")
-
-            table.insert(Effects, CreateTMPEffect(GetPlayerMouseX[0], GetPlayerMouseY[0], "units\\nightelf\\Wisp\\Wisp"))
-
-            ShapeDetectorAdd(Points[#Points],
-                    #Points <= 1 and 0 or Points[#Points - 1])
+    if data.LMBIsPressed then
+        --print(#Points,Points[#Points])
+        if (#data.Points > 0 and
+                DistanceBetweenXY(GetPlayerMouseX[data.pid], GetPlayerMouseY[data.pid], data.Points[#data.Points].x, data.Points[#data.Points].y) < nimValueToExtend) then
+            --print("обрыв")
+            return
         end
+        table.insert(data.Points, vector)
+        --print("insert OK")
+
+        table.insert(data.Effects, CreateTMPEffect(GetPlayerMouseX[data.pid], GetPlayerMouseY[data.pid], "units\\nightelf\\Wisp\\Wisp"))
+
+        ShapeDetectorAdd(data.Points[#data.Points],
+                #data.Points <= 1 and 0 or data.Points[#data.Points - 1], data)
     end
 end

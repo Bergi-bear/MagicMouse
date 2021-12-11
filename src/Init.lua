@@ -23,7 +23,7 @@ do
 
             --wGeometry = wGeometryInit()
             print(">>>")
-            InitInputHandler()
+
             ShapeInit()
         end)
     end

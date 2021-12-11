@@ -18,7 +18,7 @@ end
 ---
 ---
 function InitMenu()
-     HideEverything()
+    HideEverything()
     ReturnFPS()
     MenuFrame()
     CreateAndStartClock()
@@ -68,41 +68,41 @@ end
 
 function CreateAndStartClock()
 
-	local charges= BlzCreateFrameByType("BACKDROP", "Face", BlzGetOriginFrame(ORIGIN_FRAME_GAME_UI, 0), "", 0)
-	local new_FrameChargesText = BlzCreateFrameByType("TEXT", "ButtonChargesText", charges, "", 0)
+    local charges = BlzCreateFrameByType("BACKDROP", "Face", BlzGetOriginFrame(ORIGIN_FRAME_GAME_UI, 0), "", 0)
+    local new_FrameChargesText = BlzCreateFrameByType("TEXT", "ButtonChargesText", charges, "", 0)
 
-	BlzFrameSetTexture(charges, "UI\\Widgets\\Console\\Human\\CommandButton\\human-button-lvls-overlay", 0, true)
-	BlzFrameSetSize(charges, 0.08, 0.02)
-	BlzFrameSetAbsPoint(charges, FRAMEPOINT_CENTER,0.48 , 0.6-0.01)
-	--BlzFrameSetPoint(charges, FRAMEPOINT_BOTTOM, wood, FRAMEPOINT_BOTTOM, 0,0)
-	BlzFrameSetText(new_FrameChargesText, Zero(0)..":"..Zero(0)..":"..Zero(0))
-	BlzFrameSetPoint(new_FrameChargesText, FRAMEPOINT_CENTER, charges, FRAMEPOINT_CENTER, 0.,0.)
-	local sec=0
-	local min=0
-	local h=0
-	TimerStart(CreateTimer(), 1, true, function()
-		sec=sec+1
-		if sec==60 then
-			sec=0
-			min=min+1
-		end
-		if min==60 then
-			min=0
-			h=h+1
-		end
+    BlzFrameSetTexture(charges, "UI\\Widgets\\Console\\Human\\CommandButton\\human-button-lvls-overlay", 0, true)
+    BlzFrameSetSize(charges, 0.08, 0.02)
+    BlzFrameSetAbsPoint(charges, FRAMEPOINT_CENTER, 0.48, 0.6 - 0.01)
+    --BlzFrameSetPoint(charges, FRAMEPOINT_BOTTOM, wood, FRAMEPOINT_BOTTOM, 0,0)
+    BlzFrameSetText(new_FrameChargesText, Zero(0) .. ":" .. Zero(0) .. ":" .. Zero(0))
+    BlzFrameSetPoint(new_FrameChargesText, FRAMEPOINT_CENTER, charges, FRAMEPOINT_CENTER, 0., 0.)
+    local sec = 0
+    local min = 0
+    local h = 0
+    TimerStart(CreateTimer(), 1, true, function()
+        sec = sec + 1
+        if sec == 60 then
+            sec = 0
+            min = min + 1
+        end
+        if min == 60 then
+            min = 0
+            h = h + 1
+        end
 
-		BlzFrameSetText(new_FrameChargesText, Zero(h)..":"..Zero(min)..":"..Zero(sec))
-	end)
+        BlzFrameSetText(new_FrameChargesText, Zero(h) .. ":" .. Zero(min) .. ":" .. Zero(sec))
+    end)
 end
 
 function Zero(s)
-	local ns=""
-	if string.len(s)==1 then
-		ns="0"..s
-	else
-		ns=s
-	end
-	return ns
+    local ns = ""
+    if string.len(s) == 1 then
+        ns = "0" .. s
+    else
+        ns = s
+    end
+    return ns
 end
 
 function HideToolTips()
@@ -140,7 +140,7 @@ do
 
             --wGeometry = wGeometryInit()
             print(">>>")
-            InitInputHandler()
+
             ShapeInit()
         end)
     end
@@ -154,34 +154,38 @@ end
 ---
 
 function VectorSubtract(vector1, vector2)
-    return Vector:new(vector1.x-vector2.x, vector1.y-vector2.y, vector1.z-vector2.z)
+    return Vector:new(vector1.x - vector2.x, vector1.y - vector2.y, vector1.z - vector2.z)
 end
 
-function InitInputHandler ()
+function InitInputHandler (data)
+    nimValueToExtend = 1 / 4 * 128
+    data.Points = {}
+    data.Effects = {}
+    data.sides = {}
+    data.previousDirection = 0
+end
 
-    local nimValueToExtend = 1/4 * 128
-    Points = { }
-    Effects = { }
+function ClearPoints(data)
+    data.Points = {}
+end
 
-    function ClearPoints() Points = { }  end
+function InputUpdate (data)
+    local vector = Vector:new(GetPlayerMouseX[data.pid], GetPlayerMouseY[data.pid], 0)
 
-    function InputUpdate ()
-        local vector = Vector:new(GetPlayerMouseX[0], GetPlayerMouseY[0], 0)
-
-        if HERO[0].LMBIsPressed then
-            --print(#Points,Points[#Points])
-            if (#Points > 0 and
-                    DistanceBetweenXY(GetPlayerMouseX[0], GetPlayerMouseY[0], Points[#Points].x, Points[#Points].y) < nimValueToExtend) then
-                return
-            end
-            table.insert(Points, vector)
-            --print("insert OK")
-
-            table.insert(Effects, CreateTMPEffect(GetPlayerMouseX[0], GetPlayerMouseY[0], "units\\nightelf\\Wisp\\Wisp"))
-
-            ShapeDetectorAdd(Points[#Points],
-                    #Points <= 1 and 0 or Points[#Points - 1])
+    if data.LMBIsPressed then
+        --print(#Points,Points[#Points])
+        if (#data.Points > 0 and
+                DistanceBetweenXY(GetPlayerMouseX[data.pid], GetPlayerMouseY[data.pid], data.Points[#data.Points].x, data.Points[#data.Points].y) < nimValueToExtend) then
+            --print("обрыв")
+            return
         end
+        table.insert(data.Points, vector)
+        --print("insert OK")
+
+        table.insert(data.Effects, CreateTMPEffect(GetPlayerMouseX[data.pid], GetPlayerMouseY[data.pid], "units\\nightelf\\Wisp\\Wisp"))
+
+        ShapeDetectorAdd(data.Points[#data.Points],
+                #data.Points <= 1 and 0 or data.Points[#data.Points - 1], data)
     end
 end
 ---
@@ -194,7 +198,9 @@ function InitHEROTable()
 	for i = 0, bj_MAX_PLAYER_SLOTS - 1 do
 		HERO[i]={
             LMBIsPressed=false,
+			pid=i,
 		}
+		InitInputHandler(HERO[i])
 	end
 end
 ---
@@ -499,9 +505,10 @@ function InitMouseClickEvent()
     end
     TriggerAddAction(TrigDEPressLMB, function()
         if BlzGetTriggerPlayerMouseButton() == MOUSE_BUTTON_TYPE_LEFT then
-            HERO[GetPlayerId(GetTriggerPlayer())].LMBIsPressed = false
-            ShapeDetectorClear()
-            ClearPoints()
+            local data=HERO[GetPlayerId(GetTriggerPlayer())]
+            data.LMBIsPressed = false
+            ShapeDetectorClear(data)
+            ClearPoints(data)
         end
     end)
 end
@@ -526,7 +533,7 @@ function InitMouseMoveTrigger()
         if BlzGetTriggerPlayerMouseX() ~= 0 then
             GetPlayerMouseX[id] = BlzGetTriggerPlayerMouseX()
             GetPlayerMouseY[id] = BlzGetTriggerPlayerMouseY()
-            InputUpdate()
+            InputUpdate(HERO[id])
             if HERO[id].LMBIsPressed then
                 --CreateTMPEffect(BlzGetTriggerPlayerMouseX(),BlzGetTriggerPlayerMouseY())
                 --print(BlzGetTriggerPlayerMouseX(),BlzGetTriggerPlayerMouseY())
@@ -630,14 +637,14 @@ end
 ---
 ---
 
-sides = {}
-previousDirection = 0
+
+
 
 function Distance(vector1, vector2)
     return DistanceBetweenXY(vector1.x, vector1.y, vector2.x, vector2.y)
 end
 
-function DetectShape()
+function DetectShape(angles,sides)
     sum = 0
     for i = 1, #angles do
         sum = sum + angles[i]
@@ -650,7 +657,7 @@ function DetectShape()
     end
 end
 
-function ShapeDetectorAdd(current, previous)
+function ShapeDetectorAdd(current, previous,data)
 
     if (current == 0 or previous == 0) then return end
 
@@ -659,54 +666,54 @@ function ShapeDetectorAdd(current, previous)
 
     local direction = VectorSubtract(current, previous)
 
-    if (previousDirection == 0) then
-        table.insert(sides, Side:new(current))
-        previousDirection = direction
+    if (data.previousDirection == 0) then
+        table.insert(data.sides, Side:new(current))
+        data.previousDirection = direction
     else
-        local angle = math.deg(direction:differenceRegardingUp(previousDirection))
+        local angle = math.deg(direction:differenceRegardingUp(data.previousDirection))
 
         if (angle < sensitivity) then
-            sides[#sides]:changeEnd(current)
+            data.sides[#data.sides]:changeEnd(current)
         else
-            if (sides[#sides]:length() > minimumDistanceForSide) then
-                table.insert(sides, Side:new(current))
+            if (data.sides[#data.sides]:length() > minimumDistanceForSide) then
+                table.insert(data.sides, Side:new(current))
             else
-                sides[#sides] = Side:new(current)
+                data.sides[#data.sides] = Side:new(current)
             end
-                previousDirection = direction
+                data.previousDirection = direction
         end
     end
 end
 
-function ShapeDetectorClear()
+function ShapeDetectorClear(data)
     local center = Vector:new(0,0,0)
-    for i = 1, #Points do
-        center.x = center.x + Points[i].x
-        center.y = center.y + Points[i].y
+    for i = 1, #data.Points do
+        center.x = center.x + data.Points[i].x
+        center.y = center.y + data.Points[i].y
     end
-    center.x = center.x / #Points
-    center.y = center.y / #Points
+    center.x = center.x / #data.Points
+    center.y = center.y / #data.Points
     DestroyEffect(CreateTMPEffect(center.x, center.y, "Abilities\\Spells\\Human\\HolyBolt\\HolyBoltSpecialArt"))
 
     for i = 1, 20 do
         --print("  ")
     end
 
-    for i = 1, #sides do
+    for i = 1, #data.sides do
         --print(i.. ". ( ".. sides[i].start.x.. ", ".. sides[i].start.x.. " ) ; (".. sides[i].en.x.. ", ".. sides[i].en.y.. ")")
     end
 
     -- angles
-    angles = { }
+    local angles = { }
     function getAngle(i, j)
-        return math.deg(sides[i]:getVector():angleBetween(sides[j]:getVector()))
+        return math.deg(data.sides[i]:getVector():angleBetween(data.sides[j]:getVector()))
     end
 
-    for i = 1, #sides do
-        if (i < #sides) then
+    for i = 1, #data.sides do
+        if (i < #data.sides) then
             table.insert(angles, getAngle(i, i + 1))
         else
-            table.insert(angles, getAngle(1, #sides))
+            table.insert(angles, getAngle(1, #data.sides))
         end
     end
 
@@ -718,14 +725,14 @@ function ShapeDetectorClear()
     --print("Count: ".. #Points)
 
     -- clearEffects
-    for i = 1, #Effects do
-        DestroyEffect(Effects[i])
+    for i = 1, #data.Effects do
+        DestroyEffect(data.Effects[i])
     end
 
-    DetectShape()
+    DetectShape(angles,data.sides)
 
-    sides = {}
-    previousDirection = 0
+    data.sides = {}
+    data.previousDirection = 0
 end
 ---
 --- Generated by EmmyLua(https://github.com/EmmyLua)

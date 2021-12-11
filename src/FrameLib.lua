@@ -5,7 +5,7 @@
 ---
 ---
 function InitMenu()
-     HideEverything()
+    HideEverything()
     ReturnFPS()
     MenuFrame()
     CreateAndStartClock()
@@ -55,41 +55,41 @@ end
 
 function CreateAndStartClock()
 
-	local charges= BlzCreateFrameByType("BACKDROP", "Face", BlzGetOriginFrame(ORIGIN_FRAME_GAME_UI, 0), "", 0)
-	local new_FrameChargesText = BlzCreateFrameByType("TEXT", "ButtonChargesText", charges, "", 0)
+    local charges = BlzCreateFrameByType("BACKDROP", "Face", BlzGetOriginFrame(ORIGIN_FRAME_GAME_UI, 0), "", 0)
+    local new_FrameChargesText = BlzCreateFrameByType("TEXT", "ButtonChargesText", charges, "", 0)
 
-	BlzFrameSetTexture(charges, "UI\\Widgets\\Console\\Human\\CommandButton\\human-button-lvls-overlay", 0, true)
-	BlzFrameSetSize(charges, 0.08, 0.02)
-	BlzFrameSetAbsPoint(charges, FRAMEPOINT_CENTER,0.48 , 0.6-0.01)
-	--BlzFrameSetPoint(charges, FRAMEPOINT_BOTTOM, wood, FRAMEPOINT_BOTTOM, 0,0)
-	BlzFrameSetText(new_FrameChargesText, Zero(0)..":"..Zero(0)..":"..Zero(0))
-	BlzFrameSetPoint(new_FrameChargesText, FRAMEPOINT_CENTER, charges, FRAMEPOINT_CENTER, 0.,0.)
-	local sec=0
-	local min=0
-	local h=0
-	TimerStart(CreateTimer(), 1, true, function()
-		sec=sec+1
-		if sec==60 then
-			sec=0
-			min=min+1
-		end
-		if min==60 then
-			min=0
-			h=h+1
-		end
+    BlzFrameSetTexture(charges, "UI\\Widgets\\Console\\Human\\CommandButton\\human-button-lvls-overlay", 0, true)
+    BlzFrameSetSize(charges, 0.08, 0.02)
+    BlzFrameSetAbsPoint(charges, FRAMEPOINT_CENTER, 0.48, 0.6 - 0.01)
+    --BlzFrameSetPoint(charges, FRAMEPOINT_BOTTOM, wood, FRAMEPOINT_BOTTOM, 0,0)
+    BlzFrameSetText(new_FrameChargesText, Zero(0) .. ":" .. Zero(0) .. ":" .. Zero(0))
+    BlzFrameSetPoint(new_FrameChargesText, FRAMEPOINT_CENTER, charges, FRAMEPOINT_CENTER, 0., 0.)
+    local sec = 0
+    local min = 0
+    local h = 0
+    TimerStart(CreateTimer(), 1, true, function()
+        sec = sec + 1
+        if sec == 60 then
+            sec = 0
+            min = min + 1
+        end
+        if min == 60 then
+            min = 0
+            h = h + 1
+        end
 
-		BlzFrameSetText(new_FrameChargesText, Zero(h)..":"..Zero(min)..":"..Zero(sec))
-	end)
+        BlzFrameSetText(new_FrameChargesText, Zero(h) .. ":" .. Zero(min) .. ":" .. Zero(sec))
+    end)
 end
 
 function Zero(s)
-	local ns=""
-	if string.len(s)==1 then
-		ns="0"..s
-	else
-		ns=s
-	end
-	return ns
+    local ns = ""
+    if string.len(s) == 1 then
+        ns = "0" .. s
+    else
+        ns = s
+    end
+    return ns
 end
 
 function HideToolTips()

@@ -5,14 +5,14 @@
 ---
 ---
 
-sides = {}
-previousDirection = 0
+
+
 
 function Distance(vector1, vector2)
     return DistanceBetweenXY(vector1.x, vector1.y, vector2.x, vector2.y)
 end
 
-function DetectShape()
+function DetectShape(angles,sides)
     sum = 0
     for i = 1, #angles do
         sum = sum + angles[i]
@@ -25,7 +25,7 @@ function DetectShape()
     end
 end
 
-function ShapeDetectorAdd(current, previous)
+function ShapeDetectorAdd(current, previous,data)
 
     if (current == 0 or previous == 0) then return end
 
@@ -34,54 +34,54 @@ function ShapeDetectorAdd(current, previous)
 
     local direction = VectorSubtract(current, previous)
 
-    if (previousDirection == 0) then
-        table.insert(sides, Side:new(current))
-        previousDirection = direction
+    if (data.previousDirection == 0) then
+        table.insert(data.sides, Side:new(current))
+        data.previousDirection = direction
     else
-        local angle = math.deg(direction:differenceRegardingUp(previousDirection))
+        local angle = math.deg(direction:differenceRegardingUp(data.previousDirection))
 
         if (angle < sensitivity) then
-            sides[#sides]:changeEnd(current)
+            data.sides[#data.sides]:changeEnd(current)
         else
-            if (sides[#sides]:length() > minimumDistanceForSide) then
-                table.insert(sides, Side:new(current))
+            if (data.sides[#data.sides]:length() > minimumDistanceForSide) then
+                table.insert(data.sides, Side:new(current))
             else
-                sides[#sides] = Side:new(current)
+                data.sides[#data.sides] = Side:new(current)
             end
-                previousDirection = direction
+                data.previousDirection = direction
         end
     end
 end
 
-function ShapeDetectorClear()
+function ShapeDetectorClear(data)
     local center = Vector:new(0,0,0)
-    for i = 1, #Points do
-        center.x = center.x + Points[i].x
-        center.y = center.y + Points[i].y
+    for i = 1, #data.Points do
+        center.x = center.x + data.Points[i].x
+        center.y = center.y + data.Points[i].y
     end
-    center.x = center.x / #Points
-    center.y = center.y / #Points
+    center.x = center.x / #data.Points
+    center.y = center.y / #data.Points
     DestroyEffect(CreateTMPEffect(center.x, center.y, "Abilities\\Spells\\Human\\HolyBolt\\HolyBoltSpecialArt"))
 
     for i = 1, 20 do
         --print("  ")
     end
 
-    for i = 1, #sides do
+    for i = 1, #data.sides do
         --print(i.. ". ( ".. sides[i].start.x.. ", ".. sides[i].start.x.. " ) ; (".. sides[i].en.x.. ", ".. sides[i].en.y.. ")")
     end
 
     -- angles
-    angles = { }
+    local angles = { }
     function getAngle(i, j)
-        return math.deg(sides[i]:getVector():angleBetween(sides[j]:getVector()))
+        return math.deg(data.sides[i]:getVector():angleBetween(data.sides[j]:getVector()))
     end
 
-    for i = 1, #sides do
-        if (i < #sides) then
+    for i = 1, #data.sides do
+        if (i < #data.sides) then
             table.insert(angles, getAngle(i, i + 1))
         else
-            table.insert(angles, getAngle(1, #sides))
+            table.insert(angles, getAngle(1, #data.sides))
         end
     end
 
@@ -93,12 +93,12 @@ function ShapeDetectorClear()
     --print("Count: ".. #Points)
 
     -- clearEffects
-    for i = 1, #Effects do
-        DestroyEffect(Effects[i])
+    for i = 1, #data.Effects do
+        DestroyEffect(data.Effects[i])
     end
 
-    DetectShape()
+    DetectShape(angles,data.sides)
 
-    sides = {}
-    previousDirection = 0
+    data.sides = {}
+    data.previousDirection = 0
 end

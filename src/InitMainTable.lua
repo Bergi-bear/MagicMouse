@@ -8,6 +8,8 @@ function InitHEROTable()
 	for i = 0, bj_MAX_PLAYER_SLOTS - 1 do
 		HERO[i]={
             LMBIsPressed=false,
+			pid=i,
 		}
+		InitInputHandler(HERO[i])
 	end
 end
