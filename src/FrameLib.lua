@@ -17,13 +17,24 @@ function ReturnFPS()
     BlzFrameSetAbsPoint(fps, FRAMEPOINT_CENTER, 0.95, 0.62)
 end
 
-function HideEverything()
+function HideEverythingAll()
     BlzFrameSetAbsPoint(BlzGetFrameByName("ConsoleUIBackdrop", 0), FRAMEPOINT_TOPRIGHT, 0, 0)
     for i = 0, 11 do
         BlzFrameSetVisible(BlzGetFrameByName("CommandButton_" .. i, 0), false) --отключить
     end
     BlzHideOriginFrames(true)--скрыть всё
     BlzFrameSetScale(BlzFrameGetChild(BlzGetFrameByName("ConsoleUI", 0), 5), 0.001) --рамка мёртвой зоны отключение
+end
+
+function HideEverything()
+    --BlzFrameSetVisible(BlzGetFrameByName("ConsoleUIBackdrop", 0), false)
+    BlzFrameSetAbsPoint(BlzGetFrameByName("ConsoleUIBackdrop", 0), FRAMEPOINT_TOPRIGHT, 0, -0, 8)
+    BlzFrameSetSize(BlzGetFrameByName("CommandButton_" .. 0, 0), 0, 0)-- M в позиции 0,0
+    for i = 1, 11 do
+        BlzFrameSetVisible(BlzGetFrameByName("CommandButton_"..i, 0), false) --отключить
+    end
+    BlzHideOriginFrames(true)--скрыть всё
+    BlzFrameSetScale(BlzFrameGetChild(BlzGetFrameByName("ConsoleUI",0),5), 0.001) --рамка мёртвой зоны отключение
 end
 
 function MenuFrame()

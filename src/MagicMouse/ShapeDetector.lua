@@ -12,22 +12,24 @@ function Distance(vector1, vector2)
     return DistanceBetweenXY(vector1.x, vector1.y, vector2.x, vector2.y)
 end
 
-function DetectShape(angles,sides)
+function DetectShape(angles, sides, data)
     sum = 0
     for i = 1, #angles do
         sum = sum + angles[i]
     end
 
     for i = 1, #Shapes do
-        if (Shapes[i]:check(sum, angles, sides)) then
+        if (Shapes[i]:check(sum, angles, sides, data)) then
             return
         end
     end
 end
 
-function ShapeDetectorAdd(current, previous,data)
+function ShapeDetectorAdd(current, previous, data)
 
-    if (current == 0 or previous == 0) then return end
+    if (current == 0 or previous == 0) then
+        return
+    end
 
     local sensitivity = 15 -- degrees
     local minimumDistanceForSide = 1 * 128
@@ -48,20 +50,13 @@ function ShapeDetectorAdd(current, previous,data)
             else
                 data.sides[#data.sides] = Side:new(current)
             end
-                data.previousDirection = direction
+            data.previousDirection = direction
         end
     end
 end
 
 function ShapeDetectorClear(data)
-    local center = Vector:new(0,0,0)
-    for i = 1, #data.Points do
-        center.x = center.x + data.Points[i].x
-        center.y = center.y + data.Points[i].y
-    end
-    center.x = center.x / #data.Points
-    center.y = center.y / #data.Points
-    DestroyEffect(CreateTMPEffect(center.x, center.y, "Abilities\\Spells\\Human\\HolyBolt\\HolyBoltSpecialArt"))
+
 
     for i = 1, 20 do
         --print("  ")
@@ -89,7 +84,7 @@ function ShapeDetectorClear(data)
     for i = 1, #angles do
         anglePrint = anglePrint .. "; " .. i .. " - " .. angles[i]
     end
-   -- print(anglePrint)
+    -- print(anglePrint)
     --print("Count: ".. #Points)
 
     -- clearEffects
@@ -97,8 +92,19 @@ function ShapeDetectorClear(data)
         DestroyEffect(data.Effects[i])
     end
 
-    DetectShape(angles,data.sides)
+    DetectShape(angles, data.sides, data)
 
     data.sides = {}
     data.previousDirection = 0
+end
+
+function GetCenterFigure(data)
+    local center = Vector:new(0, 0, 0)
+    for i = 1, #data.Points do
+        center.x = center.x + data.Points[i].x
+        center.y = center.y + data.Points[i].y
+    end
+    center.x = center.x / #data.Points
+    center.y = center.y / #data.Points
+    DestroyEffect(CreateTMPEffect(center.x, center.y, "Abilities\\Spells\\Human\\HolyBolt\\HolyBoltSpecialArt"))
 end

@@ -9,8 +9,8 @@ function Shape:new(checker, callback)
     return v
 end
 
-function Shape:check(sumOfAngles, angles, sides)
-    if self.checker(sumOfAngles, angles, sides) then
+function Shape:check(sumOfAngles, angles, sides,data)
+    if self.checker(sumOfAngles, angles, sides,data) then
         self.callback()
         return true
     end

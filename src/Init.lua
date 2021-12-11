@@ -10,8 +10,8 @@ do
         TimerStart(CreateTimer(), .01, false, function()
             DestroyTimer(GetExpiredTimer())
             print("<<<")
-            EnablePreSelect(false, false)
-            EnableDragSelect(false, false)
+            --EnablePreSelect(false, false)
+            --EnableDragSelect(false, false)
             --FogEnable(true)
             --SetFogStateRadius(Player(0), FOG_OF_WAR_VISIBLE, 0, 0, 2500, true)
             --local m =
@@ -20,7 +20,7 @@ do
             InitMenu()
             InitMouseMoveTrigger()
             InitMouseClickEvent()
-
+            CreateWASDActions()
             --wGeometry = wGeometryInit()
             print(">>>")
 

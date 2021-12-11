@@ -28,3 +28,23 @@ STRING 6
 Force 1
 }
 
+STRING 7
+{
+Player 2
+}
+
+STRING 8
+{
+Player 3
+}
+
+STRING 9
+{
+Player 4
+}
+
+STRING 10
+{
+ 
+}
+

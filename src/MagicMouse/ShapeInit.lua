@@ -14,7 +14,7 @@ function Interval(value, min, max)
 end
 
 function ShapeInit()
-    square = Shape:new(function(sumOfAngles, angles, sides)
+    square = Shape:new(function(sumOfAngles, angles, sides, data)
         for i = 1, #angles do
             if (angles[i] < 75) then
                 return false
@@ -25,7 +25,7 @@ function ShapeInit()
         print("It's definitely a Square!")
     end)
 
-    triangle = Shape:new(function(sumOfAngles, angles, sides)
+    triangle = Shape:new(function(sumOfAngles, angles, sides, data)
         for i = 1, #angles do
             if (angles[i] < 80) then
                 return false
@@ -36,31 +36,37 @@ function ShapeInit()
         print("It's definitely a Triangle!")
     end)
 
-    circle = Shape:new(function(sumOfAngles, angles, sides)
-        return Interval(#sides, 1, 2) and Distance(sides[1].start, sides[#sides].en) < 3 / 2 * 128
+    circle = Shape:new(function(sumOfAngles, angles, sides, data)
+        if Interval(#sides, 1, 2) and Distance(sides[1].start, sides[#sides].en) < 3 / 2 * 128 then
+            GetCenterFigure(data)
+        end
     end, function()
         print("It's definitely a Circle!")
     end)
 
-    line = Shape:new(function(sumOfAngles, angles, sides)
-        return Interval(#sides, 1, 1) and Distance(sides[1].start, sides[#sides].en) > 3 * 128
-    end, function()
-        print("It's definitely a Line!")
+    line = Shape:new(function(sumOfAngles, angles, sides, data)
+        if Interval(#sides, 1, 1) and Distance(sides[1].start, sides[#sides].en) > 3 * 128 then
+            local angle=AngleBetweenXY(data.Points[1].x, data.Points[1].y, data.Points[#data.Points].x, data.Points[#data.Points].y) / bj_DEGTORAD
+            CreateAndForceBullet(data.UnitHero, angle, 40, "Abilities\\Weapons\\Mortar\\MortarMissile.mdl",nil,nil,150)
+            --print("It's definitely a Line!", #data.Points, Distance(sides[1].start, sides[#sides].en))
+            --print("angle= ", AngleBetweenXY(data.Points[1].x, data.Points[1].y, data.Points[#data.Points].x, data.Points[#data.Points].y) / bj_DEGTORAD)
+        end
+        return
     end)
 
-    z = Shape:new(function(sumOfAngles, angles, sides)
+    z = Shape:new(function(sumOfAngles, angles, sides, data)
         return Interval(sumOfAngles, 230, 320) and Interval(#sides, 3, 4) and Distance(sides[1].start, sides[#sides].en) > 3 * 128
     end, function()
         print("It's definitely a Z shape!")
     end)
 
-    m = Shape:new(function(sumOfAngles, angles, sides)
+    m = Shape:new(function(sumOfAngles, angles, sides, data)
         return Interval(sumOfAngles, 400, 650) and Interval(#sides, 4, 5) and Distance(sides[1].start, sides[#sides].en) > 3 * 128
     end, function()
         print("It's definitely a M shape!")
     end)
 
-    sandClock = Shape:new(function(sumOfAngles, angles, sides)
+    sandClock = Shape:new(function(sumOfAngles, angles, sides, data)
         for i = 1, #angles do
             if (angles[i] < 90) then
                 return false
