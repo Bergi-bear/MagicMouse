@@ -34,7 +34,7 @@ function OnPostDamage()
 
         if IsPointInSector(x, y, xe, ye, GetUnitFacing(target) - 180, 90, 200) then
             BlzSetEventDamage(damage * data.BackDamage)
-            FlyTextTagShieldXY(x, y, L("Удар в спину", "Back stab"), GetOwningPlayer(caster))
+            --FlyTextTagShieldXY(x, y, L("Удар в спину", "Back stab"), GetOwningPlayer(caster))
 
             local eff = AddSpecialEffect("Hive\\Coup de Grace\\noSlash\\Coup de Grace", xe, ye)
             BlzSetSpecialEffectYaw(eff, math.rad(GetUnitFacing(target) ))
@@ -46,29 +46,7 @@ function OnPostDamage()
             BlzSetEventDamage(GetEventDamage() + (stack * data.UrsaBonus))
         end
 
-        if data.CriticalStrikeCDFH then
-            if data.CriticalStrikeCurrentCD <= 0 then
-                local talon = GlobalTalons[data.pid]["HeroBlademaster"][2]
-                local cd = talon.DS[talon.level]
-                data.CriticalStrikeCurrentCD = cd
-                StartFrameCD(cd, data.CriticalStrikeCDFH)
 
-                local talonM = GlobalTalons[data.pid]["HeroBlademaster"][3]
-                local ks = 1.5
-                if data.HasMultipleCritical then
-                    if talonM.level > 0 then
-                        ks = talonM.DS[talonM.level]
-                    end
-                end
-                BlzSetEventDamage(GetEventDamage() * ks)
-
-                TimerStart(CreateTimer(), cd, false, function()
-                    data.CriticalStrikeCurrentCD = 0
-                    DestroyTimer(GetExpiredTimer())
-                end)
-            end
-
-        end
     end
 
     if GetUnitTypeId(target) ~= HeroID then

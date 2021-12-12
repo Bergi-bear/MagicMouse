@@ -76,10 +76,21 @@ function Vector:pitch()
     return math.atan(self.z, self:length2d())
 end
 
-function Vector:yawPitchOffset(distance, yaw, pitch)
+function Vector:yawPitchOffset(distance, yaw, pitch) --Add Bergi
     return Vector:new(
             distance * math.cos(yaw) * math.cos(pitch),
             distance * math.sin(yaw) * math.cos(pitch),
             distance * math.cos(pitch)
     )
+end
+function Distance(vector1, vector2) -- Add Oferist
+    return DistanceBetweenXY(vector1.x, vector1.y, vector2.x, vector2.y)
+end
+
+function VectorSubtract(vector1, vector2)
+    return Vector:new(vector1.x - vector2.x, vector1.y - vector2.y, vector1.z - vector2.z)
+end
+
+function VectorSum(vector1, vector2)
+    return Vector:new(vector1.x + vector2.x, vector1.y + vector2.y, vector1.z + vector2.z)
 end

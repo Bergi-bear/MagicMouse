@@ -8,18 +8,17 @@
 
 
 
-function Distance(vector1, vector2)
-    return DistanceBetweenXY(vector1.x, vector1.y, vector2.x, vector2.y)
-end
+
 
 function DetectShape(angles, sides, data)
-    sum = 0
+    local sum = 0
     for i = 1, #angles do
         sum = sum + angles[i]
     end
 
-    for i = 1, #Shapes do
+    for i = 1, #Shapes do --перебор всех возможных фигур
         if (Shapes[i]:check(sum, angles, sides, data)) then
+            --print("проверка фигур ",i)
             return
         end
     end
@@ -107,4 +106,5 @@ function GetCenterFigure(data)
     center.x = center.x / #data.Points
     center.y = center.y / #data.Points
     DestroyEffect(CreateTMPEffect(center.x, center.y, "Abilities\\Spells\\Human\\HolyBolt\\HolyBoltSpecialArt"))
+    return center.x,center.y
 end

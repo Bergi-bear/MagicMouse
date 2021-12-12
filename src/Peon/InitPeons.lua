@@ -10,6 +10,8 @@ function CreatePeonForPlayer(data)
         local x,y=GetPlayerStartLocationX(Player(data.pid)),GetPlayerStartLocationY(Player(data.pid))
         data.UnitHero=CreateUnit(Player(data.pid),FourCC("opeo"),x,y,0)
         SelectUnitForPlayerSingle(data.UnitHero,Player(data.pid))
+        UnitAddAbility(data.UnitHero,FourCC("Abun"))
+        UnitRemoveType(data.UnitHero,UNIT_TYPE_PEON)
         InitWASD(data.UnitHero)
     end
 end

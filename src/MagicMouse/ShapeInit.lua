@@ -38,26 +38,48 @@ function ShapeInit()
 
     circle = Shape:new(function(sumOfAngles, angles, sides, data)
         if Interval(#sides, 1, 2) and Distance(sides[1].start, sides[#sides].en) < 3 / 2 * 128 then
-            GetCenterFigure(data)
+            if #data.Points > 7 then
+                GetCenterFigure(data)
+                print("Circle", #data.Points)
+            else
+                local angle = AngleBetweenXY(data.Points[1].x, data.Points[1].y, data.Points[#data.Points].x, data.Points[#data.Points].y) / bj_DEGTORAD
+                EarthStrike(data, angle, GetCenterFigure(data))
+                print("mini ", angle)
+            end
+            return true
         end
+
     end, function()
-        print("It's definitely a Circle!")
+       -- return
     end)
-
-    line = Shape:new(function(sumOfAngles, angles, sides, data)
-        if Interval(#sides, 1, 1) and Distance(sides[1].start, sides[#sides].en) > 3 * 128 then
-            local angle=AngleBetweenXY(data.Points[1].x, data.Points[1].y, data.Points[#data.Points].x, data.Points[#data.Points].y) / bj_DEGTORAD
-            CreateAndForceBullet(data.UnitHero, angle, 40, "Abilities\\Weapons\\Mortar\\MortarMissile.mdl",nil,nil,150)
-            --print("It's definitely a Line!", #data.Points, Distance(sides[1].start, sides[#sides].en))
-            --print("angle= ", AngleBetweenXY(data.Points[1].x, data.Points[1].y, data.Points[#data.Points].x, data.Points[#data.Points].y) / bj_DEGTORAD)
-        end
-        return
-    end)
-
     z = Shape:new(function(sumOfAngles, angles, sides, data)
         return Interval(sumOfAngles, 230, 320) and Interval(#sides, 3, 4) and Distance(sides[1].start, sides[#sides].en) > 3 * 128
     end, function()
         print("It's definitely a Z shape!")
+        --return
+    end)
+
+    line = Shape:new(function(sumOfAngles, angles, sides, data)
+        if Interval(#sides, 1, 1) and Distance(sides[1].start, sides[#sides].en) > 3 * 128 then
+            local angle = AngleBetweenXY(data.Points[1].x, data.Points[1].y, data.Points[#data.Points].x, data.Points[#data.Points].y) / bj_DEGTORAD
+            CreateAndForceBullet(data.UnitHero, angle, 40, "Abilities\\Weapons\\Mortar\\MortarMissile.mdl", nil, nil, 150)
+            print("Line")
+            return true
+        end
+    end, function()
+        --return
+    end)
+
+    curve = Shape:new(function(sumOfAngles, angles, sides, data)
+        if Interval(#sides, 1, 5) and Distance(sides[1].start, sides[#sides].en) > 3 * 128 then
+            --local angle = AngleBetweenXY(data.Points[1].x, data.Points[1].y, data.Points[#data.Points].x, data.Points[#data.Points].y) / bj_DEGTORAD
+            --CreateAndForceBullet(data.UnitHero, angle, 40, "Abilities\\Weapons\\Mortar\\MortarMissile.mdl", nil, nil, 150)
+            print("curve")
+            return true
+        end
+
+    end, function()
+        --return
     end)
 
     m = Shape:new(function(sumOfAngles, angles, sides, data)
@@ -77,5 +99,5 @@ function ShapeInit()
         print("It's definitely a Sand Clock!")
     end)
 
-    Shapes = { square, triangle, circle, line, z, m, sandClock }
+    Shapes = { square, triangle, circle, line, z, m, sandClock, curve }
 end

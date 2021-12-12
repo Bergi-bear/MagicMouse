@@ -6,13 +6,7 @@
 ---
 ---
 
-function VectorSubtract(vector1, vector2)
-    return Vector:new(vector1.x - vector2.x, vector1.y - vector2.y, vector1.z - vector2.z)
-end
 
-function VectorSum(vector1, vector2)
-    return Vector:new(vector1.x + vector2.x, vector1.y + vector2.y, vector1.z + vector2.z)
-end
 
 function InitInputHandler (data)
     nimValueToExtend = 1 / 4 * 128

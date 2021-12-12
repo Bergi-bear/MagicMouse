@@ -13,31 +13,7 @@ function CreateAndForceBullet(hero, angle, speed, effectmodel, xs, ys, damage, m
         delay = 0
     end
     local zhero = GetUnitZ(hero) + 60
-    if HERO[GetPlayerId(GetOwningPlayer(hero))] then
-        if HERO[GetPlayerId(GetOwningPlayer(hero))].FrogThrowCDFH then
-            --подмена снаряда на лягушонка
-            ------------------------------ метальный лягушенок попадание
-            local data = HERO[GetPlayerId(GetOwningPlayer(hero))]
-            if data.FrogThrowCDFH then
-                if not data.FrogThrowCurrentCD then
-                    data.FrogThrowCurrentCD = 1
-                end
-                if data.FrogThrowCurrentCD <= 0 then
-                    local talon = GlobalTalons[data.pid]["ShadowHunter"][3]
-                    local cd = talon.DS[talon.level]
-                    StartFrameCD(cd, data.FrogThrowCDFH)
-                    data.FrogThrowCurrentCD = cd
-                    effectmodel = "units\\critters\\Frog\\Frog"
-                    TimerStart(CreateTimer(), cd, false, function()
-                        data.FrogThrowCurrentCD = 0
-                        DestroyTimer(GetExpiredTimer())
-                    end)
-                    -- print("кольцо змей")
-                end
-            end
-            ------------------------------
-        end
-    end
+
 
     local bullet = AddSpecialEffect(effectmodel, xs, ys)
     BlzSetSpecialEffectYaw(bullet, math.rad(angle))
