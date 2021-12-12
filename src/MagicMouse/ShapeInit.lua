@@ -71,9 +71,10 @@ function ShapeInit()
     end)
 
     curve = Shape:new(function(sumOfAngles, angles, sides, data)
-        if Interval(#sides, 1, 5) and Distance(sides[1].start, sides[#sides].en) > 3 * 128 then
+        if Interval(#sides, 1, 3) and Distance(sides[1].start, sides[#sides].en) > 3 * 128 then
             --local angle = AngleBetweenXY(data.Points[1].x, data.Points[1].y, data.Points[#data.Points].x, data.Points[#data.Points].y) / bj_DEGTORAD
             --CreateAndForceBullet(data.UnitHero, angle, 40, "Abilities\\Weapons\\Mortar\\MortarMissile.mdl", nil, nil, 150)
+            MoveToCurve(data,data.Points)
             print("curve")
             return true
         end

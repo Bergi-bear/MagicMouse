@@ -38,9 +38,6 @@ function Vector:__div(num)
     return Vector:new(self.x / num, self.y / num, self.z / num)
 end
 
-function Vector:__div(num)
-    return Vector:new(self.x / num, self.y / num, self.z / num)
-end
 
 function Vector:normalize(clone)
     if clone then
@@ -93,4 +90,8 @@ end
 
 function VectorSum(vector1, vector2)
     return Vector:new(vector1.x + vector2.x, vector1.y + vector2.y, vector1.z + vector2.z)
+end
+
+function Vector:angleBetween2Vectors(vector1, vector2) --возвращает угол -Bergi ебобо
+    return AngleBetweenXY(vector1.x, vector1.y, vector2.x, vector2.y) / bj_DEGTORAD
 end
