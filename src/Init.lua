@@ -21,6 +21,8 @@ do
             InitMouseMoveTrigger()
             InitMouseClickEvent()
             CreateWASDActions()
+            InitGameSlimes()
+
             --wGeometry = wGeometryInit()
             print(">>>")
 

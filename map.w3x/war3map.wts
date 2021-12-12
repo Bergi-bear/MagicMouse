@@ -48,3 +48,27 @@ STRING 10
  
 }
 
+STRING 11
+// Doodads: D000 (HolyPortal), Name (Name)
+{
+HolyPortal
+}
+
+STRING 12
+// Destructibles: B000 (Дерево, можно сломать), Name (Name)
+{
+Дерево, можно сломать
+}
+
+STRING 13
+// Units: n000 (SlimeGreen), Name (Name)
+{
+SlimeGreen
+}
+
+STRING 14
+// Units: n001 (SlimeBlue), Name (Name)
+{
+SlimeBlue
+}
+

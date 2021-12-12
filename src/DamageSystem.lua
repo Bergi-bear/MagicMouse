@@ -21,6 +21,22 @@ function OnPostDamage()
     --print(GetUnitName(target))
 
 
+    for i = 1, #SlimeID do
+        if GetUnitTypeId(target) == SlimeID[i] then
+            if UnitAlive(target) then
+                normal_sound(SlimeSound[2], GetUnitXY(target))
+                --print("получил")
+            else
+                print("смертельный урон")
+            end
+        end
+        if GetUnitTypeId(caster) == SlimeID[i] then
+
+            normal_sound(SlimeSound[1], GetUnitXY(caster))
+            --print("нанёс")
+        end
+    end
+
     if GetUnitTypeId(caster) == HeroID and caster ~= target then
         local data = HERO[GetPlayerId(GetOwningPlayer(caster))]
         local x, y = GetUnitXY(caster)
@@ -37,7 +53,7 @@ function OnPostDamage()
             --FlyTextTagShieldXY(x, y, L("Удар в спину", "Back stab"), GetOwningPlayer(caster))
 
             local eff = AddSpecialEffect("Hive\\Coup de Grace\\noSlash\\Coup de Grace", xe, ye)
-            BlzSetSpecialEffectYaw(eff, math.rad(GetUnitFacing(target) ))
+            BlzSetSpecialEffectYaw(eff, math.rad(GetUnitFacing(target)))
             --BlzSetSpecialEffectPitch(eff, math.rad(-90))
         end
         if data.UrsaStackFH then
@@ -73,7 +89,7 @@ function OnPostDamage()
                     end
                 end
 
-                StunUnit(target, 0.4 + addTime, "stagger")
+                --StunUnit(target, 0.4 + addTime, "stagger")
             else
                 if data.ShieldBreakerIsLearn then
                     damage = damage + 50
@@ -114,9 +130,9 @@ function AddDamage2Show(hero, damage)
         --	print("получил урон первый раз")
         ShowDamageTable[GetHandleId(hero)] = {
             damage = 0,
-            sec = 0,
-            tag = nil,
-            k = 0
+            sec    = 0,
+            tag    = nil,
+            k      = 0
         }
         local data = ShowDamageTable[GetHandleId(hero)]
         data.damage = damage
@@ -229,7 +245,7 @@ function PointContentDestructable (x, y, range, iskill, damage, hero)
                             local eff = AddSpecialEffect("SystemGeneric\\ThunderclapCasterClassic", dx, dy)
                             DestroyEffect(eff)
 
-                            PlayerSeeNoiseInRangeTimed(0.8,dx,dy)
+                            PlayerSeeNoiseInRangeTimed(0.8, dx, dy)
                             --print("смерть балки от рук"..GetUnitName(hero))
 
                             if hero then

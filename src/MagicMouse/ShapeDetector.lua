@@ -105,6 +105,6 @@ function GetCenterFigure(data)
     end
     center.x = center.x / #data.Points
     center.y = center.y / #data.Points
-    DestroyEffect(CreateTMPEffect(center.x, center.y, "Abilities\\Spells\\Human\\HolyBolt\\HolyBoltSpecialArt"))
+    --DestroyEffect(CreateTMPEffect(center.x, center.y, "Abilities\\Spells\\Human\\HolyBolt\\HolyBoltSpecialArt"))
     return center.x,center.y
 end
