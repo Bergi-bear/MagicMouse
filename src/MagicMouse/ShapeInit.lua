@@ -38,14 +38,20 @@ function ShapeInit()
 
     circle = Shape:new(function(sumOfAngles, angles, sides, data)
         if Interval(#sides, 1, 2) and Distance(sides[1].start, sides[#sides].en) < 3 / 2 * 128 then
+            local x, y = GetCenterFigure(data)
             if #data.Points > 7 then
-
-                print("Circle", #data.Points)
-                FlameStrike(data,GetCenterFigure(data))
-                return true
+                if #data.Points >= 35 then
+                    print("golem", #data.Points)
+                    SummonInfernal(data, x, y,GetRadiusCircle(data, x, y),#data.Points)
+                    return true
+                else
+                    print("Circle", #data.Points)
+                    FlameStrike(data, x, y, GetRadiusCircle(data, x, y))
+                    return true
+                end
             else
                 local angle = AngleBetweenXY(data.Points[1].x, data.Points[1].y, data.Points[#data.Points].x, data.Points[#data.Points].y) / bj_DEGTORAD
-                EarthStrike(data, angle, GetCenterFigure(data))
+                EarthStrike(data, angle, x, y)
                 --print("mini ", angle)
                 return true
             end
@@ -57,7 +63,7 @@ function ShapeInit()
     end)
     z = Shape:new(function(sumOfAngles, angles, sides, data)
         if Interval(sumOfAngles, 230, 320) and Interval(#sides, 3, 4) and Distance(sides[1].start, sides[#sides].en) > 3 * 128 then
-            Blink2Point(data,GetCenterFigure(data))
+            Blink2Point(data, GetCenterFigure(data))
             return true
         end
 
@@ -81,8 +87,8 @@ function ShapeInit()
         if Interval(#sides, 1, 3) and Distance(sides[1].start, sides[#sides].en) > 3 * 128 then
             --local angle = AngleBetweenXY(data.Points[1].x, data.Points[1].y, data.Points[#data.Points].x, data.Points[#data.Points].y) / bj_DEGTORAD
             --CreateAndForceBullet(data.UnitHero, angle, 40, "Abilities\\Weapons\\Mortar\\MortarMissile.mdl", nil, nil, 150)
-            local dist=DistanceBetweenXY(data.Points[1].x,data.Points[1].y,GetUnitXY(data.UnitHero))
-            if dist<= 150 then
+            local dist = DistanceBetweenXY(data.Points[1].x, data.Points[1].y, GetUnitXY(data.UnitHero))
+            if dist <= 150 then
                 MoveToCurve(data, data.Points)
                 return true
             else

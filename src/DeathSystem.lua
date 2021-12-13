@@ -24,6 +24,11 @@ function InitDeathEvent()
             if GetUnitTypeId(u) == SlimeID[i] then
                    --print("умер слайм")
                 normal_sound(SlimeSound[4],xu,yu,50)
+                TimerStart(CreateTimer(), 15, false, function()
+                    local x,y=GetRandomReal(GetRectMinX(gg_rct_Bound01),GetRectMaxX(gg_rct_Bound01)),GetRandomReal(GetRectMinY(gg_rct_Bound01),GetRectMaxY(gg_rct_Bound01))
+                    print(x,y)
+                    CreateUnit(Player(10), SlimeID[i], x, y, 0)
+                end)
             end
         end
     end)

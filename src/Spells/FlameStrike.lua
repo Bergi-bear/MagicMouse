@@ -3,16 +3,23 @@
 --- Created by Bergi.
 --- DateTime: 13.12.2021 1:23
 ---
-function FlameStrike(data, x, y)
-    local r=GetRadiusCircle(data, x, y)
-    UnitDamageArea(data.UnitHero, r/2, x, y, r)
-    local interval=0.1
-    local eff=AddSpecialEffect("Abilities\\Spells\\Human\\FlameStrike\\FlameStrike.mdl",x,y)
-    local sec=3
+function FlameStrike(data, x, y, r)
+    UnitDamageArea(data.UnitHero, r / 2, x, y, r)
+    local interval = 0.1
+    local eff = AddSpecialEffect("Abilities\\Spells\\Human\\FlameStrike\\FlameStrike.mdl", x, y)
+    local scale=r/250
+    if scale<=0.7 then
+        scale=0.7
+    end
+    if scale>=1.5 then
+        scale=1.5
+    end
+    BlzSetSpecialEffectMatrixScale(eff,scale,scale,scale)
+    local sec = 3
     TimerStart(CreateTimer(), interval, true, function()
-        sec=sec-interval
-        UnitDamageArea(data.UnitHero, r/40, x, y, r)
-        if sec<=0 then
+        sec = sec - interval
+        UnitDamageArea(data.UnitHero, r / 40, x, y, r)
+        if sec <= 0 then
             DestroyEffect(eff)
             DestroyTimer(GetExpiredTimer())
         end

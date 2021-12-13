@@ -2,13 +2,13 @@ FREE_CAMERA = false
 TIMER_PERIOD = 1 / 32
 TIMER_PERIOD64 = 1 / 64
 HERO = {}
-HeroID = FourCC("opeo")
+HeroID = FourCC("O000")
 perebor = CreateGroup()
 
 function InitAnimations(hero,data)
 
 
-    if GetUnitTypeId(data.UnitHero) == FourCC("opeo") then
+    if GetUnitTypeId(data.UnitHero) == FourCC("O000") then
         --print("инициализацию анимация пеона")
         data.AnimDurationWalk = 0.767 --длительность анимации движения, полный круг
         data.IndexAnimationWalk = 1-- индекс анимации движения

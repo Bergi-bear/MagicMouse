@@ -22,7 +22,7 @@ do
             InitMouseClickEvent()
             CreateWASDActions()
             InitGameSlimes()
-
+            PlayList()
             --wGeometry = wGeometryInit()
             print(">>>")
 

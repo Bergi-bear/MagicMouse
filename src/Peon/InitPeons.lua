@@ -8,7 +8,7 @@ function CreatePeonForPlayer(data)
     if IsPlayerSlotState(Player(data.pid),PLAYER_SLOT_STATE_PLAYING) then
         --print("создание пеона")
         local x,y=GetPlayerStartLocationX(Player(data.pid)),GetPlayerStartLocationY(Player(data.pid))
-        data.UnitHero=CreateUnit(Player(data.pid),FourCC("opeo"),x,y,0)
+        data.UnitHero=CreateUnit(Player(data.pid),HeroID,x,y,0)
         SelectUnitForPlayerSingle(data.UnitHero,Player(data.pid))
         UnitAddAbility(data.UnitHero,FourCC("Abun"))
         UnitRemoveType(data.UnitHero,UNIT_TYPE_PEON)
