@@ -7,14 +7,14 @@ function FlameStrike(data, x, y, r)
     UnitDamageArea(data.UnitHero, r / 2, x, y, r)
     local interval = 0.1
     local eff = AddSpecialEffect("Abilities\\Spells\\Human\\FlameStrike\\FlameStrike.mdl", x, y)
-    local scale=r/250
-    if scale<=0.7 then
-        scale=0.7
+    local scale = r / 250
+    if scale <= 0.7 then
+        scale = 0.7
     end
-    if scale>=1.5 then
-        scale=1.5
+    if scale >= 1.5 then
+        scale = 1.5
     end
-    BlzSetSpecialEffectMatrixScale(eff,scale,scale,scale)
+    BlzSetSpecialEffectMatrixScale(eff, scale, scale, scale)
     local sec = 3
     TimerStart(CreateTimer(), interval, true, function()
         sec = sec - interval
@@ -33,4 +33,19 @@ function GetRadiusCircle(data, x, y)
     end
     r = r / #data.Points
     return r
+end
+
+function ChkMediumRadius(Points, r, x, y)
+    local delta = 50
+    local isCircle=true
+    for i = 1, #Points do
+        local d = DistanceBetweenXY(x, y, Points[i].x, Points[i].y)
+        if math.abs(d - r) > delta then
+            --print("большой разброс, это не круг")
+            isCircle=false
+        else
+           -- print("ok")
+        end
+    end
+    return isCircle
 end

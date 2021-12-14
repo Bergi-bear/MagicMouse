@@ -6,7 +6,7 @@
 function SummonInfernal(data, x, y, r,durations)
     local eff = AddSpecialEffect("Units\\Demon\\Infernal\\InfernalBirth.mdl", x, y)
     TimerStart(CreateTimer(), 1, false, function()
-        print("приземлился и будет жить",durations)
+        --print("приземлился и будет жить",durations)
         FlameStrike(data, x, y, r * 2)
         local inf = CreateUnit(Player(data.pid), FourCC("ninf"), x, y, 0)
         StartCompanionAI(inf, data)

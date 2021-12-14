@@ -38,7 +38,6 @@ function Vector:__div(num)
     return Vector:new(self.x / num, self.y / num, self.z / num)
 end
 
-
 function Vector:normalize(clone)
     if clone then
         return self / self:length()
@@ -73,14 +72,16 @@ function Vector:pitch()
     return math.atan(self.z, self:length2d())
 end
 
-function Vector:yawPitchOffset(distance, yaw, pitch) --Add Bergi
+function Vector:yawPitchOffset(distance, yaw, pitch)
+    --Add Bergi
     return Vector:new(
             distance * math.cos(yaw) * math.cos(pitch),
             distance * math.sin(yaw) * math.cos(pitch),
             distance * math.cos(pitch)
     )
 end
-function Distance(vector1, vector2) -- Add Oferist
+function Distance(vector1, vector2)
+    -- Add Oferist
     return DistanceBetweenXY(vector1.x, vector1.y, vector2.x, vector2.y)
 end
 
@@ -92,6 +93,11 @@ function VectorSum(vector1, vector2)
     return Vector:new(vector1.x + vector2.x, vector1.y + vector2.y, vector1.z + vector2.z)
 end
 
-function Vector:angleBetween2Vectors(vector1, vector2) --возвращает угол -Bergi ебобо
+function Vector:angleBetween2Vectors(vector1, vector2)
+    --возвращает угол - Bergi ебобо
     return AngleBetweenXY(vector1.x, vector1.y, vector2.x, vector2.y) / bj_DEGTORAD
+end
+
+function GetVectorFromPoint2D(x1, y1, x2, y2)
+    return Vector:new(x2 - x1, y2, -y1, 0)
 end

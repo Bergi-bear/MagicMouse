@@ -34,7 +34,7 @@ function InputUpdate (data,x,y)
         table.insert(data.Points, vector)
         --print("insert OK")
 
-        table.insert(data.Effects, CreateTMPEffect(x,y, "units\\nightelf\\Wisp\\Wisp"))
+        table.insert(data.Effects, CreateTMPEffect(x,y, "units\\nightelf\\Wisp\\Wisp")) -- "Abilities\\Spells\\Items\\HealingSalve\\HealingSalveTarget.mdl"
 
         ShapeDetectorAdd(data.Points[#data.Points],
                 #data.Points <= 1 and 0 or data.Points[#data.Points - 1], data)

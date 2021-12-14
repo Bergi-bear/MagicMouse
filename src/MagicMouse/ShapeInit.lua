@@ -20,11 +20,11 @@ function ShapeInit()
                 return false
             end
         end
-        if  Interval(sumOfAngles, 260, 500) and Interval(#sides, 4, 5) and Distance(sides[1].start, sides[#sides].en) < 3 / 2 * 128 then
+        if Interval(sumOfAngles, 260, 500) and Interval(#sides, 4, 5) and Distance(sides[1].start, sides[#sides].en) < 3 / 2 * 128 then
             --print("It's definitely a Square!",#data.Points)
-            local x,y=GetCenterFigure(data)
-            local r=GetRadiusCircle(data,x,y)
-            CreateSquareCast(data,r,x,y,#data.Points)
+            local x, y = GetCenterFigure(data)
+            local r = GetRadiusCircle(data, x, y)
+            CreateSquareCast(data, r, x, y, #data.Points)
             return true
         end
     end, function()
@@ -39,7 +39,7 @@ function ShapeInit()
         end
         if Interval(sumOfAngles, 300, 420) and Interval(#sides, 3, 3) and Distance(sides[1].start, sides[#sides].en) < 3 / 2 * 128 then
             local x, y = GetCenterFigure(data)
-            CastLighting(data,5,GetRadiusCircle(data,x,y),x,y)
+            CastLighting(data, 5, GetRadiusCircle(data, x, y), x, y)
             return true
         end
     end, function()
@@ -49,19 +49,30 @@ function ShapeInit()
     circle = Shape:new(function(sumOfAngles, angles, sides, data)
         if Interval(#sides, 1, 2) and Distance(sides[1].start, sides[#sides].en) < 3 / 2 * 128 then
             local x, y = GetCenterFigure(data)
-            local r=GetRadiusCircle(data, x, y)
+            local r = GetRadiusCircle(data, x, y)
+
             if #data.Points > 7 then
-                if #data.Points >= 35 then
-                    --print("golem", #data.Points)
-                    SummonInfernal(data, x, y,r,#data.Points)
-                    return true
-                else
-                    --print("Circle", #data.Points)
-                    if IsUnitInRangeXY(data.UnitHero,x,y,r*0.7) then
-                        --print("лечение")
-                        HealUnit(data.UnitHero,50,nil,"Abilities\\Spells\\Human\\HolyBolt\\HolyBoltSpecialArt")
+                if ChkMediumRadius(data.Points,r,x,y) then
+                    if #data.Points >= 35 then
+                        --print("golem", #data.Points)
+                        SummonInfernal(data, x, y, r, #data.Points)
+                        return true
                     else
-                        FlameStrike(data, x, y, r)
+                        --print("Circle", #data.Points)
+                        if IsUnitInRangeXY(data.UnitHero, x, y, r * 0.7) then
+                            --print("лечение")
+                            HealUnit(data.UnitHero, 50, nil, "Abilities\\Spells\\Human\\HolyBolt\\HolyBoltSpecialArt")
+                        else
+                            FlameStrike(data, x, y, r)
+                        end
+                        return true
+                    end
+                else
+
+                    if DistanceBetweenXY(data.Points[1].x, data.Points[1].y, data.Points[#data.Points].x, data.Points[#data.Points].y) >100 then
+                        print("wave")
+                    else
+                        print("кривой круг")
                     end
                     return true
                 end
@@ -90,9 +101,31 @@ function ShapeInit()
 
     line = Shape:new(function(sumOfAngles, angles, sides, data)
         if Interval(#sides, 1, 1) and Distance(sides[1].start, sides[#sides].en) > 3 * 128 then
-            local angle = AngleBetweenXY(data.Points[1].x, data.Points[1].y, data.Points[#data.Points].x, data.Points[#data.Points].y) / bj_DEGTORAD
+            local x1, y1, x2, y2 = data.Points[1].x, data.Points[1].y, data.Points[#data.Points].x, data.Points[#data.Points].y
+            local angle = AngleBetweenXY(x1, y1, x2, y2) / bj_DEGTORAD
             CreateAndForceBullet(data.UnitHero, angle, 40, "Abilities\\Weapons\\Mortar\\MortarMissile.mdl", nil, nil, 200)
             --print("Line")
+            if not data.lineActive then
+                data.line1 = { x1, y1, x2, y2 }
+                data.lineActive = true
+                --print("линия 1")
+                data.TimerLineDelay = CreateTimer()
+                TimerStart(data.TimerLineDelay, 1, false, function()
+                    --print("время вышло")
+                    data.line1 = nil
+                    data.lineActive = false
+                end)
+                if data.line2 then
+                    ChkCross(data, x1, y1, x2, y2, data.line2[1], data.line2[2], data.line2[3], data.line2[4])
+                end
+            else
+                data.lineActive = false
+                data.line2 = { x1, y1, x2, y2 }
+                --print("линия 2")
+                if data.line1 then
+                    ChkCross(data, x1, y1, x2, y2, data.line1[1], data.line1[2], data.line1[3], data.line1[4])
+                end
+            end
             return true
         end
     end, function()
