@@ -5,7 +5,7 @@ HERO = {}
 HeroID = FourCC("O000")
 perebor = CreateGroup()
 
-function InitAnimations(hero,data)
+function InitAnimations(hero, data)
 
 
     if GetUnitTypeId(data.UnitHero) == FourCC("O000") then
@@ -68,7 +68,7 @@ end
 function InitWASD(hero)
     --print("initwasdSTART",GetUnitName(hero))
     local data = HERO[GetPlayerId(GetOwningPlayer(hero))]
-    InitAnimations(hero,data)
+    InitAnimations(hero, data)
     BlockMouse(data)
     SelectUnitForPlayerSingle(data.UnitHero, GetOwningPlayer(hero))
     EnableDragSelect(false, false)
@@ -129,24 +129,40 @@ function InitWASD(hero)
             --print("юнит идёт со статичным курсором")
 
             data.fakeX, data.fakeY = MoveXY(hx, hy, data.DistMouse, data.AngleMouse)
-            InputUpdate (data,data.fakeX, data.fakeY)
+            InputUpdate(data, data.fakeX, data.fakeY)
         else
             data.DistMouse = DistanceBetweenXY(hx, hy, GetPlayerMouseX[data.pid], GetPlayerMouseY[data.pid])
             data.AngleMouse = AngleBetweenXY(hx, hy, GetPlayerMouseX[data.pid], GetPlayerMouseY[data.pid]) / bj_DEGTORAD
             --print("пошевелил " .. data.DistMouse)
         end
 
-
         if not UnitAlive(hero) then
-            --print("Эффект смерти")
-
             local x, y = GetUnitXY(hero)
+
+            if not data.CameraStabUnit then
+                --print("Эффект смерти")
+                --and not data.CameraOnSaw
+                data.CameraStabUnit = CreateUnit(Player(data.pid), FourCC("hdhw"), x, y, 0)
+                ShowUnit(data.CameraStabUnit, false)
+
+                --print("death")
+                SetUnitAnimation(data.UnitHero, "death")
+
+                TimerStart(CreateTimer(), 3, false, function()
+                    DestroyTimer(GetExpiredTimer())
+                        ReviveHero(hero, x, y, true)
+                        SetUnitInvulnerable(hero, true)
+                        TimerStart(CreateTimer(), 2, false, function()
+                            SetUnitInvulnerable(hero, false)
+                            DestroyTimer(GetExpiredTimer())
+                        end)
+                end)
+            end
+
 
             SetCameraQuickPosition(GetUnitX(data.CameraStabUnit), GetUnitY(data.CameraStabUnit))
             SetCameraTargetControllerNoZForPlayer(GetOwningPlayer(data.CameraStabUnit), data.CameraStabUnit, 10, 10, true) -- не дергается
-            if data.CameraStabUnit and data.life < 0 then
-                --SetUnitPositionSmooth(data.CameraStabUnit, data.fakeX, data.fakeY)
-            end
+
 
         else
             KillUnit(data.CameraStabUnit)

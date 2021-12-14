@@ -20,9 +20,15 @@ function ShapeInit()
                 return false
             end
         end
-        return Interval(sumOfAngles, 260, 500) and Interval(#sides, 4, 5) and Distance(sides[1].start, sides[#sides].en) < 3 / 2 * 128
+        if  Interval(sumOfAngles, 260, 500) and Interval(#sides, 4, 5) and Distance(sides[1].start, sides[#sides].en) < 3 / 2 * 128 then
+            --print("It's definitely a Square!",#data.Points)
+            local x,y=GetCenterFigure(data)
+            local r=GetRadiusCircle(data,x,y)
+            CreateSquareCast(data,r,x,y,#data.Points)
+            return true
+        end
     end, function()
-        print("It's definitely a Square!")
+
     end)
 
     triangle = Shape:new(function(sumOfAngles, angles, sides, data)
@@ -31,22 +37,32 @@ function ShapeInit()
                 return false
             end
         end
-        return Interval(sumOfAngles, 300, 420) and Interval(#sides, 3, 3) and Distance(sides[1].start, sides[#sides].en) < 3 / 2 * 128
+        if Interval(sumOfAngles, 300, 420) and Interval(#sides, 3, 3) and Distance(sides[1].start, sides[#sides].en) < 3 / 2 * 128 then
+            local x, y = GetCenterFigure(data)
+            CastLighting(data,5,GetRadiusCircle(data,x,y),x,y)
+            return true
+        end
     end, function()
-        print("It's definitely a Triangle!")
+        --print("It's definitely a Triangle!")
     end)
 
     circle = Shape:new(function(sumOfAngles, angles, sides, data)
         if Interval(#sides, 1, 2) and Distance(sides[1].start, sides[#sides].en) < 3 / 2 * 128 then
             local x, y = GetCenterFigure(data)
+            local r=GetRadiusCircle(data, x, y)
             if #data.Points > 7 then
                 if #data.Points >= 35 then
-                    print("golem", #data.Points)
-                    SummonInfernal(data, x, y,GetRadiusCircle(data, x, y),#data.Points)
+                    --print("golem", #data.Points)
+                    SummonInfernal(data, x, y,r,#data.Points)
                     return true
                 else
-                    print("Circle", #data.Points)
-                    FlameStrike(data, x, y, GetRadiusCircle(data, x, y))
+                    --print("Circle", #data.Points)
+                    if IsUnitInRangeXY(data.UnitHero,x,y,r*0.7) then
+                        --print("лечение")
+                        HealUnit(data.UnitHero,50,nil,"Abilities\\Spells\\Human\\HolyBolt\\HolyBoltSpecialArt")
+                    else
+                        FlameStrike(data, x, y, r)
+                    end
                     return true
                 end
             else

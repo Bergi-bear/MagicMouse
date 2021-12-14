@@ -22,7 +22,7 @@ function OnPostDamage()
 
 
     for i = 1, #SlimeID do
-        if GetUnitTypeId(target) == SlimeID[i] then
+        if GetUnitTypeId(target) == SlimeID[i] and damage>50 then
             if UnitAlive(target) then
                 normal_sound(SlimeSound[2], GetUnitXY(target))
                 --print("получил")

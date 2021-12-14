@@ -5,7 +5,7 @@
 ---
 function CreatePeonForPlayer(data)
     --print("1")
-    if IsPlayerSlotState(Player(data.pid),PLAYER_SLOT_STATE_PLAYING) then
+    if IsPlayerSlotState(Player(data.pid),PLAYER_SLOT_STATE_PLAYING) and GetPlayerController(Player(data.pid)) == MAP_CONTROL_USER then
         --print("создание пеона")
         local x,y=GetPlayerStartLocationX(Player(data.pid)),GetPlayerStartLocationY(Player(data.pid))
         data.UnitHero=CreateUnit(Player(data.pid),HeroID,x,y,0)
