@@ -16,7 +16,7 @@ function ChkCrossBad(data, x1, y1, x2, y2, x3, y3, x4, y4)
     end
     local x = x3 + (x4 - x3) * n
     local y = y3 + (y4 - y3) * n
-    print("All OK")
+    --print("All OK")
     DestroyEffect(AddSpecialEffect("Abilities\\Spells\\Human\\HolyBolt\\HolyBoltSpecialArt", x, y))
     data.line2 = nil
     data.line1 = nil
@@ -30,7 +30,6 @@ end
 
 function ChkCross (data, x1, y1, x2, y2, x3, y3, x4, y4)
     --local angle=AngleBetweenXY()
-
 
     local s1 = { x = x1, y = y1 }
     local e1 = { x = x2, y = y2 }
@@ -56,7 +55,7 @@ function ChkCross (data, x1, y1, x2, y2, x3, y3, x4, y4)
     local d1x = DistanceBetweenXY(x1, y1, x, y)
     local d2x = DistanceBetweenXY(x3, y3, x, y)
     if d1x > d1 then
-        -- print("далеко1")
+        --print("далеко1")
         return false
     end
     if d2x > d2 then
@@ -67,16 +66,58 @@ function ChkCross (data, x1, y1, x2, y2, x3, y3, x4, y4)
     local v1 = GetVectorFromPoint2D(x1, y1, x2, y2)
     local v2 = GetVectorFromPoint2D(x3, y3, x4, y4)
     local angle = math.deg(v1:angleBetween(v2))
-    print(angle)
-    CrossCast(data, x, y)
-    --return x, y
+    --print(angle)
+    if angle > 20 then
+        CrossCast(data, x, y)
+    else
+        CrossCast(data, x, y)
+        --print("парарллельные прямые")
+    end
+    --print(true)
+    return true
 end
 
 function CrossCast(data, x, y)
     DestroyTimer(data.TimerLineDelay)
-    data.line2 = nil
-    data.line1 = nil
     DestroyEffect(AddSpecialEffect("Objects\\Spawnmodels\\Undead\\UndeadBlood\\UndeadBloodAbomination.mdl", x, y))
-    local _, unit = UnitDamageArea(data.UnitHero, 500, x, y, 150)
+    local is, unit = UnitDamageArea(data.UnitHero, 500, x, y, 150)
     SetUnitExploded(unit, true)
+    if not is then
+        if IsUnitInRangeXY(data.UnitHero, x, y, 150) then
+            --print("святой крест")
+            HolyCross(data)
+        end
+    end
+    TimerStart(CreateTimer(), TIMER_PERIOD64, false, function()
+        data.line2 = nil
+        data.line1 = nil
+    end)
+end
+
+function HolyCross(data)
+    if data.line2 then
+       -- print("существует")
+    else
+        --print("уже очищено")
+    end
+    HolyLine(data,data.line2)
+    HolyLine(data,data.line1)
+end
+
+function HolyLine(data,table)
+    local x1, y1, x2, y2 = table[1], table[2], table[3], table[4]
+    local angle = AngleBetweenXY(x1, y1, x2, y2) / bj_DEGTORAD
+    local d = DistanceBetweenXY(x1, y1, x2, y2)
+    local step = 80
+    local current=0
+
+    while true do
+        current=current+step
+        local x,y=MoveXY(x1,y1,current,angle)
+        DestroyEffect(AddSpecialEffect("Abilities\\Spells\\Human\\HolyBolt\\HolyBoltSpecialArt", x, y))
+        UnitDamageArea(data.UnitHero,100,x,y,80)
+        if current >=d then
+            break
+        end
+    end
 end

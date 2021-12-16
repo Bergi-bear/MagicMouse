@@ -2242,7 +2242,7 @@ function ShapeInit()
             local r = GetRadiusCircle(data, x, y)
 
             if #data.Points > 7 then
-                if ChkMediumRadius(data.Points,r,x,y) then
+                if ChkMediumRadius(data.Points, r, x, y) then
                     if #data.Points >= 35 then
                         --print("golem", #data.Points)
                         SummonInfernal(data, x, y, r, #data.Points)
@@ -2259,7 +2259,7 @@ function ShapeInit()
                     end
                 else
 
-                    if DistanceBetweenXY(data.Points[1].x, data.Points[1].y, data.Points[#data.Points].x, data.Points[#data.Points].y) >100 then
+                    if DistanceBetweenXY(data.Points[1].x, data.Points[1].y, data.Points[#data.Points].x, data.Points[#data.Points].y) > 100 then
                         print("wave")
                     else
                         print("кривой круг")
@@ -2293,8 +2293,10 @@ function ShapeInit()
         if Interval(#sides, 1, 1) and Distance(sides[1].start, sides[#sides].en) > 3 * 128 then
             local x1, y1, x2, y2 = data.Points[1].x, data.Points[1].y, data.Points[#data.Points].x, data.Points[#data.Points].y
             local angle = AngleBetweenXY(x1, y1, x2, y2) / bj_DEGTORAD
-            CreateAndForceBullet(data.UnitHero, angle, 40, "Abilities\\Weapons\\Mortar\\MortarMissile.mdl", nil, nil, 200)
+
             --print("Line")
+            local distCast = DistanceBetweenXY(x1, y1, GetUnitXY(data.UnitHero))
+
             if not data.lineActive then
                 data.line1 = { x1, y1, x2, y2 }
                 data.lineActive = true
@@ -2306,16 +2308,33 @@ function ShapeInit()
                     data.lineActive = false
                 end)
                 if data.line2 then
+
+                    if distCast <= 500 then
+                        CreateAndForceBullet(data.UnitHero, angle, 40, "Abilities\\Weapons\\Mortar\\MortarMissile.mdl", nil, nil, 200)
+                    else
+                        print("Стена льда")
+                    end
                     ChkCross(data, x1, y1, x2, y2, data.line2[1], data.line2[2], data.line2[3], data.line2[4])
+
+
+                    --end
                 end
             else
                 data.lineActive = false
                 data.line2 = { x1, y1, x2, y2 }
                 --print("линия 2")
                 if data.line1 then
+
+                    if distCast <= 500 then
+                        CreateAndForceBullet(data.UnitHero, angle, 40, "Abilities\\Weapons\\Mortar\\MortarMissile.mdl", nil, nil, 200)
+                    else
+
+                    end
                     ChkCross(data, x1, y1, x2, y2, data.line1[1], data.line1[2], data.line1[3], data.line1[4])
+                    --end
                 end
             end
+
             return true
         end
     end, function()
@@ -3307,7 +3326,7 @@ function ChkCrossBad(data, x1, y1, x2, y2, x3, y3, x4, y4)
     end
     local x = x3 + (x4 - x3) * n
     local y = y3 + (y4 - y3) * n
-    print("All OK")
+    --print("All OK")
     DestroyEffect(AddSpecialEffect("Abilities\\Spells\\Human\\HolyBolt\\HolyBoltSpecialArt", x, y))
     data.line2 = nil
     data.line1 = nil
@@ -3321,7 +3340,6 @@ end
 
 function ChkCross (data, x1, y1, x2, y2, x3, y3, x4, y4)
     --local angle=AngleBetweenXY()
-
 
     local s1 = { x = x1, y = y1 }
     local e1 = { x = x2, y = y2 }
@@ -3347,7 +3365,7 @@ function ChkCross (data, x1, y1, x2, y2, x3, y3, x4, y4)
     local d1x = DistanceBetweenXY(x1, y1, x, y)
     local d2x = DistanceBetweenXY(x3, y3, x, y)
     if d1x > d1 then
-        -- print("далеко1")
+        --print("далеко1")
         return false
     end
     if d2x > d2 then
@@ -3358,18 +3376,60 @@ function ChkCross (data, x1, y1, x2, y2, x3, y3, x4, y4)
     local v1 = GetVectorFromPoint2D(x1, y1, x2, y2)
     local v2 = GetVectorFromPoint2D(x3, y3, x4, y4)
     local angle = math.deg(v1:angleBetween(v2))
-    print(angle)
-    CrossCast(data, x, y)
-    --return x, y
+    --print(angle)
+    if angle > 20 then
+        CrossCast(data, x, y)
+    else
+        CrossCast(data, x, y)
+        --print("парарллельные прямые")
+    end
+    --print(true)
+    return true
 end
 
 function CrossCast(data, x, y)
     DestroyTimer(data.TimerLineDelay)
-    data.line2 = nil
-    data.line1 = nil
     DestroyEffect(AddSpecialEffect("Objects\\Spawnmodels\\Undead\\UndeadBlood\\UndeadBloodAbomination.mdl", x, y))
-    local _, unit = UnitDamageArea(data.UnitHero, 500, x, y, 150)
+    local is, unit = UnitDamageArea(data.UnitHero, 500, x, y, 150)
     SetUnitExploded(unit, true)
+    if not is then
+        if IsUnitInRangeXY(data.UnitHero, x, y, 150) then
+            --print("святой крест")
+            HolyCross(data)
+        end
+    end
+    TimerStart(CreateTimer(), TIMER_PERIOD64, false, function()
+        data.line2 = nil
+        data.line1 = nil
+    end)
+end
+
+function HolyCross(data)
+    if data.line2 then
+       -- print("существует")
+    else
+        --print("уже очищено")
+    end
+    HolyLine(data,data.line2)
+    HolyLine(data,data.line1)
+end
+
+function HolyLine(data,table)
+    local x1, y1, x2, y2 = table[1], table[2], table[3], table[4]
+    local angle = AngleBetweenXY(x1, y1, x2, y2) / bj_DEGTORAD
+    local d = DistanceBetweenXY(x1, y1, x2, y2)
+    local step = 80
+    local current=0
+
+    while true do
+        current=current+step
+        local x,y=MoveXY(x1,y1,current,angle)
+        DestroyEffect(AddSpecialEffect("Abilities\\Spells\\Human\\HolyBolt\\HolyBoltSpecialArt", x, y))
+        UnitDamageArea(data.UnitHero,100,x,y,80)
+        if current >=d then
+            break
+        end
+    end
 end
 function CreateAndForceBullet(hero, angle, speed, effectmodel, xs, ys, damage, maxDistance, delay)
     local CollisionRange = 80

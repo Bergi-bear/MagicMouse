@@ -52,7 +52,7 @@ function ShapeInit()
             local r = GetRadiusCircle(data, x, y)
 
             if #data.Points > 7 then
-                if ChkMediumRadius(data.Points,r,x,y) then
+                if ChkMediumRadius(data.Points, r, x, y) then
                     if #data.Points >= 35 then
                         --print("golem", #data.Points)
                         SummonInfernal(data, x, y, r, #data.Points)
@@ -69,7 +69,7 @@ function ShapeInit()
                     end
                 else
 
-                    if DistanceBetweenXY(data.Points[1].x, data.Points[1].y, data.Points[#data.Points].x, data.Points[#data.Points].y) >100 then
+                    if DistanceBetweenXY(data.Points[1].x, data.Points[1].y, data.Points[#data.Points].x, data.Points[#data.Points].y) > 100 then
                         print("wave")
                     else
                         print("кривой круг")
@@ -103,8 +103,10 @@ function ShapeInit()
         if Interval(#sides, 1, 1) and Distance(sides[1].start, sides[#sides].en) > 3 * 128 then
             local x1, y1, x2, y2 = data.Points[1].x, data.Points[1].y, data.Points[#data.Points].x, data.Points[#data.Points].y
             local angle = AngleBetweenXY(x1, y1, x2, y2) / bj_DEGTORAD
-            CreateAndForceBullet(data.UnitHero, angle, 40, "Abilities\\Weapons\\Mortar\\MortarMissile.mdl", nil, nil, 200)
+
             --print("Line")
+            local distCast = DistanceBetweenXY(x1, y1, GetUnitXY(data.UnitHero))
+
             if not data.lineActive then
                 data.line1 = { x1, y1, x2, y2 }
                 data.lineActive = true
@@ -116,16 +118,33 @@ function ShapeInit()
                     data.lineActive = false
                 end)
                 if data.line2 then
+
+                    if distCast <= 500 or true then
+                        CreateAndForceBullet(data.UnitHero, angle, 40, "Abilities\\Weapons\\Mortar\\MortarMissile.mdl", nil, nil, 200)
+                    else
+                        print("Стена льда")
+                    end
                     ChkCross(data, x1, y1, x2, y2, data.line2[1], data.line2[2], data.line2[3], data.line2[4])
+
+
+                    --end
                 end
             else
                 data.lineActive = false
                 data.line2 = { x1, y1, x2, y2 }
                 --print("линия 2")
                 if data.line1 then
+
+                    if distCast <= 500 or true  then
+                        CreateAndForceBullet(data.UnitHero, angle, 40, "Abilities\\Weapons\\Mortar\\MortarMissile.mdl", nil, nil, 200)
+                    else
+
+                    end
                     ChkCross(data, x1, y1, x2, y2, data.line1[1], data.line1[2], data.line1[3], data.line1[4])
+                    --end
                 end
             end
+
             return true
         end
     end, function()
