@@ -78,3 +78,33 @@ STRING 15
 Пеонетти,Пеонпио,Пеонльнарёфф,Пеонакс
 }
 
+STRING 16
+// Destructibles: B001 (Бамбук 1), Name (Name)
+{
+Бамбук 1
+}
+
+STRING 17
+// Destructibles: B002 (Бамбук 2), Name (Name)
+{
+Бамбук 2
+}
+
+STRING 18
+// Destructibles: B003 (Бамбук 3), Name (Name)
+{
+Бамбук 3
+}
+
+STRING 19
+// Doodads: D001 (China1), Name (Name)
+{
+China1
+}
+
+STRING 20
+// Doodads: D002 (China2), Name (Name)
+{
+China2
+}
+

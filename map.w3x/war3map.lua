@@ -2262,7 +2262,7 @@ function ShapeInit()
                     if DistanceBetweenXY(data.Points[1].x, data.Points[1].y, data.Points[#data.Points].x, data.Points[#data.Points].y) >100 then
                         print("wave")
                     else
-                        print("полукруг")
+                        print("кривой круг")
                     end
                     return true
                 end
@@ -3849,7 +3849,7 @@ function MoveElement2Next(points, element, eff, data)
             --BlzSetSpecialEffectPosition(eff, newVector.x, newVector.y, 50)
             BlzSetSpecialEffectX(eff, newVector.x)
             BlzSetSpecialEffectY(eff, newVector.y)
-            --BlzSetSpecialEffectZ(eff, GetTerrainZ(newVector.x,newVector.y)+50)
+            BlzSetSpecialEffectZ(eff, GetTerrainZ(newVector.x,newVector.y)+50)
             i=i+1
             if i>=50 then
                 --print("сошел с орбиты")
@@ -4062,7 +4062,7 @@ function InitAllyPriorities()
 end
 
 function main()
-    SetCameraBounds(-3328.0 + GetCameraMargin(CAMERA_MARGIN_LEFT), -3584.0 + GetCameraMargin(CAMERA_MARGIN_BOTTOM), 3328.0 - GetCameraMargin(CAMERA_MARGIN_RIGHT), 3072.0 - GetCameraMargin(CAMERA_MARGIN_TOP), -3328.0 + GetCameraMargin(CAMERA_MARGIN_LEFT), 3072.0 - GetCameraMargin(CAMERA_MARGIN_TOP), 3328.0 - GetCameraMargin(CAMERA_MARGIN_RIGHT), -3584.0 + GetCameraMargin(CAMERA_MARGIN_BOTTOM))
+    SetCameraBounds(-3328.0 + GetCameraMargin(CAMERA_MARGIN_LEFT), -3584.0 + GetCameraMargin(CAMERA_MARGIN_BOTTOM), 11520.0 - GetCameraMargin(CAMERA_MARGIN_RIGHT), 3072.0 - GetCameraMargin(CAMERA_MARGIN_TOP), -3328.0 + GetCameraMargin(CAMERA_MARGIN_LEFT), 3072.0 - GetCameraMargin(CAMERA_MARGIN_TOP), 11520.0 - GetCameraMargin(CAMERA_MARGIN_RIGHT), -3584.0 + GetCameraMargin(CAMERA_MARGIN_BOTTOM))
     SetDayNightModels("Environment\\DNC\\DNCLordaeron\\DNCLordaeronTerrain\\DNCLordaeronTerrain.mdl", "Environment\\DNC\\DNCLordaeron\\DNCLordaeronUnit\\DNCLordaeronUnit.mdl")
     NewSoundEnvironment("Default")
     SetAmbientDaySound("CityScapeDay")

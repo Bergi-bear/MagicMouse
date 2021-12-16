@@ -24,7 +24,7 @@ function MoveElement2Next(points, element, eff, data)
             --BlzSetSpecialEffectPosition(eff, newVector.x, newVector.y, 50)
             BlzSetSpecialEffectX(eff, newVector.x)
             BlzSetSpecialEffectY(eff, newVector.y)
-            --BlzSetSpecialEffectZ(eff, GetTerrainZ(newVector.x,newVector.y)+50)
+            BlzSetSpecialEffectZ(eff, GetTerrainZ(newVector.x,newVector.y)+50)
             i=i+1
             if i>=50 then
                 --print("сошел с орбиты")
