@@ -85,6 +85,7 @@ function CrossCast(data, x, y)
     if not is then
         if IsUnitInRangeXY(data.UnitHero, x, y, 150) then
             --print("святой крест")
+            HealUnit(data.UnitHero, 100, nil, "Abilities\\Spells\\Human\\HolyBolt\\HolyBoltSpecialArt")
             HolyCross(data)
         end
     end

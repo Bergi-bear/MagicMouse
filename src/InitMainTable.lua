@@ -89,6 +89,7 @@ function InitHEROTable()
         }
         InitInputHandler(HERO[i])
         CreatePeonForPlayer(HERO[i])
+        CreateDownInterface(HERO[i])
         SetCameraBoundsToRectForPlayerBJ(Player(i), gg_rct_Bound01)
     end
 end

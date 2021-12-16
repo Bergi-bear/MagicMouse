@@ -70,7 +70,8 @@ function ShapeInit()
                 else
 
                     if DistanceBetweenXY(data.Points[1].x, data.Points[1].y, data.Points[#data.Points].x, data.Points[#data.Points].y) > 100 then
-                        print("wave")
+                        --print("wave")
+                        CastWave(data,data.Points[1].x, data.Points[1].y, data.Points[#data.Points].x, data.Points[#data.Points].y)
                     else
                         print("кривой круг")
                     end
@@ -119,15 +120,15 @@ function ShapeInit()
                 end)
                 if data.line2 then
 
-                    if distCast <= 500 or true then
+
+                    ChkCross(data, x1, y1, x2, y2, data.line2[1], data.line2[2], data.line2[3], data.line2[4])
+
+                else
+                    if distCast <= 500  then
                         CreateAndForceBullet(data.UnitHero, angle, 40, "Abilities\\Weapons\\Mortar\\MortarMissile.mdl", nil, nil, 200)
                     else
                         print("Стена льда")
                     end
-                    ChkCross(data, x1, y1, x2, y2, data.line2[1], data.line2[2], data.line2[3], data.line2[4])
-
-
-                    --end
                 end
             else
                 data.lineActive = false
@@ -135,13 +136,15 @@ function ShapeInit()
                 --print("линия 2")
                 if data.line1 then
 
-                    if distCast <= 500 or true  then
+
+                    ChkCross(data, x1, y1, x2, y2, data.line1[1], data.line1[2], data.line1[3], data.line1[4])
+                    --end
+                else
+                    if distCast <= 500  then
                         CreateAndForceBullet(data.UnitHero, angle, 40, "Abilities\\Weapons\\Mortar\\MortarMissile.mdl", nil, nil, 200)
                     else
 
                     end
-                    ChkCross(data, x1, y1, x2, y2, data.line1[1], data.line1[2], data.line1[3], data.line1[4])
-                    --end
                 end
             end
 
