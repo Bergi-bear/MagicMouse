@@ -384,7 +384,7 @@ function CreateAndPlayGif(x, y, path, size, endFrame, destroyOnPlay, fps, flag)
                     sZero = "0" .. s
                 end
                 totalPath = gifPath .. sZero
-                print(totalPath)
+                --print(totalPath)
             end
             BlzFrameSetTexture(gif, totalPath, 0, true)
             s = s + 1
