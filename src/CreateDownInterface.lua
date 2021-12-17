@@ -4,23 +4,20 @@
 --- DateTime: 16.12.2021 21:48
 ---
 function CreateDownInterface(data)
-    AddDownInterfaceElement(data,"icons\\line")
-    AddDownInterfaceElement(data,"icons\\circle")
-    AddDownInterfaceElement(data,"icons\\curve")
-    AddDownInterfaceElement(data,"icons\\triangle")
-    AddDownInterfaceElement(data,"icons\\wave")
-    AddDownInterfaceElement(data,"icons\\squae")
-    AddDownInterfaceElement(data,"icons\\smallrocks")
-    AddDownInterfaceElement(data,"icons\\circleHeal")
-    AddDownInterfaceElement(data,"icons\\clock")
-    AddDownInterfaceElement(data,"icons\\icewall")
-    AddDownInterfaceElement(data,"icons\\deathcross")
-    AddDownInterfaceElement(data,"icons\\grandcross")
-    AddDownInterfaceElement(data,"icons\\z")
-    AddDownInterfaceElement(data,"icons\\m")
-
-
-
+    AddDownInterfaceElement(data,"line")
+    AddDownInterfaceElement(data,"circle")
+    AddDownInterfaceElement(data,"curve")
+    AddDownInterfaceElement(data,"triangle")
+    AddDownInterfaceElement(data,"wave")
+    AddDownInterfaceElement(data,"squae")
+    AddDownInterfaceElement(data,"smallrocks")
+    AddDownInterfaceElement(data,"circleHeal")
+    AddDownInterfaceElement(data,"clock")
+    AddDownInterfaceElement(data,"icewall")
+    AddDownInterfaceElement(data,"deathcross")
+    AddDownInterfaceElement(data,"grandcross")
+    AddDownInterfaceElement(data,"z")
+    AddDownInterfaceElement(data,"m")
 
 end
 
