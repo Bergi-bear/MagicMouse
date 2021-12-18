@@ -14,6 +14,7 @@ function CreatePeonForPlayer(data)
         UnitAddAbility(data.UnitHero,FourCC("Abun"))
         UnitRemoveType(data.UnitHero,UNIT_TYPE_PEON)
         InitWASD(data.UnitHero)
+        InitInventory(data)
     end
 end
 

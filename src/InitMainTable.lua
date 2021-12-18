@@ -86,6 +86,10 @@ function InitHEROTable()
             HPForSummon            = 0, -- бонус хп для суммонов
             --ошибочное
             life                   = 10,
+            --- НОВОЕ
+            ItemSlot={}, -- таблица фремов в многослотовом инвентаре
+            ItemSlotTexture={},
+            ItemSlotName={} -- таблица имён для предметов
         }
         InitInputHandler(HERO[i])
         CreatePeonForPlayer(HERO[i])

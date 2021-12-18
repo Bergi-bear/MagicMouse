@@ -23,6 +23,7 @@ do
             CreateWASDActions()
             InitGameSlimes()
             PlayList()
+            CreateEActions()
             --wGeometry = wGeometryInit()
             print(">>>")
 

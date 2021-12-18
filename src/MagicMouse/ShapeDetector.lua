@@ -86,10 +86,8 @@ function ShapeDetectorClear(data)
     -- print(anglePrint)
     --print("Count: ".. #Points)
 
-    -- clearEffects
-    for i = 1, #data.Effects do
-        DestroyEffect(data.Effects[i])
-    end
+    --
+
 
     DetectShape(angles, data.sides, data)
 

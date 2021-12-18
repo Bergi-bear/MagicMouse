@@ -18,6 +18,7 @@ function CreateDownInterface(data)
     AddDownInterfaceElement(data,"grandcross")
     AddDownInterfaceElement(data,"z")
     AddDownInterfaceElement(data,"m")
+    AddDownInterfaceElement(data,"сurvecircle")
 
 end
 

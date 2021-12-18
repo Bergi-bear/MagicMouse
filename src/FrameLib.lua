@@ -20,10 +20,10 @@ end
 function HideEverythingAll()
     BlzFrameSetAbsPoint(BlzGetFrameByName("ConsoleUIBackdrop", 0), FRAMEPOINT_TOPRIGHT, 0, 0)
     for i = 0, 11 do
-        BlzFrameSetVisible(BlzGetFrameByName("CommandButton_" .. i, 0), false) --отключить
+        BlzFrameSetVisible(BlzGetFrameByName("CommandButton_" .. i, 0), false)
     end
     BlzHideOriginFrames(true)--скрыть всё
-    BlzFrameSetScale(BlzFrameGetChild(BlzGetFrameByName("ConsoleUI", 0), 5), 0.001) --рамка мёртвой зоны отключение
+    BlzFrameSetScale(BlzFrameGetChild(BlzGetFrameByName("ConsoleUI", 0), 5), 0.001)
 end
 
 function HideEverything()

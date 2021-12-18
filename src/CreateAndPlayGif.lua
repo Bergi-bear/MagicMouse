@@ -16,7 +16,7 @@ function CreateAndPlayGif(x, y, path, size, endFrame, destroyOnPlay, fps, flag)
     local gif = BlzCreateFrameByType('BACKDROP', 'FaceButtonIcon', BlzGetOriginFrame(ORIGIN_FRAME_GAME_UI, 0), '', 0)
     local firstShow = false
     BlzFrameSetParent(gif, BlzGetFrameByName("ConsoleUIBackdrop", 0))
-    BlzFrameSetTexture(gif, gifPath .. 0, 0, true)
+    BlzFrameSetTexture(gif, "dds\\load", 0,true)
     BlzFrameSetSize(gif, size, size)
     BlzFrameSetAbsPoint(gif, FRAMEPOINT_TOP, x, y)
     --BlzFrameSetVisible(gif, false)

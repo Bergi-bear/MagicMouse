@@ -12,7 +12,9 @@ function InitMouseClickEvent()
     TriggerAddAction(TrigPressLMB, function()
         if BlzGetTriggerPlayerMouseButton() == MOUSE_BUTTON_TYPE_LEFT then
             --print("клик левой")
-            HERO[GetPlayerId(GetTriggerPlayer())].LMBIsPressed = true
+            local data=HERO[GetPlayerId(GetTriggerPlayer())]
+            data.LMBIsPressed = true
+            data.inputEffectNumber=GetRandomInt(1,8)
         end
     end)
 

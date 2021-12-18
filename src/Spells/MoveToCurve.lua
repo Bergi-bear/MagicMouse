@@ -4,7 +4,7 @@
 --- DateTime: 12.12.2021 12:08
 ---
 function MoveToCurve(data, points)
-    local eff = AddSpecialEffect("Abilities\\Weapons\\Mortar\\MortarMissile.mdl", points[1].x, points[1].y)
+    local eff = AddSpecialEffect("Abilities\\Weapons\\SentinelMissile\\SentinelMissile.mdl", points[1].x, points[1].y)--Abilities\\Weapons\\Mortar\\MortarMissile.mdl
     MoveElement2Next(points, 1, eff, data)
 end
 

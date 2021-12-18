@@ -18,9 +18,16 @@ end
 
 function ClearPoints(data)
     data.Points = {}
+    --
+    for i = 1, #data.Effects do
+        --print("clearEffects",i)
+       -- BlzSetSpecialEffectPosition(data.Effects[i],-5000,-5000,0)
+        DestroyEffect(data.Effects[i])
+    end
+    data.Effects = {}
 end
 
-function InputUpdate (data,x,y)
+function InputUpdate (data, x, y)
     --local x, y = data.fakeX, data.fakeY --GetPlayerMouseX[data.pid], GetPlayerMouseY[data.pid]
     local vector = Vector:new(x, y, 0)
 
@@ -34,7 +41,7 @@ function InputUpdate (data,x,y)
         table.insert(data.Points, vector)
         --print("insert OK")
 
-        table.insert(data.Effects, CreateTMPEffect(x,y, "units\\nightelf\\Wisp\\Wisp")) -- "Abilities\\Spells\\Items\\HealingSalve\\HealingSalveTarget.mdl"
+        table.insert(data.Effects, CreateTMPEffect(x, y,"Doodads\\Cinematic\\GlowingRunes\\GlowingRunes"..data.inputEffectNumber )) -- "Abilities\\Spells\\Items\\HealingSalve\\HealingSalveTarget.mdl"--"units\\nightelf\\Wisp\\Wisp"
 
         ShapeDetectorAdd(data.Points[#data.Points],
                 #data.Points <= 1 and 0 or data.Points[#data.Points - 1], data)

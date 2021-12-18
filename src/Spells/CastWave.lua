@@ -23,7 +23,8 @@ function CastWave(data, x, y, x2, y2)
         BlzSetSpecialEffectYaw(eff, math.rad(angle))
         BlzPlaySpecialEffect(eff, ANIM_TYPE_BIRTH)
         local is, enemy = UnitDamageArea(data.UnitHero, 5, x, y, 200)
-        if is then
+        if is and enemy then
+           -- print("попадание волной")
             DestroyEffect(AddSpecialEffect("Abilities\\Spells\\Other\\CrushingWave\\CrushingWaveDamage.mdl", GetUnitXY(enemy)))
         end
         UnitAddForceSimple(enemy, angle, speed, 100)

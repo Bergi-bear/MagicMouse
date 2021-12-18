@@ -4,10 +4,16 @@
 --- DateTime: 13.12.2021 1:23
 ---
 function FlameStrike(data, x, y, r)
-    UnitDamageArea(data.UnitHero, r / 2, x, y, r)
+    local damage = r / 2
+    if damage<=250 then
+        damage=200
+    end
+    UnitDamageArea(data.UnitHero, damage, x, y, r)
+    StunArea(data.UnitHero,x,y,r,1)
     local interval = 0.1
     local eff = AddSpecialEffect("Abilities\\Spells\\Human\\FlameStrike\\FlameStrike.mdl", x, y)
     local scale = r / 250
+
     if scale <= 0.7 then
         scale = 0.7
     end
@@ -37,14 +43,14 @@ end
 
 function ChkMediumRadius(Points, r, x, y)
     local delta = 50
-    local isCircle=true
+    local isCircle = true
     for i = 1, #Points do
         local d = DistanceBetweenXY(x, y, Points[i].x, Points[i].y)
         if math.abs(d - r) > delta then
             --print("большой разброс, это не круг")
-            isCircle=false
+            isCircle = false
         else
-           -- print("ok")
+            -- print("ok")
         end
     end
     return isCircle
