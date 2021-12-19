@@ -287,6 +287,7 @@ function PointContentDestructable (x, y, range, iskill, damage, hero)
                 end
                 if GetDestructableLife(d) >= 1 then
                     SetDestructableAnimation(d, "Stand Hit")
+                    DamageFruitTree(d)
                 else
                 end
             end

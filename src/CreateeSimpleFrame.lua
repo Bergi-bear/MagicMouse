@@ -31,7 +31,7 @@ function CreateSimpleFrameGlue(posX, PosY, texture) --, call,callENTER,callLEAVE
         --call()
         BlzFrameSetEnable(BlzGetTriggerFrame(), false)
         BlzFrameSetEnable(BlzGetTriggerFrame(), true)
-
+        --StopUnitMoving(data)
     end)
 
     local TrigMOUSE_ENTER = CreateTrigger()

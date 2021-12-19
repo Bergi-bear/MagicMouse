@@ -7,23 +7,38 @@
 BDItems = {
     ["Slime Card"]  = {
         descriptions = "Постоянное увеличение ХП на 50",
-        ico          = "ReplaceableTextures\\CommandButtons\\BTNDust",
+        effModel     = "SpecialItemWhite",
+        ico          = "card",
         cost         = "100",
         lvl          = 1,
-        short        = "HP UP"
+        short        = "HP UP",
+        drop         = 5,
     },
     ["Slime Jelly"] = {
         descriptions = "Исцеляет на 50 единиц при подборе",
-        ico          = "ReplaceableTextures\\CommandButtons\\BTNDust",
+        effModel     = "",
+        ico          = "ReplaceableTextures\\CommandButtons\\BTNPhilosophersStone.blp",
         cost         = "100",
         lvl          = 1,
-        short        = "Heal"
+        short        = "Heal",
+        drop         = 50,
     },
-    ["Slime Egg"] = {
+    ["Slime Egg"]   = {
         descriptions = "Слайм всегда сражается на вашей стороне",
-        ico          = "ReplaceableTextures\\CommandButtons\\BTNDust",
+        effModel     = "",
+        ico          = "ReplaceableTextures\\CommandButtons\\BTNPhoenixEgg.blp",
         cost         = "100",
         lvl          = 1,
-        short        = "Summon Slime"
+        short        = "Summon Slime",
+        drop         = 20,
+    },
+    ["Apple"]       = {
+        descriptions = "Восстанавливает 10 здоровья",
+        effModel     = "",
+        ico          = "Icons\\RO\\apple",
+        cost         = "100",
+        lvl          = 1,
+        short        = "Small Heal",
+        drop         = 20,
     },
 }

@@ -4,9 +4,19 @@
 --- DateTime: 18.12.2021 21:48
 ---
 AllItemsTable={}
-function CreateItemPrefab(x,y,name)
+function CreateItemPrefab(x,y,name,fromEffect)
     local t={}
-    local eff=AddSpecialEffect("SpecialItemWhite",x,y)
+    local effModel=BDItems[name].effModel
+    if not effModel or effModel=="" then
+        --print("пустой эффект")
+        effModel="BagItem"
+    end
+    local eff=nil
+    if not fromEffect then
+        eff=AddSpecialEffect(effModel,x,y)
+    else
+        eff=fromEffect
+    end
     table.insert(t,eff)
     table.insert(t,name)
     table.insert(t,x)
@@ -16,7 +26,13 @@ end
 
 function CreateItemPrefabPool(x,y,...)
     local pool ={...}
-    --print(#pool)
-    local r=GetRandomInt(1,#pool)
-    CreateItemPrefab(x,y,pool[r])
+    for i=1, #pool do
+        local drop=BDItems[pool[i]].drop
+        local dice=GetRandomInt(1,100)
+        --print(drop,dice)
+        if dice<=drop then
+            local xn,yn=MoveXY(x,y,GetRandomInt(1,50),GetRandomInt(0,360))
+            CreateItemPrefab(xn,yn,pool[i])
+        end
+    end
 end

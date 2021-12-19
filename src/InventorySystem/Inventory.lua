@@ -6,6 +6,7 @@
 function InitInventory(data)
     local BoxFrame = CreateInventoryBox(data)
     CreateInventoryButton(data, nil, BoxFrame)
+    BlzFrameSetVisible(BoxFrame, false)
 end
 function CreateInventoryButton(data, texture, BoxFrame)
     if not texture then
@@ -38,7 +39,7 @@ function CreateInventoryButton(data, texture, BoxFrame)
 
         BlzFrameSetEnable(BlzGetTriggerFrame(), false)
         BlzFrameSetEnable(BlzGetTriggerFrame(), true)
-
+        StopUnitMoving(data)
     end)
 
     local TrigMOUSE_ENTER = CreateTrigger()
@@ -76,24 +77,31 @@ function CreateInventoryBox(data)
             m = m + 1
         end
     end
+    data.BoxFrame = BoxFrame
     return BoxFrame
 end
 GNext = 0.039
 function CreateEmptySlot(data, x, y, parent, m)
     local name = "empty_slot"
+    local preBackdrop = BlzCreateFrameByType('BACKDROP', 'FaceButtonIcon', parent, '', 0)
     local SelfFrame = BlzCreateFrameByType('GLUEBUTTON', 'FaceButton', parent, 'ScoreScreenTabButtonTemplate', 0)
     local buttonIconFrame = BlzCreateFrameByType('BACKDROP', 'FaceButtonIcon', SelfFrame, '', 0)
     local tooltip, backdrop, text = CreateToolTipBox(x, y, parent)
     BlzFrameSetParent(SelfFrame, BlzGetFrameByName("ConsoleUIBackdrop", 0))
     BlzFrameSetParent(buttonIconFrame, BlzGetFrameByName("ConsoleUIBackdrop", 0))
+    BlzFrameSetParent(preBackdrop, BlzGetFrameByName("ConsoleUIBackdrop", 0))
     -- BlzFrameSetVisible(SelfFrame, false)
     -- BlzFrameSetVisible(SelfFrame, GetLocalPlayer() == player)
     BlzFrameSetAllPoints(buttonIconFrame, SelfFrame)
     BlzFrameSetTexture(buttonIconFrame, name, 0, true)
+
+    BlzFrameSetAllPoints(preBackdrop, SelfFrame)
+    BlzFrameSetTexture(preBackdrop, name, 0, true)
+
     BlzFrameSetSize(SelfFrame, GNext, GNext)
     BlzFrameSetAbsPoint(SelfFrame, FRAMEPOINT_CENTER, x, y)
     --print("создан action", m)
-    CreateTriggerActions(data,SelfFrame, tooltip,text,m)
+    CreateTriggerActions(data, SelfFrame, tooltip, text, m)
 
     return SelfFrame, buttonIconFrame, name, tooltip, text
 end
@@ -101,11 +109,20 @@ end
 function GetFrameFreeSlot(data, name)
     local find = false
     for i = 1, #data.ItemSlot do
+
+        if data.ItemSlotName[i] == name then
+            local ch = GetFrameCharges(data.ItemSlotTexture[i])
+            --print(ch)
+            SetFrameCharges(data.ItemSlotTexture[i], ch + 1)
+            --print("у вас уже есть предмет данного типа, пополняем заряды", ch + 1)
+            return data.ItemSlotTexture[i], i
+        end
         if data.ItemSlotName[i] == "empty_slot" then
             --print("найден пустой слот в позиции",i)
+            MakeFrameCharged(data.ItemSlotTexture[i], 1)
             data.ItemSlotName[i] = name
             find = true
-            return data.ItemSlotTexture[i],i
+            return data.ItemSlotTexture[i], i
         end
     end
     if not find then
@@ -120,8 +137,8 @@ function CreateToolTipBox(x, y, parent)
     --BlzFrameSetParent(tooltip, BlzGetFrameByName("ConsoleUIBackdrop", 0))
     BlzFrameSetParent(backdrop, BlzGetFrameByName("ConsoleUIBackdrop", 0))
     --BlzFrameSetParent(text, BlzGetFrameByName("ConsoleUIBackdrop", 0))
-    BlzFrameSetAbsPoint(tooltip, FRAMEPOINT_CENTER, x, y + 0.07)
-    local sx, sy = 0.1, 0.1
+    BlzFrameSetAbsPoint(tooltip, FRAMEPOINT_CENTER, x, y + 0.078)
+    local sx, sy = 0.2, 0.1
     BlzFrameSetSize(tooltip, sx, sy)
     BlzFrameSetSize(backdrop, sx, sy)
     BlzFrameSetSize(text, sx * .75, sy * .9)
@@ -133,14 +150,14 @@ function CreateToolTipBox(x, y, parent)
     return tooltip, backdrop, text
 end
 
-function CreateTriggerActions(data,SelfFrame, tooltip,text,m)
+function CreateTriggerActions(data, SelfFrame, tooltip, text, m)
     local ClickTrig = CreateTrigger()
     BlzTriggerRegisterFrameEvent(ClickTrig, SelfFrame, FRAMEEVENT_CONTROL_CLICK)
     TriggerAddAction(ClickTrig, function()
-        print("клик")
+        --print("клик")
         BlzFrameSetEnable(BlzGetTriggerFrame(), false)
         BlzFrameSetEnable(BlzGetTriggerFrame(), true)
-
+        StopUnitMoving(data)
     end)
 
     local TrigMOUSE_ENTER = CreateTrigger()
@@ -148,7 +165,7 @@ function CreateTriggerActions(data,SelfFrame, tooltip,text,m)
 
     TriggerAddAction(TrigMOUSE_ENTER, function()
         BlzFrameSetVisible(tooltip, true)
-        UpdateToolTipForItemInSlot(data,text,m)
+        UpdateToolTipForItemInSlot(data, text, m)
         --print("показать подсказку ")
 
 
@@ -162,11 +179,45 @@ function CreateTriggerActions(data,SelfFrame, tooltip,text,m)
     end)
 end
 
-function UpdateToolTipForItemInSlot(data,text,m)
-
-    local name=data.ItemSlotName[m]
+function UpdateToolTipForItemInSlot(data, text, m)
+    local name = data.ItemSlotName[m]
     --print(name)
     if BDItems[name] then
-        BlzFrameSetText(text,ColorText2(name).."\n"..BDItems[name].descriptions)
+        BlzFrameSetText(text, ColorText2(name) .. "\n" .. BDItems[name].descriptions)
     end
+end
+
+function SetFrameCharges(fh, ch)
+    if BlzFrameGetChildrenCount(fh) == 0 then
+        MakeFrameCharged(fh, ch)
+    else
+        local textFrame = BlzFrameGetChild(fh, 1)
+        BlzFrameSetText(textFrame, I2S(R2I(ch)))
+    end
+end
+
+function GetFrameCharges(fh)
+    --print("число детей", BlzFrameGetChildrenCount(fh) )
+    if BlzFrameGetChildrenCount(fh) == 0 then
+        MakeFrameCharged(fh, 1)
+        return 1
+    else
+        --print("заряды уже были", BlzFrameGetChildrenCount(fh) )
+
+        local textFrame = BlzFrameGetChild(fh, 1)
+        local text = BlzFrameGetText(textFrame)
+        --print("найдено зарядов", text)
+        return S2I(text)
+    end
+end
+
+function MakeFrameCharged(fh, ch)
+    local chargesBox = BlzCreateFrameByType('BACKDROP', 'FaceButtonIcon', fh, '', 0)-- рамка
+    BlzFrameSetTexture(chargesBox, "UI\\Widgets\\Console\\Human\\CommandButton\\human-button-lvls-overlay", 0, true)
+    BlzFrameSetSize(chargesBox, GNext / 2, GNext / 3)
+    BlzFrameSetPoint(chargesBox, FRAMEPOINT_BOTTOMRIGHT, fh, FRAMEPOINT_BOTTOMRIGHT, 0.001, 0.0)
+    local text = BlzCreateFrameByType("TEXT", "ButtonChargesText", fh, "", 0)
+    BlzFrameSetPoint(text, FRAMEPOINT_CENTER, chargesBox, FRAMEPOINT_CENTER, 0.0, 0.0)
+    BlzFrameSetText(text, I2S(R2I(ch)))
+    return text
 end

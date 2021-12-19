@@ -150,15 +150,14 @@ function InitWASD(hero)
 
                 TimerStart(CreateTimer(), 3, false, function()
                     DestroyTimer(GetExpiredTimer())
-                        ReviveHero(hero, x, y, true)
-                        SetUnitInvulnerable(hero, true)
-                        TimerStart(CreateTimer(), 2, false, function()
-                            SetUnitInvulnerable(hero, false)
-                            DestroyTimer(GetExpiredTimer())
-                        end)
+                    ReviveHero(hero, x, y, true)
+                    SetUnitInvulnerable(hero, true)
+                    TimerStart(CreateTimer(), 2, false, function()
+                        SetUnitInvulnerable(hero, false)
+                        DestroyTimer(GetExpiredTimer())
+                    end)
                 end)
             end
-
 
             SetCameraQuickPosition(GetUnitX(data.CameraStabUnit), GetUnitY(data.CameraStabUnit))
             SetCameraTargetControllerNoZForPlayer(GetOwningPlayer(data.CameraStabUnit), data.CameraStabUnit, 10, 10, true) -- не дергается
@@ -708,6 +707,7 @@ function CreateWASDActions()
         data.ReleaseSPACE = false
     end)
     -----------------------------------------------------------------OSKEY_Q
+    --[[
     local TrigPressQ = CreateTrigger()
     for i = 0, bj_MAX_PLAYER_SLOTS - 1 do
         BlzTriggerRegisterPlayerKeyEvent(TrigPressQ, Player(i), OSKEY_Q, 0, true)
@@ -803,7 +803,7 @@ function CreateWASDActions()
         local data = HERO[pid]
         --data.ReleaseQ = false
     end)
-
+]]
 end
 ---MouseX,MouseY=0,0
 function BlockMouse(data)
@@ -854,4 +854,11 @@ end
 
 function LockAnimAnimation(data)
     return data.BowReady
+end
+
+function StopUnitMoving(data)
+    data.ReleaseW=false
+    data.ReleaseA=false
+    data.ReleaseS=false
+    data.ReleaseD=false
 end

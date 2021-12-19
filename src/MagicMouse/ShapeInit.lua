@@ -129,7 +129,8 @@ function ShapeInit()
                     if distCast <= 500  then
                         CreateAndForceBullet(data.UnitHero, angle, 40, effModel, nil, nil, 200)
                     else
-                        print("Стена льда")
+                       -- print("Стена льда")
+                        CreateIceLine(data)
                     end
                 end
             else

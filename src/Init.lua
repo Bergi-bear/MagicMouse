@@ -24,11 +24,10 @@ do
             InitGameSlimes()
             PlayList()
             CreateEActions()
+            CreateTabActions()
             --wGeometry = wGeometryInit()
             ShapeInit()
             print(">>>")
-
-
         end)
     end
 end

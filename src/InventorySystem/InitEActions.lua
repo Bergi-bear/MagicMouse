@@ -14,7 +14,7 @@ function CreateEActions()
         local pid = GetPlayerId(GetTriggerPlayer())
         local data = HERO[pid]
         if not data.ReleaseE and UnitAlive(data.UnitHero) then
-            data.ReleaseE=true
+            data.ReleaseE = true
             CatchItem(data)
             --print("нажал Е")
         end
@@ -28,5 +28,38 @@ function CreateEActions()
         local pid = GetPlayerId(GetTriggerPlayer())
         local data = HERO[pid]
         data.ReleaseE = false
+    end)
+end
+
+function CreateTabActions()
+    -----------------------------------------------------------------OSKEY_Tab
+    local gg_trg_EventUpTAB = CreateTrigger()
+    for i = 0, bj_MAX_PLAYER_SLOTS - 1 do
+        BlzTriggerRegisterPlayerKeyEvent(gg_trg_EventUpTAB, Player(i), OSKEY_TAB, 0, true)
+    end
+    TriggerAddAction(gg_trg_EventUpTAB, function()
+        local pid = GetPlayerId(GetTriggerPlayer())
+        local data = HERO[pid]
+        if not data.ReleaseTAB then
+            data.ReleaseTAB = true
+            --CatchItem(data)
+            if BlzFrameIsVisible(data.BoxFrame) then
+                BlzFrameSetVisible(data.BoxFrame, false)
+            else
+                BlzFrameSetVisible(data.BoxFrame, GetLocalPlayer()==GetTriggerPlayer())
+            end
+
+            --print("нажал TAB")
+        end
+    end)
+
+    local TrigDepressTAB = CreateTrigger()
+    for i = 0, bj_MAX_PLAYER_SLOTS - 1 do
+        BlzTriggerRegisterPlayerKeyEvent(TrigDepressTAB, Player(i), OSKEY_TAB, 0, false)
+    end
+    TriggerAddAction(TrigDepressTAB, function()
+        local pid = GetPlayerId(GetTriggerPlayer())
+        local data = HERO[pid]
+        data.ReleaseTAB = false
     end)
 end
