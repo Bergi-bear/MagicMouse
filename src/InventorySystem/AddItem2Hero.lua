@@ -11,13 +11,14 @@ function AddItem2Hero(data, name)
         print("Предмета нет в базе данных",name)
     end
     --print(BDItems[name].descriptions)
-    local freeFrameSlot=GetFrameFreeSlot(data,name)
+    local freeFrameSlot,m=GetFrameFreeSlot(data,name)
 
     if not freeFrameSlot then
         print("инвентарь переполнен")
         return false
     end
     --print("меняю текстуру на",BDItems[name].ico)
+    data.ItemSlotName[m]=name
     BlzFrameSetTexture(freeFrameSlot, BDItems[name].ico, 0, true)
     return true
 end

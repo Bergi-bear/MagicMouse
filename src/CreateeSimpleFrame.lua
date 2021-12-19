@@ -60,24 +60,7 @@ function CreateSimpleFrameGlue(posX, PosY, texture) --, call,callENTER,callLEAVE
 end
 
 
-function CreateToolTipBox()
-    local tooltip = BlzCreateFrameByType("FRAME", "TestDialog", BlzGetOriginFrame(ORIGIN_FRAME_GAME_UI, 0), "StandardFrameTemplate", 0)
-    local backdrop = BlzCreateFrame("QuestButtonDisabledBackdropTemplate", tooltip, 0, 0)
-    local text = BlzCreateFrameByType("TEXT", "ButtonChargesText", tooltip, "", 0)
-    --BlzFrameSetParent(tooltip, BlzGetFrameByName("ConsoleUIBackdrop", 0))
-    --BlzFrameSetParent(backdrop, BlzGetFrameByName("ConsoleUIBackdrop", 0))
-    --BlzFrameSetParent(text, BlzGetFrameByName("ConsoleUIBackdrop", 0))
-    BlzFrameSetAbsPoint(tooltip, FRAMEPOINT_CENTER, 0, TTBoxY)
-    BlzFrameSetSize(tooltip, 0.24, 0.15)
-    BlzFrameSetSize(backdrop, 0.24, 0.15)
-    BlzFrameSetSize(text, 0.24 * .75, 0.15 * .9)
-    BlzFrameSetPoint(backdrop, FRAMEPOINT_CENTER, tooltip, FRAMEPOINT_CENTER, 0.0, 0.0)
-    BlzFrameSetAlpha(backdrop, 250)
-    BlzFrameSetText(text, "ОШИБКА Первичное описание ещё не обновлено")
-    BlzFrameSetPoint(text, FRAMEPOINT_CENTER, tooltip, FRAMEPOINT_CENTER, 0.04, 0.0)
-    BlzFrameSetVisible(tooltip, false)
-    return tooltip, backdrop, text
-end
+
 
 function ColorText2(s)
     s = "|cffffcc00" .. s .. "|r"

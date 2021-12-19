@@ -25,9 +25,10 @@ do
             PlayList()
             CreateEActions()
             --wGeometry = wGeometryInit()
+            ShapeInit()
             print(">>>")
 
-            ShapeInit()
+
         end)
     end
 end

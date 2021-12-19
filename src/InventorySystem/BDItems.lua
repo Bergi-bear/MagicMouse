@@ -5,10 +5,25 @@
 ---
 
 BDItems = {
-    ["SlimeCard"] = {
-        descriptions = "Карта из самого слайма, что-то может делать",
+    ["Slime Card"]  = {
+        descriptions = "Постоянное увеличение ХП на 50",
         ico          = "ReplaceableTextures\\CommandButtons\\BTNDust",
         cost         = "100",
         lvl          = 1,
+        short        = "HP UP"
+    },
+    ["Slime Jelly"] = {
+        descriptions = "Исцеляет на 50 единиц при подборе",
+        ico          = "ReplaceableTextures\\CommandButtons\\BTNDust",
+        cost         = "100",
+        lvl          = 1,
+        short        = "Heal"
+    },
+    ["Slime Egg"] = {
+        descriptions = "Слайм всегда сражается на вашей стороне",
+        ico          = "ReplaceableTextures\\CommandButtons\\BTNDust",
+        cost         = "100",
+        lvl          = 1,
+        short        = "Summon Slime"
     },
 }

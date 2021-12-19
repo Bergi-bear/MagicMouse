@@ -88,8 +88,10 @@ function InitHEROTable()
             life                   = 10,
             --- НОВОЕ
             ItemSlot={}, -- таблица фремов в многослотовом инвентаре
-            ItemSlotTexture={},
-            ItemSlotName={} -- таблица имён для предметов
+            ItemSlotTexture={}, -- текстура фрейма предмета
+            ItemSlotName={}, -- таблица имён для предметов
+            ItemSlotTooltip={}, -- фрейм тултипа описания
+            ItemSlotText={}, -- описание предмета
         }
         InitInputHandler(HERO[i])
         CreatePeonForPlayer(HERO[i])

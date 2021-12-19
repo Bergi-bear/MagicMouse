@@ -25,7 +25,7 @@ function CreateInventoryButton(data, texture, BoxFrame)
     BlzFrameSetAllPoints(buttonIconFrame, SelfFrame)
     BlzFrameSetTexture(buttonIconFrame, texture, 0, true)
     BlzFrameSetSize(SelfFrame, GNext, GNext)
-    BlzFrameSetAbsPoint(SelfFrame, FRAMEPOINT_CENTER, 0.8+GNext/2, GNext/2)
+    BlzFrameSetAbsPoint(SelfFrame, FRAMEPOINT_CENTER, 0.8 + GNext / 2, GNext / 2)
 
     local ClickTrig = CreateTrigger()
     BlzTriggerRegisterFrameEvent(ClickTrig, SelfFrame, FRAMEEVENT_CONTROL_CLICK)
@@ -66,46 +66,107 @@ function CreateInventoryButton(data, texture, BoxFrame)
 end
 
 function CreateInventoryBox(data)
-    local x, y = 0.624, 0.175+GNext
+    local x, y = 0.624, 0.175 + GNext
     local BoxFrame = BlzCreateFrameByType('BACKDROP', 'FaceButtonIcon', BlzGetOriginFrame(ORIGIN_FRAME_GAME_UI, 0), '', 0)
-    local m=1
+    local m = 1
 
-    for k = 1, 5 do
-        for i = 1, 5 do
-            data.ItemSlot[m],data.ItemSlotTexture[m],data.ItemSlotName[m]=CreateEmptySlot(data, x + (k - 1) * GNext, y - (i - 1) * GNext, BoxFrame)
-            m=m+1
+    for i = 1, 5 do
+        for k = 1, 5 do
+            data.ItemSlot[m], data.ItemSlotTexture[m], data.ItemSlotName[m], data.ItemSlotTooltip[m], data.ItemSlotText[m] = CreateEmptySlot(data, x + (k - 1) * GNext, y - (i - 1) * GNext, BoxFrame, m)
+            m = m + 1
         end
     end
     return BoxFrame
 end
 GNext = 0.039
-function CreateEmptySlot(data, x, y, BoxFrame)
-    local empty = "empty_slot"
-    local SelfFrame = BlzCreateFrameByType('GLUEBUTTON', 'FaceButton', BoxFrame, 'ScoreScreenTabButtonTemplate', 0)
+function CreateEmptySlot(data, x, y, parent, m)
+    local name = "empty_slot"
+    local SelfFrame = BlzCreateFrameByType('GLUEBUTTON', 'FaceButton', parent, 'ScoreScreenTabButtonTemplate', 0)
     local buttonIconFrame = BlzCreateFrameByType('BACKDROP', 'FaceButtonIcon', SelfFrame, '', 0)
+    local tooltip, backdrop, text = CreateToolTipBox(x, y, parent)
     BlzFrameSetParent(SelfFrame, BlzGetFrameByName("ConsoleUIBackdrop", 0))
     BlzFrameSetParent(buttonIconFrame, BlzGetFrameByName("ConsoleUIBackdrop", 0))
-   -- BlzFrameSetVisible(SelfFrame, false)
+    -- BlzFrameSetVisible(SelfFrame, false)
     -- BlzFrameSetVisible(SelfFrame, GetLocalPlayer() == player)
     BlzFrameSetAllPoints(buttonIconFrame, SelfFrame)
-    BlzFrameSetTexture(buttonIconFrame, empty, 0, true)
+    BlzFrameSetTexture(buttonIconFrame, name, 0, true)
     BlzFrameSetSize(SelfFrame, GNext, GNext)
     BlzFrameSetAbsPoint(SelfFrame, FRAMEPOINT_CENTER, x, y)
-    return SelfFrame,buttonIconFrame,empty
+    --print("создан action", m)
+    CreateTriggerActions(data,SelfFrame, tooltip,text,m)
+
+    return SelfFrame, buttonIconFrame, name, tooltip, text
 end
 
-
-function GetFrameFreeSlot(data,name)
-    local find=false
-    for i=1,#data.ItemSlot do
-        if data.ItemSlotName[i]=="empty_slot" then
+function GetFrameFreeSlot(data, name)
+    local find = false
+    for i = 1, #data.ItemSlot do
+        if data.ItemSlotName[i] == "empty_slot" then
             --print("найден пустой слот в позиции",i)
-            data.ItemSlotName[i]=name
-            find=true
-            return data.ItemSlotTexture[i]
+            data.ItemSlotName[i] = name
+            find = true
+            return data.ItemSlotTexture[i],i
         end
     end
     if not find then
         return false
+    end
+end
+
+function CreateToolTipBox(x, y, parent)
+    local tooltip = BlzCreateFrameByType("FRAME", "TestDialog", BlzGetOriginFrame(ORIGIN_FRAME_GAME_UI, 0), "StandardFrameTemplate", 0)
+    local backdrop = BlzCreateFrame("QuestButtonDisabledBackdropTemplate", tooltip, 0, 0)
+    local text = BlzCreateFrameByType("TEXT", "ButtonChargesText", tooltip, "", 0)
+    --BlzFrameSetParent(tooltip, BlzGetFrameByName("ConsoleUIBackdrop", 0))
+    BlzFrameSetParent(backdrop, BlzGetFrameByName("ConsoleUIBackdrop", 0))
+    --BlzFrameSetParent(text, BlzGetFrameByName("ConsoleUIBackdrop", 0))
+    BlzFrameSetAbsPoint(tooltip, FRAMEPOINT_CENTER, x, y + 0.07)
+    local sx, sy = 0.1, 0.1
+    BlzFrameSetSize(tooltip, sx, sy)
+    BlzFrameSetSize(backdrop, sx, sy)
+    BlzFrameSetSize(text, sx * .75, sy * .9)
+    BlzFrameSetPoint(backdrop, FRAMEPOINT_CENTER, tooltip, FRAMEPOINT_CENTER, 0.0, 0.0)
+    BlzFrameSetAlpha(backdrop, 250)
+    BlzFrameSetText(text, "Пусто")
+    BlzFrameSetPoint(text, FRAMEPOINT_CENTER, backdrop, FRAMEPOINT_CENTER, 0.00, -0.01)
+    BlzFrameSetVisible(tooltip, false)
+    return tooltip, backdrop, text
+end
+
+function CreateTriggerActions(data,SelfFrame, tooltip,text,m)
+    local ClickTrig = CreateTrigger()
+    BlzTriggerRegisterFrameEvent(ClickTrig, SelfFrame, FRAMEEVENT_CONTROL_CLICK)
+    TriggerAddAction(ClickTrig, function()
+        print("клик")
+        BlzFrameSetEnable(BlzGetTriggerFrame(), false)
+        BlzFrameSetEnable(BlzGetTriggerFrame(), true)
+
+    end)
+
+    local TrigMOUSE_ENTER = CreateTrigger()
+    BlzTriggerRegisterFrameEvent(TrigMOUSE_ENTER, SelfFrame, FRAMEEVENT_MOUSE_ENTER)
+
+    TriggerAddAction(TrigMOUSE_ENTER, function()
+        BlzFrameSetVisible(tooltip, true)
+        UpdateToolTipForItemInSlot(data,text,m)
+        --print("показать подсказку ")
+
+
+    end)
+    local TrigMOUSE_LEAVE = CreateTrigger()
+    BlzTriggerRegisterFrameEvent(TrigMOUSE_LEAVE, SelfFrame, FRAMEEVENT_MOUSE_LEAVE)
+    TriggerAddAction(TrigMOUSE_LEAVE, function()
+        BlzFrameSetVisible(tooltip, false)
+        --print("убрать подсказку")
+
+    end)
+end
+
+function UpdateToolTipForItemInSlot(data,text,m)
+
+    local name=data.ItemSlotName[m]
+    --print(name)
+    if BDItems[name] then
+        BlzFrameSetText(text,ColorText2(name).."\n"..BDItems[name].descriptions)
     end
 end

@@ -13,3 +13,10 @@ function CreateItemPrefab(x,y,name)
     table.insert(t,y)
     table.insert(AllItemsTable,t)
 end
+
+function CreateItemPrefabPool(x,y,...)
+    local pool ={...}
+    --print(#pool)
+    local r=GetRandomInt(1,#pool)
+    CreateItemPrefab(x,y,pool[r])
+end

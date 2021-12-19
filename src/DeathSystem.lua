@@ -30,7 +30,8 @@ function InitDeathEvent()
                     local new=CreateUnit(Player(10), SlimeID[i], x, y, 0)
                     SlimeAddMoveEvent(new)
                 end)
-                CreateItemPrefab(xu,yu,"SlimeCard")
+                --CreateItemPrefab(xu,yu,"Slime Card")
+                CreateItemPrefabPool(xu,yu,"Slime Card","Slime Jelly","Slime Egg")
             end
         end
     end)

@@ -17,6 +17,7 @@ function CatchItem(data)
                     DestroyEffect(dataItems[1])
                     table.remove(AllItemsTable, i)
                 end
+                --приходится обрывать цикл чтобы не было проблем
                 break
             end
         end
