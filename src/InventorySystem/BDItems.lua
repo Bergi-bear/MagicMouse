@@ -40,5 +40,6 @@ BDItems = {
         lvl          = 1,
         short        = "Small Heal",
         drop         = 20,
+        canUsed      = true,
     },
 }

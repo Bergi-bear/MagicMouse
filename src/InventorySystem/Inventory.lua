@@ -34,7 +34,7 @@ function CreateInventoryButton(data, texture, BoxFrame)
         if BlzFrameIsVisible(BoxFrame) then
             BlzFrameSetVisible(BoxFrame, false)
         else
-            BlzFrameSetVisible(BoxFrame, true)
+            BlzFrameSetVisible(BoxFrame, GetLocalPlayer()==GetTriggerPlayer())
         end
 
         BlzFrameSetEnable(BlzGetTriggerFrame(), false)
@@ -158,13 +158,14 @@ function CreateTriggerActions(data, SelfFrame, tooltip, text, m)
         BlzFrameSetEnable(BlzGetTriggerFrame(), false)
         BlzFrameSetEnable(BlzGetTriggerFrame(), true)
         StopUnitMoving(data)
+        ActiveItemActions(data,m)
     end)
 
     local TrigMOUSE_ENTER = CreateTrigger()
     BlzTriggerRegisterFrameEvent(TrigMOUSE_ENTER, SelfFrame, FRAMEEVENT_MOUSE_ENTER)
 
     TriggerAddAction(TrigMOUSE_ENTER, function()
-        BlzFrameSetVisible(tooltip, true)
+        BlzFrameSetVisible(tooltip, GetLocalPlayer()==GetTriggerPlayer())
         UpdateToolTipForItemInSlot(data, text, m)
         --print("показать подсказку ")
 
@@ -205,9 +206,10 @@ function GetFrameCharges(fh)
         --print("заряды уже были", BlzFrameGetChildrenCount(fh) )
 
         local textFrame = BlzFrameGetChild(fh, 1)
+        local chargesBox= BlzFrameGetChild(fh, 0)
         local text = BlzFrameGetText(textFrame)
         --print("найдено зарядов", text)
-        return S2I(text)
+        return S2I(text),chargesBox,textFrame
     end
 end
 

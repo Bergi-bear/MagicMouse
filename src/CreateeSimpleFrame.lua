@@ -38,7 +38,7 @@ function CreateSimpleFrameGlue(posX, PosY, texture) --, call,callENTER,callLEAVE
     BlzTriggerRegisterFrameEvent(TrigMOUSE_ENTER, SelfFrame, FRAMEEVENT_MOUSE_ENTER)
 
     TriggerAddAction(TrigMOUSE_ENTER, function()
-        BlzFrameSetVisible(gif,true)
+        BlzFrameSetVisible(gif,GetLocalPlayer()==GetTriggerPlayer())
         --print("показать подсказку ",flag)
         --callENTER()
      --   BlzFrameSetVisible(ttBox, true)
