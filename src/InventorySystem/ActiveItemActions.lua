@@ -8,7 +8,7 @@ function ActiveItemActions(data, m)
     local name = data.ItemSlotName[m]
     if BDItems[name] then
         if BDItems[name].canUsed then
-            print("Предмет можно использовать")
+            --print("Предмет можно использовать")
 
             ItemActivatorList(data,name)
 
@@ -22,7 +22,7 @@ function ActiveItemActions(data, m)
             end
         end
     else
-        print("клик по пустому слоту")
+        --print("клик по пустому слоту")
     end
 end
 

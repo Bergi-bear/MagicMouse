@@ -128,6 +128,7 @@ function ShapeInit()
                 else
                     if distCast <= 500  then
                         CreateAndForceBullet(data.UnitHero, angle, 40, effModel, nil, nil, 200)
+                        TriggerCastByName(data,"line")
                     else
                        -- print("Стена льда")
                         CreateIceLine(data)
@@ -145,6 +146,7 @@ function ShapeInit()
                 else
                     if distCast <= 500  then
                         CreateAndForceBullet(data.UnitHero, angle, 40,effModel , nil, nil, 200)--"Abilities\\Weapons\\Mortar\\MortarMissile.mdl"
+                        TriggerCastByName(data,"line")
                     else
 
                     end

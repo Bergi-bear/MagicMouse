@@ -27,7 +27,10 @@ function AddDownInterfaceElement(data, name)
     local step = 0.039
     if not data.nextElement then
         data.nextElement = 0
+        data.SpellsName={}-- таблица содержит фреймы
+        data.SpellsFH={}
     end
-    data.nextElement = data.nextElement + step
-    CreateSimpleFrameGlue(data.nextElement, 0.02, name)
+    data.nextElement = data.nextElement + 1
+    data.SpellsName[data.nextElement]=name
+    data.SpellsFH[data.nextElement]=CreateSimpleFrameGlue(data.nextElement*step, 0.02, name)
 end
