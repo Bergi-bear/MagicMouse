@@ -3,7 +3,7 @@ TIMER_PERIOD = 1 / 32
 TIMER_PERIOD64 = 1 / 64
 HERO = {}
 HeroID = FourCC("O000")
-perebor = CreateGroup()
+
 
 function InitAnimations(hero, data)
 
@@ -84,7 +84,22 @@ function InitWASD(hero)
             if not IsUnitSelected(hero, GetOwningPlayer(hero)) then
                 SelectUnitForPlayerSingle(hero, GetOwningPlayer(hero))
             end
+
+            ForceUIKeyBJ(GetOwningPlayer(hero), "Q")
+            --ForceUIKeyBJ(GetOwningPlayer(hero), "W")
+            --ForceUIKeyBJ(GetOwningPlayer(hero), "E")
+            ForceUIKeyBJ(GetOwningPlayer(hero), "R")
+            --ForceUIKeyBJ(GetOwningPlayer(hero), "A")
+            --ForceUIKeyBJ(GetOwningPlayer(hero), "S")
+            --ForceUIKeyBJ(GetOwningPlayer(hero), "D")
+            ForceUIKeyBJ(GetOwningPlayer(hero), "F")
+            ForceUIKeyBJ(GetOwningPlayer(hero), "Z")
+            ForceUIKeyBJ(GetOwningPlayer(hero), "X")
+            ForceUIKeyBJ(GetOwningPlayer(hero), "C")
+            ForceUIKeyBJ(GetOwningPlayer(hero), "V")
+
             ForceUIKeyBJ(GetOwningPlayer(hero), "M")
+
         end
     end)
     data.preX = GetPlayerMouseX[data.pid]

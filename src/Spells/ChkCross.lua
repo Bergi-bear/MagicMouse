@@ -49,6 +49,7 @@ function ChkCross (data, x1, y1, x2, y2, x3, y3, x4, y4)
         CrossCast(data, x, y)
         --print("парарллельные прямые")
     end
+
     --print(true)
     return true
 end
@@ -57,13 +58,17 @@ function CrossCast(data, x, y)
     DestroyTimer(data.TimerLineDelay)
     DestroyEffect(AddSpecialEffect("Objects\\Spawnmodels\\Undead\\UndeadBlood\\UndeadBloodAbomination.mdl", x, y))
     local is, unit = UnitDamageArea(data.UnitHero, 500, x, y, 150)
+
     SetUnitExploded(unit, true)
     if not is then
         if IsUnitInRangeXY(data.UnitHero, x, y, 150) then
             --print("святой крест")
             HealUnit(data.UnitHero, 100, nil, "Abilities\\Spells\\Human\\HolyBolt\\HolyBoltSpecialArt")
             HolyCross(data)
+            TriggerCastByName(data,"grandcross")
         end
+    else
+        TriggerCastByName(data,"deathcross")
     end
     TimerStart(CreateTimer(), TIMER_PERIOD64, false, function()
         data.line2 = nil
@@ -87,7 +92,6 @@ function HolyLine(data,table)
     local d = DistanceBetweenXY(x1, y1, x2, y2)
     local step = 80
     local current=0
-
     while true do
         current=current+step
         local x,y=MoveXY(x1,y1,current,angle)

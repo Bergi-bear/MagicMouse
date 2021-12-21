@@ -25,6 +25,7 @@ function ShapeInit()
             local x, y = GetCenterFigure(data)
             local r = GetRadiusCircle(data, x, y)
             CreateSquareCast(data, r, x, y, #data.Points)
+            TriggerCastByName(data, "squae")
             return true
         end
     end, function()
@@ -40,6 +41,7 @@ function ShapeInit()
         if Interval(sumOfAngles, 300, 420) and Interval(#sides, 3, 3) and Distance(sides[1].start, sides[#sides].en) < 3 / 2 * 128 then
             local x, y = GetCenterFigure(data)
             CastLighting(data, 5, GetRadiusCircle(data, x, y), x, y)
+            TriggerCastByName(data, "triangle")
             return true
         end
     end, function()
@@ -56,14 +58,17 @@ function ShapeInit()
                     if #data.Points >= 35 then
                         --print("golem", #data.Points)
                         SummonInfernal(data, x, y, r, #data.Points)
+                        TriggerCastByName(data, "golem")
                         return true
                     else
                         --print("Circle", #data.Points)
                         if IsUnitInRangeXY(data.UnitHero, x, y, r * 0.7) then
                             --print("лечение")
                             HealUnit(data.UnitHero, 50, nil, "Abilities\\Spells\\Human\\HolyBolt\\HolyBoltSpecialArt")
+                            TriggerCastByName(data, "CircleHeal")
                         else
                             FlameStrike(data, x, y, r)
+                            TriggerCastByName(data, "circle")
                         end
                         return true
                     end
@@ -71,17 +76,20 @@ function ShapeInit()
 
                     if DistanceBetweenXY(data.Points[1].x, data.Points[1].y, data.Points[#data.Points].x, data.Points[#data.Points].y) > 100 then
                         --print("wave")
-                        CastWave(data,data.Points[1].x, data.Points[1].y, data.Points[#data.Points].x, data.Points[#data.Points].y)
+                        CastWave(data, data.Points[1].x, data.Points[1].y, data.Points[#data.Points].x, data.Points[#data.Points].y)
+                        TriggerCastByName(data, "wave")
                         --SandStorm(data,x, y)
                     else
                         --print("кривой круг")
-                        SandStorm(data,x, y)
+                        TriggerCastByName(data, "curvecircle")
+                        SandStorm(data, x, y)
                     end
                     return true
                 end
             else
                 local angle = AngleBetweenXY(data.Points[1].x, data.Points[1].y, data.Points[#data.Points].x, data.Points[#data.Points].y) / bj_DEGTORAD
                 EarthStrike(data, angle, x, y)
+                TriggerCastByName(data, "smallrocks")
                 --print("mini ", angle)
                 return true
             end
@@ -94,6 +102,7 @@ function ShapeInit()
     z = Shape:new(function(sumOfAngles, angles, sides, data)
         if Interval(sumOfAngles, 230, 320) and Interval(#sides, 3, 4) and Distance(sides[1].start, sides[#sides].en) > 3 * 128 then
             Blink2Point(data, GetCenterFigure(data))
+            TriggerCastByName(data, "z")
             return true
         end
 
@@ -106,7 +115,7 @@ function ShapeInit()
         if Interval(#sides, 1, 1) and Distance(sides[1].start, sides[#sides].en) > 3 * 128 then
             local x1, y1, x2, y2 = data.Points[1].x, data.Points[1].y, data.Points[#data.Points].x, data.Points[#data.Points].y
             local angle = AngleBetweenXY(x1, y1, x2, y2) / bj_DEGTORAD
-            local effModel="Abilities\\Weapons\\FireBallMissile\\FireBallMissile.mdl"
+            local effModel = "Abilities\\Weapons\\FireBallMissile\\FireBallMissile.mdl"
             --print("Line")
             local distCast = DistanceBetweenXY(x1, y1, GetUnitXY(data.UnitHero))
 
@@ -126,12 +135,13 @@ function ShapeInit()
                     ChkCross(data, x1, y1, x2, y2, data.line2[1], data.line2[2], data.line2[3], data.line2[4])
 
                 else
-                    if distCast <= 500  then
+                    if distCast <= 500 then
                         CreateAndForceBullet(data.UnitHero, angle, 40, effModel, nil, nil, 200)
-                        TriggerCastByName(data,"line")
+                        TriggerCastByName(data, "line")
                     else
-                       -- print("Стена льда")
+                        -- print("Стена льда")
                         CreateIceLine(data)
+                        TriggerCastByName(data, "icewall")
                     end
                 end
             else
@@ -144,9 +154,9 @@ function ShapeInit()
                     ChkCross(data, x1, y1, x2, y2, data.line1[1], data.line1[2], data.line1[3], data.line1[4])
                     --end
                 else
-                    if distCast <= 500  then
-                        CreateAndForceBullet(data.UnitHero, angle, 40,effModel , nil, nil, 200)--"Abilities\\Weapons\\Mortar\\MortarMissile.mdl"
-                        TriggerCastByName(data,"line")
+                    if distCast <= 500 then
+                        CreateAndForceBullet(data.UnitHero, angle, 40, effModel, nil, nil, 200)--"Abilities\\Weapons\\Mortar\\MortarMissile.mdl"
+                        TriggerCastByName(data, "line")
                     else
 
                     end
@@ -166,6 +176,7 @@ function ShapeInit()
             local dist = DistanceBetweenXY(data.Points[1].x, data.Points[1].y, GetUnitXY(data.UnitHero))
             if dist <= 150 then
                 MoveToCurve(data, data.Points)
+                TriggerCastByName(data, "curve")
                 return true
             else
 
@@ -179,9 +190,13 @@ function ShapeInit()
     end)
 
     m = Shape:new(function(sumOfAngles, angles, sides, data)
-        return Interval(sumOfAngles, 400, 650) and Interval(#sides, 4, 5) and Distance(sides[1].start, sides[#sides].en) > 3 * 128
+        if Interval(sumOfAngles, 400, 650) and Interval(#sides, 4, 5) and Distance(sides[1].start, sides[#sides].en) > 3 * 128 then
+            print("It's definitely a M shape!")
+            TriggerCastByName(data, "m")
+            return true
+        end
     end, function()
-        print("It's definitely a M shape!")
+
     end)
 
     sandClock = Shape:new(function(sumOfAngles, angles, sides, data)
@@ -190,9 +205,13 @@ function ShapeInit()
                 return false
             end
         end
-        return Interval(sumOfAngles, 500, 600) and Interval(#sides, 4, 5) and Distance(sides[1].start, sides[#sides].en) < 2 * 128
+        if Interval(sumOfAngles, 500, 600) and Interval(#sides, 4, 5) and Distance(sides[1].start, sides[#sides].en) < 2 * 128 then
+            TriggerCastByName(data, "clock")
+            print("It's definitely a Sand Clock!")
+            return true
+        end
     end, function()
-        print("It's definitely a Sand Clock!")
+
     end)
 
     Shapes = { square, triangle, circle, line, z, m, sandClock, curve }

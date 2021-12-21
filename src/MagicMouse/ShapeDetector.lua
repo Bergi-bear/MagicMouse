@@ -5,11 +5,6 @@
 ---
 ---
 
-
-
-
-
-
 function DetectShape(angles, sides, data)
     local sum = 0
     for i = 1, #angles do

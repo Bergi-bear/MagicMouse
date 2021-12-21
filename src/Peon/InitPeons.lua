@@ -15,6 +15,7 @@ function CreatePeonForPlayer(data)
         UnitRemoveType(data.UnitHero,UNIT_TYPE_PEON)
         InitWASD(data.UnitHero)
         InitInventory(data)
+        CreateHPBar(data)
     end
 end
 
