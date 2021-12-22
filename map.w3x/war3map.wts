@@ -1,21 +1,24 @@
 ﻿STRING 1
 {
-11111
+|cffffff00RPGARENA|r
 }
 
 STRING 2
 {
-Any
+18+
 }
 
 STRING 3
 {
-Nondescript
+Движение - WASD
+Каст заклинаний - Рисование фигур мышью
+TAB - инвентарь
+E - действие
 }
 
 STRING 4
 {
-Unknown
+Bergi
 }
 
 STRING 5
@@ -106,5 +109,29 @@ STRING 20
 // Doodads: D002 (China2), Name (Name)
 {
 China2
+}
+
+STRING 22
+// Doodads: D003 (Решетка), Name (Name)
+{
+Решетка
+}
+
+STRING 23
+// Doodads: D004 (Решетка Векртикальная), Name (Name)
+{
+Решетка Векртикальная
+}
+
+STRING 24
+// Doodads: D005 (Балка), Name (Name)
+{
+Балка
+}
+
+STRING 25
+// Doodads: D006 (Колонна), Name (Name)
+{
+Колонна
 }
 
