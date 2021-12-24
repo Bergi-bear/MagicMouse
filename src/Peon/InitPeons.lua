@@ -16,6 +16,8 @@ function CreatePeonForPlayer(data)
         InitWASD(data.UnitHero)
         InitInventory(data)
         CreateHPBar(data)
+        SetDNCForPlayer(data.UnitHero,"Environment\\DNC\\DNCAshenvale\\DNCAshenvaleTerrain\\DNCAshenvaleTerrain.mdl")
     end
 end
+
 
