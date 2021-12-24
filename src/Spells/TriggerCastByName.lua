@@ -8,7 +8,22 @@ function TriggerCastByName(data, nameCast)
 		if data.SpellsName[i] == nameCast then
 			--print(nameCast)
 			local fh = data.SpellsFH[i]
+            if data.PreviousCast==nameCast then
+                --print("каст повторился")
+                if not data.CastCount then
+                    data.CastCount=1
+                end
+                data.CastCount=data.CastCount+1
+            else
+                data.CastCount=1
+            end
+            local burn=data.WeightSpellTable[i]*data.CastCount
+            if burn >=1000 then
+                print("Можно получить урон, если спамить одно заклинание")
+            end
+            CreateFlyFrame(data, fh, "-"..burn)
 			JumpFrame(data, fh, i)
+            data.PreviousCast=nameCast
 			return
 		end
     end

@@ -34,7 +34,7 @@ function CreateInventoryButton(data, texture, BoxFrame)
         if BlzFrameIsVisible(BoxFrame) then
             BlzFrameSetVisible(BoxFrame, false)
         else
-            BlzFrameSetVisible(BoxFrame, GetLocalPlayer()==GetTriggerPlayer())
+            BlzFrameSetVisible(BoxFrame, GetLocalPlayer() == GetTriggerPlayer())
         end
 
         BlzFrameSetEnable(BlzGetTriggerFrame(), false)
@@ -63,6 +63,14 @@ function CreateInventoryButton(data, texture, BoxFrame)
         --  BlzFrameSetVisible(ttBox, false)
         --BlzFrameSetVisible(tt[1],false)
     end)
+
+    ---Подсказка
+    local text = BlzCreateFrameByType("TEXT", "ButtonChargesText", SelfFrame, "", 0)
+    BlzFrameSetParent(text, BlzGetFrameByName("ConsoleUIBackdrop", 0))
+    BlzFrameSetText(text, "TAB")
+    BlzFrameSetScale(text, 1)
+    BlzFrameSetPoint(text, FRAMEPOINT_TOP, SelfFrame, FRAMEPOINT_TOP, 0.00, 0.01)
+
     return SelfFrame, buttonIconFrame
 end
 
@@ -158,14 +166,14 @@ function CreateTriggerActions(data, SelfFrame, tooltip, text, m)
         BlzFrameSetEnable(BlzGetTriggerFrame(), false)
         BlzFrameSetEnable(BlzGetTriggerFrame(), true)
         StopUnitMoving(data)
-        ActiveItemActions(data,m)
+        ActiveItemActions(data, m)
     end)
 
     local TrigMOUSE_ENTER = CreateTrigger()
     BlzTriggerRegisterFrameEvent(TrigMOUSE_ENTER, SelfFrame, FRAMEEVENT_MOUSE_ENTER)
 
     TriggerAddAction(TrigMOUSE_ENTER, function()
-        BlzFrameSetVisible(tooltip, GetLocalPlayer()==GetTriggerPlayer())
+        BlzFrameSetVisible(tooltip, GetLocalPlayer() == GetTriggerPlayer())
         UpdateToolTipForItemInSlot(data, text, m)
         --print("показать подсказку ")
 
@@ -206,10 +214,10 @@ function GetFrameCharges(fh)
         --print("заряды уже были", BlzFrameGetChildrenCount(fh) )
 
         local textFrame = BlzFrameGetChild(fh, 1)
-        local chargesBox= BlzFrameGetChild(fh, 0)
+        local chargesBox = BlzFrameGetChild(fh, 0)
         local text = BlzFrameGetText(textFrame)
         --print("найдено зарядов", text)
-        return S2I(text),chargesBox,textFrame
+        return S2I(text), chargesBox, textFrame
     end
 end
 
