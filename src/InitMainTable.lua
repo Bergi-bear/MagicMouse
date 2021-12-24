@@ -92,6 +92,8 @@ function InitHEROTable()
             ItemSlotName={}, -- таблица имён для предметов
             ItemSlotTooltip={}, -- фрейм тултипа описания
             ItemSlotText={}, -- описание предмета
+            --
+
         }
         InitInputHandler(HERO[i])
         CreatePeonForPlayer(HERO[i])

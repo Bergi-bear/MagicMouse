@@ -42,6 +42,16 @@ function ShapeInit()
             local x, y = GetCenterFigure(data)
             CastLighting(data, 5, GetRadiusCircle(data, x, y), x, y)
             TriggerCastByName(data, "triangle")
+
+            for i=1,#data.AnglePoints do
+                --print("triangle ok",i)
+                DestroyEffect(AddSpecialEffect("Doodads\\Cinematic\\Lightningbolt\\Lightningbolt", data.AnglePoints[i].x, data.AnglePoints[i].y))
+            end
+            DestroyEffect(AddSpecialEffect("Doodads\\Cinematic\\Lightningbolt\\Lightningbolt", data.Points[1].x,data.Points[1].y))
+            normal_sound("Abilities\\Spells\\Orc\\LightningBolt\\LightningBolt",x,y)
+
+
+
             return true
         end
     end, function()

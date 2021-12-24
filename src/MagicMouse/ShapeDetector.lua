@@ -38,9 +38,12 @@ function ShapeDetectorAdd(current, previous, data)
 
         if (angle < sensitivity) then
             data.sides[#data.sides]:changeEnd(current)
+
         else
             if (data.sides[#data.sides]:length() > minimumDistanceForSide) then
                 table.insert(data.sides, Side:new(current))
+                table.insert(data.AnglePoints,current)
+                --print("найден угол или сторона",#data.Points)
             else
                 data.sides[#data.sides] = Side:new(current)
             end
@@ -69,6 +72,7 @@ function ShapeDetectorClear(data)
     for i = 1, #data.sides do
         if (i < #data.sides) then
             table.insert(angles, getAngle(i, i + 1))
+            --local x,y=
         else
             table.insert(angles, getAngle(1, #data.sides))
         end
@@ -78,7 +82,7 @@ function ShapeDetectorClear(data)
     for i = 1, #angles do
         anglePrint = anglePrint .. "; " .. i .. " - " .. angles[i]
     end
-    -- print(anglePrint)
+    --print(anglePrint)
     --print("Count: ".. #Points)
 
     --
@@ -101,3 +105,4 @@ function GetCenterFigure(data)
     --DestroyEffect(CreateTMPEffect(center.x, center.y, "Abilities\\Spells\\Human\\HolyBolt\\HolyBoltSpecialArt"))
     return center.x,center.y
 end
+

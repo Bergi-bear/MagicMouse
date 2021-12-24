@@ -6,7 +6,6 @@
 
 function ChkCross (data, x1, y1, x2, y2, x3, y3, x4, y4)
     --local angle=AngleBetweenXY()
-
     local s1 = { x = x1, y = y1 }
     local e1 = { x = x2, y = y2 }
     local s2 = { x = x3, y = y3 }

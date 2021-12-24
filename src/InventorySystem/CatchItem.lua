@@ -13,7 +13,8 @@ function CatchItem(data)
             local d = DistanceBetweenXY(x, y, GetUnitXY(data.UnitHero))
             if d <= 150 then
                 if AddItem2Hero(data,dataItems[2]) then
-                    DestroyEffect(AddSpecialEffect("Abilities\\Spells\\Human\\HolyBolt\\HolyBoltSpecialArt", x, y))
+                    --DestroyEffect(AddSpecialEffect("Abilities\\Spells\\Human\\HolyBolt\\HolyBoltSpecialArt", x, y))
+                    normal_sound("Sound\\Interface\\PickUpItem",GetUnitXY(data.UnitHero))
                     DestroyEffect(dataItems[1])
                     table.remove(AllItemsTable, i)
                 end

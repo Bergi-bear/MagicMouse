@@ -50,7 +50,6 @@ function CreateUnitsForPlayer10()
     u = BlzCreateUnitWithSkin(p, FourCC("n001"), 2819.2, -1494.8, 220.898, FourCC("n001"))
     u = BlzCreateUnitWithSkin(p, FourCC("n001"), 2898.1, -1706.8, 77.313, FourCC("n001"))
     u = BlzCreateUnitWithSkin(p, FourCC("n003"), -2331.6, -4846.0, 343.037, FourCC("n003"))
-    SetUnitState(u, UNIT_STATE_MANA, 0)
     u = BlzCreateUnitWithSkin(p, FourCC("u001"), 170.6, -4542.0, 185.147, FourCC("u001"))
     u = BlzCreateUnitWithSkin(p, FourCC("u000"), -721.0, -6085.3, 355.012, FourCC("u000"))
     u = BlzCreateUnitWithSkin(p, FourCC("u001"), -468.9, -4526.2, 185.147, FourCC("u001"))
@@ -89,27 +88,16 @@ function CreateUnitsForPlayer10()
     u = BlzCreateUnitWithSkin(p, FourCC("u000"), -951.4, -11213.1, 355.012, FourCC("u000"))
     u = BlzCreateUnitWithSkin(p, FourCC("u000"), 726.2, -11220.2, 355.012, FourCC("u000"))
     u = BlzCreateUnitWithSkin(p, FourCC("n003"), 2055.8, -4852.3, 343.037, FourCC("n003"))
-    SetUnitState(u, UNIT_STATE_MANA, 0)
     u = BlzCreateUnitWithSkin(p, FourCC("n003"), 1772.0, -6107.4, 343.037, FourCC("n003"))
-    SetUnitState(u, UNIT_STATE_MANA, 0)
     u = BlzCreateUnitWithSkin(p, FourCC("n003"), 2834.9, -7201.8, 343.037, FourCC("n003"))
-    SetUnitState(u, UNIT_STATE_MANA, 0)
     u = BlzCreateUnitWithSkin(p, FourCC("n003"), 2110.4, -8417.8, 343.037, FourCC("n003"))
-    SetUnitState(u, UNIT_STATE_MANA, 0)
     u = BlzCreateUnitWithSkin(p, FourCC("n003"), 2117.3, -9632.4, 343.037, FourCC("n003"))
-    SetUnitState(u, UNIT_STATE_MANA, 0)
     u = BlzCreateUnitWithSkin(p, FourCC("n003"), 1973.0, -10809.7, 343.037, FourCC("n003"))
-    SetUnitState(u, UNIT_STATE_MANA, 0)
     u = BlzCreateUnitWithSkin(p, FourCC("n003"), -2220.1, -10912.8, 343.037, FourCC("n003"))
-    SetUnitState(u, UNIT_STATE_MANA, 0)
     u = BlzCreateUnitWithSkin(p, FourCC("n003"), -2318.2, -9692.3, 343.037, FourCC("n003"))
-    SetUnitState(u, UNIT_STATE_MANA, 0)
     u = BlzCreateUnitWithSkin(p, FourCC("n003"), -2285.7, -8723.9, 343.037, FourCC("n003"))
-    SetUnitState(u, UNIT_STATE_MANA, 0)
     u = BlzCreateUnitWithSkin(p, FourCC("n003"), -2809.5, -7115.8, 343.037, FourCC("n003"))
-    SetUnitState(u, UNIT_STATE_MANA, 0)
     u = BlzCreateUnitWithSkin(p, FourCC("n003"), -1716.3, -6450.5, 343.037, FourCC("n003"))
-    SetUnitState(u, UNIT_STATE_MANA, 0)
     u = BlzCreateUnitWithSkin(p, FourCC("u001"), 1563.1, -7353.3, 185.147, FourCC("u001"))
     u = BlzCreateUnitWithSkin(p, FourCC("u002"), 1725.0, -4559.5, 355.858, FourCC("u002"))
     u = BlzCreateUnitWithSkin(p, FourCC("u002"), 298.0, -9518.6, 355.858, FourCC("u002"))
@@ -159,6 +147,9 @@ function CreateUnitsForPlayer10()
     u = BlzCreateUnitWithSkin(p, FourCC("u000"), -53.2, -9450.2, 355.012, FourCC("u000"))
     u = BlzCreateUnitWithSkin(p, FourCC("u000"), -332.4, -9463.0, 355.012, FourCC("u000"))
     u = BlzCreateUnitWithSkin(p, FourCC("u000"), -766.1, -9439.1, 355.012, FourCC("u000"))
+    u = BlzCreateUnitWithSkin(p, FourCC("u003"), -137.0, -11724.2, 85.160, FourCC("u003"))
+    SetUnitColor(u, ConvertPlayerColor(4))
+    SetUnitAcquireRange(u, 200.0)
 end
 
 function CreatePlayerBuildings()
@@ -892,19 +883,33 @@ function InitDeathEvent()
     TriggerAddAction(this, function()
         local u = GetTriggerUnit() --тот кто умер
         local killer = GetKillingUnit()
-        local xu,yu=GetUnitXY(u)
+        local xu, yu = GetUnitXY(u)
         for i = 1, #SlimeID do
             if GetUnitTypeId(u) == SlimeID[i] then
-                   --print("умер слайм")
-                normal_sound(SlimeSound[4],xu,yu,50)
+                --print("умер слайм")
+                normal_sound(SlimeSound[4], xu, yu, 50)
                 TimerStart(CreateTimer(), 15, false, function()
-                    local x,y=GetRandomReal(GetRectMinX(gg_rct_Bound01),GetRectMaxX(gg_rct_Bound01)),GetRandomReal(GetRectMinY(gg_rct_Bound01),GetRectMaxY(gg_rct_Bound01))
+                    local x, y = GetRandomReal(GetRectMinX(gg_rct_Bound01), GetRectMaxX(gg_rct_Bound01)), GetRandomReal(GetRectMinY(gg_rct_Bound01), GetRectMaxY(gg_rct_Bound01))
                     --print(x,y)
-                    local new=CreateUnit(Player(10), SlimeID[i], x, y, 0)
+                    local new = CreateUnit(Player(10), SlimeID[i], x, y, 0)
                     SlimeAddMoveEvent(new)
                 end)
                 --CreateItemPrefab(xu,yu,"Slime Card")
-                CreateItemPrefabPool(xu,yu,"Slime Card","Slime Jelly","Slime Egg")
+                CreateItemPrefabPool(xu, yu, "Slime Card", "Slime Jelly", "Slime Egg")
+            end
+        end
+        for i = 1, #BugID do
+            if GetUnitTypeId(u) == SlimeID[i] then
+                --print("умер слайм")
+                --normal_sound(SlimeSound[4], xu, yu, 50)
+                TimerStart(CreateTimer(), 15, false, function()
+                    local x, y = GetRandomReal(GetRectMinX(gg_rct_Bound01), GetRectMaxX(gg_rct_Bound01)), GetRandomReal(GetRectMinY(gg_rct_Bound01), GetRectMaxY(gg_rct_Bound01))
+                    --print(x,y)
+                    local new = CreateUnit(Player(10), SlimeID[i], x, y, 0)
+                    SlimeAddMoveEvent(new)
+                end)
+                --CreateItemPrefab(xu,yu,"Slime Card")
+                CreateItemPrefabPool(xu, yu, "Slime Card", "Slime Jelly", "Slime Egg")
             end
         end
     end)
@@ -1103,6 +1108,8 @@ function InitHEROTable()
             ItemSlotName={}, -- таблица имён для предметов
             ItemSlotTooltip={}, -- фрейм тултипа описания
             ItemSlotText={}, -- описание предмета
+            --
+
         }
         InitInputHandler(HERO[i])
         CreatePeonForPlayer(HERO[i])
@@ -1130,7 +1137,7 @@ end
 ---@param y real
 ---@return boolean
 function InMapXY(x, y)
-	return x > GetRectMinX(bj_mapInitialPlayableArea) and x < GetRectMaxX(bj_mapInitialPlayableArea) and y > GetRectMinY(bj_mapInitialPlayableArea) and y < GetRectMaxY(bj_mapInitialPlayableArea)
+    return x > GetRectMinX(bj_mapInitialPlayableArea) and x < GetRectMaxX(bj_mapInitialPlayableArea) and y > GetRectMinY(bj_mapInitialPlayableArea) and y < GetRectMaxY(bj_mapInitialPlayableArea)
 end
 
 ---@param x real
@@ -1138,7 +1145,7 @@ end
 ---@param angle real radian
 ---@return real
 function GetPolarOffsetX(x, distance, angle)
-	return x + distance * math.cos(angle)
+    return x + distance * math.cos(angle)
 end
 
 ---@param y real
@@ -1146,7 +1153,7 @@ end
 ---@param angle real radian
 ---@return real
 function GetPolarOffsetY(y, distance, angle)
-	return y + distance * math.sin(angle)
+    return y + distance * math.sin(angle)
 end
 
 ---@param x real
@@ -1154,7 +1161,7 @@ end
 ---@param angle real degrees
 ---@return real
 function MoveX(x, distance, angle)
-	return x + distance * math.cos(angle * bj_DEGTORAD)
+    return x + distance * math.cos(angle * bj_DEGTORAD)
 end
 
 ---@param y real
@@ -1162,33 +1169,32 @@ end
 ---@param angle real degrees
 ---@return real
 function MoveY(y, distance, angle)
-	return y + distance * math.sin(angle * bj_DEGTORAD)
+    return y + distance * math.sin(angle * bj_DEGTORAD)
 end
-
 
 local GetTerrainZ_location = Location(0, 0)
 ---@param x real
 ---@param y real
 ---@return real
 function GetTerrainZ(x, y)
-	MoveLocation(GetTerrainZ_location, x, y)
-	return GetLocationZ(GetTerrainZ_location)
+    MoveLocation(GetTerrainZ_location, x, y)
+    return GetLocationZ(GetTerrainZ_location)
 end
 
 ---@param target unit
 ---@return real
 function GetUnitZ(target)
-	MoveLocation(GetTerrainZ_location, GetUnitX(target), GetUnitY(target))
-	return GetLocationZ(GetTerrainZ_location) + GetUnitFlyHeight(target)
+    MoveLocation(GetTerrainZ_location, GetUnitX(target), GetUnitY(target))
+    return GetLocationZ(GetTerrainZ_location) + GetUnitFlyHeight(target)
 end
 
 ---@param target unit
 ---@param z real
 function SetUnitZ(target, z)
-	UnitAddAbility(target, FourCC('Aave'))
-	UnitRemoveAbility(target, FourCC('Aave'))
-	MoveLocation(GetTerrainZ_location, GetUnitX(target), GetUnitY(target))
-	SetUnitFlyHeight(target, z - GetLocationZ(GetTerrainZ_location), 0)
+    UnitAddAbility(target, FourCC('Aave'))
+    UnitRemoveAbility(target, FourCC('Aave'))
+    MoveLocation(GetTerrainZ_location, GetUnitX(target), GetUnitY(target))
+    SetUnitFlyHeight(target, z - GetLocationZ(GetTerrainZ_location), 0)
 end
 
 ---@param h real максимальная высота в прыжке на середине расстояния (x = d / 2)
@@ -1196,7 +1202,7 @@ end
 ---@param x real расстояние от исходной цели до точки, где следует взять высоту по параболе
 ---@return real
 function ParabolaZ (h, d, x)
-	return (4 * h / d) * (d - x) * (x / d)
+    return (4 * h / d) * (d - x) * (x / d)
 end
 
 ---@param zs real начальная высота высота одного края дуги
@@ -1206,7 +1212,7 @@ end
 ---@param x real расстояние от исходной цели до точки
 ---@return real
 function GetParabolaZ(zs, ze, h, d, x)
-	return (2 * (zs + ze - 2 * h) * (x / d - 1) + (ze - zs)) * (x / d) + zs
+    return (2 * (zs + ze - 2 * h) * (x / d - 1) + (ze - zs)) * (x / d) + zs
 end
 
 ---@param xa real
@@ -1215,9 +1221,9 @@ end
 ---@param yb real
 ---@return real
 function DistanceBetweenXY(xa, ya, xb, yb)
-	local dx = xb - xa
-	local dy = yb - ya
-	return math.sqrt(dx * dx + dy * dy)
+    local dx = xb - xa
+    local dy = yb - ya
+    return math.sqrt(dx * dx + dy * dy)
 end
 
 ---@param xa real
@@ -1228,10 +1234,10 @@ end
 ---@param zb real
 ---@return real
 function DistanceBetweenXYZ(xa, ya, za, xb, yb, zb)
-	local dx = xb - xa
-	local dy = yb - ya
-	local dz = zb - za
-	return math.sqrt(dx * dx + dy * dy + dz * dz)
+    local dx = xb - xa
+    local dy = yb - ya
+    local dz = zb - za
+    return math.sqrt(dx * dx + dy * dy + dz * dz)
 end
 
 ---@param xa real
@@ -1240,23 +1246,23 @@ end
 ---@param yb real
 ---@return real radian
 function AngleBetweenXY(xa, ya, xb, yb)
-	return math.atan(yb - ya, xb - xa)
+    return math.atan(yb - ya, xb - xa)
 end
 
 ---@param a real radian
 ---@param b real radian
 ---@return real radian
 function AngleDifference(a, b)
-	local c---@type real
-	local d---@type real
-	if a > b then
-		c = a - b
-		d = b - a + 2 * math.pi
-	else
-		c = b - a
-		d = a - b + 2 * math.pi
-	end
-	return c > d and d or c
+    local c---@type real
+    local d---@type real
+    if a > b then
+        c = a - b
+        d = b - a + 2 * math.pi
+    else
+        c = b - a
+        d = a - b + 2 * math.pi
+    end
+    return c > d and d or c
 end
 
 --@author https://xgm.guru/p/wc3/warden-math
@@ -1264,16 +1270,16 @@ end
 ---@param b real degrees
 ---@return real degrees
 function AngleDifferenceDeg(a, b)
-	a, b = math.abs(a, 360), math.abs(b, 360)
-	local x---@type real
-	if (a > b) then
-		a, b = b, a
-	end
-	x = b - 360
-	if (b - a > a - x) then
-		b = x
-	end
-	return math.abs(a - b)
+    a, b = math.abs(a, 360), math.abs(b, 360)
+    local x---@type real
+    if (a > b) then
+        a, b = b, a
+    end
+    x = b - 360
+    if (b - a > a - x) then
+        b = x
+    end
+    return math.abs(a - b)
 end
 
 -- Находит длину перпендикуляра от отрезка, заданного xa, ya, xb, yb к точке, заданной xc, yc
@@ -1286,7 +1292,7 @@ end
 ---@param yc real
 ---@return real
 function Perpendicular (xa, ya, xb, yb, xc, yc)
-	return math.sqrt((xa - xc) * (xa - xc) + (ya - yc) * (ya - yc)) * math.sin(math.atan(yc - ya, xc - xa) - math.atan(yb - ya, xb - xa))
+    return math.sqrt((xa - xc) * (xa - xc) + (ya - yc) * (ya - yc)) * math.sin(math.atan(yc - ya, xc - xa) - math.atan(yb - ya, xb - xa))
 end
 
 --@Hate https://xgm.guru/p/wc3/241479
@@ -1294,76 +1300,79 @@ end
 ---@param x real
 ---@param y real
 function SetUnitPositionSmooth(source, x, y)
-	local last_x = GetUnitX(source)
-	local last_y = GetUnitY(source)
-	local bx
-	local by
-	--print("Смус выполнена")
-	SetUnitPosition(source, x, y)
-	if (RAbsBJ(GetUnitX(source) - x) > 0.5) or (RAbsBJ(GetUnitY(source) - y) > 0.5) then
-		SetUnitPosition(source, x, last_y)
-		bx = RAbsBJ(GetUnitX(source) - x) <= 0.5
-		SetUnitPosition(source, last_x, y)
-		by = RAbsBJ(GetUnitY(source) - y) <= 0.5
+    local last_x = GetUnitX(source)
+    local last_y = GetUnitY(source)
+    local bx
+    local by
+    --print("Смус выполнена")
+    SetUnitPosition(source, x, y)
+    if (RAbsBJ(GetUnitX(source) - x) > 0.5) or (RAbsBJ(GetUnitY(source) - y) > 0.5) then
+        SetUnitPosition(source, x, last_y)
+        bx = RAbsBJ(GetUnitX(source) - x) <= 0.5
+        SetUnitPosition(source, last_x, y)
+        by = RAbsBJ(GetUnitY(source) - y) <= 0.5
 
-		---
-		local dx=math.abs(x-last_x)
-		if dx>=100 then
-			--print("Телепорт бак в функции Smooth"..dx )
-		end
-		---
-		if bx then
-			SetUnitPosition(source, x, last_y)
-		elseif by then
-			SetUnitPosition(source, last_x, y)
-		else
-			SetUnitPosition(source, last_x, last_y)
-		end
-	end
+        ---
+        local dx = math.abs(x - last_x)
+        if dx >= 100 then
+            --print("Телепорт бак в функции Smooth"..dx )
+        end
+        ---
+        if bx then
+            SetUnitPosition(source, x, last_y)
+        elseif by then
+            SetUnitPosition(source, last_x, y)
+        else
+            SetUnitPosition(source, last_x, last_y)
+        end
+    end
 end
 
 --Bergi
 function GetUnitXY(unit)
-	return GetUnitX(unit),GetUnitY(unit)
+    return GetUnitX(unit), GetUnitY(unit)
 end
 
-function MoveXY(x,y, distance, angle)
-	return x + distance * math.cos(angle * bj_DEGTORAD),y + distance * math.sin(angle * bj_DEGTORAD)
+function MoveXY(x, y, distance, angle)
+    return x + distance * math.cos(angle * bj_DEGTORAD), y + distance * math.sin(angle * bj_DEGTORAD)
 end
 
 function UnitCollisionOFF(unit)
-	UnitAddAbility(unit,FourCC('A000'))
-	IssueImmediateOrder(unit,"windwalk")
+    UnitAddAbility(unit, FourCC('A000'))
+    IssueImmediateOrder(unit, "windwalk")
 end
 
-function AngleBetweenUnits(caster,target)
-	local yb,ya,xb,xa=GetUnitY(target),GetUnitY(caster),GetUnitX(target),GetUnitX(caster)
-	return Atan2BJ(yb - ya, xb - xa)
+function AngleBetweenUnits(caster, target)
+    local yb, ya, xb, xa = GetUnitY(target), GetUnitY(caster), GetUnitX(target), GetUnitX(caster)
+    return Atan2BJ(yb - ya, xb - xa)
 end
 
-function math.clamp (inb, low, high) --
-	return math.min( math.max(inb, low ), high )
+function math.clamp (inb, low, high)
+    --
+    return math.min(math.max(inb, low), high)
 end
 
 function math.lerp(a, b, t)
-	return a + (b - a) * t
+    return a + (b - a) * t
 end
 
 function repeatN(t, m)
-	return math.clamp(t - math.floor(t / m) * m, 0, m)
+    return math.clamp(t - math.floor(t / m) * m, 0, m)
 end
 
 function lerpTheta(a, b, t)
-	local dt = repeatN(b - a, 360)
-	if dt>180 then	dt=dt-360 end
-	return math.lerp(a, a + dt, t)
+    local dt = repeatN(b - a, 360)
+    if dt > 180 then
+        dt = dt - 360
+    end
+    return math.lerp(a, a + dt, t)
 end
 
-function AngleBetweenXYZ(x1, y1,z1, x2, y2,z2)
-	local a=x1*x2+y1*y2+z1*z2
-	local b=math.sqrt(x1*x1+y1*y1+z1*z1)
-	local c=math.sqrt(x2*x2+y2*y2+z2*z2)
-	return math.acos(a/(b*c))
+function AngleBetweenXYZ(x1, y1, z1, x2, y2, z2)
+    local a = x1 * x2 + y1 * y2 + z1 * z2
+    local b = math.sqrt(x1 * x1 + y1 * y1 + z1 * z1)
+    local c = math.sqrt(x2 * x2 + y2 * y2 + z2 * z2)
+    return math.acos(a / (b * c))
 end
 
 -- функия принадлежности точки сектора
@@ -1372,33 +1381,43 @@ end
 -- orientation - ориентация сектора в мировых координатах
 -- width - уголовой размер сектора в градусах
 -- radius - окружности которой принадлежит сектор
-function IsPointInSector(x1,y1,x2,y2,orientation,width,radius)
-	local lenght=DistanceBetweenXY(x1,y1,x2,y2)
-	local angle=Acos(Cos(orientation*bj_DEGTORAD)*(x1-x2)/lenght+Sin(orientation*bj_DEGTORAD)*(y1-y2)/lenght )*bj_RADTODEG
-	return angle<=width and lenght<=radius
+function IsPointInSector(x1, y1, x2, y2, orientation, width, radius)
+    local lenght = DistanceBetweenXY(x1, y1, x2, y2)
+    local angle = Acos(Cos(orientation * bj_DEGTORAD) * (x1 - x2) / lenght + Sin(orientation * bj_DEGTORAD) * (y1 - y2) / lenght) * bj_RADTODEG
+    return angle <= width and lenght <= radius
 end
 
-function GetParabolaPitch(height,distance,i, speed)
-	local f = function(x)
-		return ParabolaZ(height, distance, x)
-	end
+function GetParabolaPitch(height, distance, i, speed)
+    local f = function(x)
+        return ParabolaZ(height, distance, x)
+    end
 
-	local df = function(x)
-		return ParabolaZDerivative(height, distance, x)
-	end
-	local x0 = i * speed
-	local x1 = x0 + speed
-	local thisZ = f(x0)
-	local someTangentZ = Tangent(f, df, x0, x1)
-	return math.atan(someTangentZ - thisZ, x1 - x0)--pitch
+    local df = function(x)
+        return ParabolaZDerivative(height, distance, x)
+    end
+    local x0 = i * speed
+    local x1 = x0 + speed
+    local thisZ = f(x0)
+    local someTangentZ = Tangent(f, df, x0, x1)
+    return math.atan(someTangentZ - thisZ, x1 - x0)--pitch
 end
 function Tangent(f, df, x0, x)
-	return f(x0) + df(x0) * (x - x0)
+    return f(x0) + df(x0) * (x - x0)
 end
 function ParabolaZDerivative(height, distance, x)
-	return 4 * height / distance / distance * (distance - 2 * x)
+    return 4 * height / distance / distance * (distance - 2 * x)
 end
 
+function PointInTriangle(x, y, x1, y1, x2, y2, x3, y3)
+    local k = (x1 - x) * (y2 - y1) - (x2 - x1) * (y1 - y)
+    local m = (x2 - x) * (y3 - y2) - (x3 - x2) * (y2 - y)
+    local n = (x3 - x) * (y1 - y3) - (x1 - x3) * (y3 - y)
+    if k >= 0 and m >= 0 and n >= 0 then
+        return true
+    elseif   k<=0 and m<=0 and n<=0 then
+        return false
+    end
+end
 ---
 --- Generated by EmmyLua(https://github.com/EmmyLua)
 --- Created by Bergi.
@@ -2514,7 +2533,8 @@ function CatchItem(data)
             local d = DistanceBetweenXY(x, y, GetUnitXY(data.UnitHero))
             if d <= 150 then
                 if AddItem2Hero(data,dataItems[2]) then
-                    DestroyEffect(AddSpecialEffect("Abilities\\Spells\\Human\\HolyBolt\\HolyBoltSpecialArt", x, y))
+                    --DestroyEffect(AddSpecialEffect("Abilities\\Spells\\Human\\HolyBolt\\HolyBoltSpecialArt", x, y))
+                    normal_sound("Sound\\Interface\\PickUpItem",GetUnitXY(data.UnitHero))
                     DestroyEffect(dataItems[1])
                     table.remove(AllItemsTable, i)
                 end
@@ -2870,6 +2890,7 @@ function InitInputHandler (data)
     data.Effects = {}
     data.sides = {}
     data.previousDirection = 0
+    data.AnglePoints={} --таблица точек, которая хранит углы
 end
 
 function ClearPoints(data)
@@ -2881,6 +2902,7 @@ function ClearPoints(data)
         DestroyEffect(data.Effects[i])
     end
     data.Effects = {}
+    data.AnglePoints={}
 end
 
 function InputUpdate (data, x, y)
@@ -2943,9 +2965,12 @@ function ShapeDetectorAdd(current, previous, data)
 
         if (angle < sensitivity) then
             data.sides[#data.sides]:changeEnd(current)
+
         else
             if (data.sides[#data.sides]:length() > minimumDistanceForSide) then
                 table.insert(data.sides, Side:new(current))
+                table.insert(data.AnglePoints,current)
+                --print("найден угол или сторона",#data.Points)
             else
                 data.sides[#data.sides] = Side:new(current)
             end
@@ -2974,6 +2999,7 @@ function ShapeDetectorClear(data)
     for i = 1, #data.sides do
         if (i < #data.sides) then
             table.insert(angles, getAngle(i, i + 1))
+            --local x,y=
         else
             table.insert(angles, getAngle(1, #data.sides))
         end
@@ -2983,7 +3009,7 @@ function ShapeDetectorClear(data)
     for i = 1, #angles do
         anglePrint = anglePrint .. "; " .. i .. " - " .. angles[i]
     end
-    -- print(anglePrint)
+    --print(anglePrint)
     --print("Count: ".. #Points)
 
     --
@@ -3006,6 +3032,8 @@ function GetCenterFigure(data)
     --DestroyEffect(CreateTMPEffect(center.x, center.y, "Abilities\\Spells\\Human\\HolyBolt\\HolyBoltSpecialArt"))
     return center.x,center.y
 end
+
+
 ---
 --- Generated by EmmyLua(https://github.com/EmmyLua)
 --- Created by artem.
@@ -3050,6 +3078,16 @@ function ShapeInit()
             local x, y = GetCenterFigure(data)
             CastLighting(data, 5, GetRadiusCircle(data, x, y), x, y)
             TriggerCastByName(data, "triangle")
+
+            for i=1,#data.AnglePoints do
+                --print("triangle ok",i)
+                DestroyEffect(AddSpecialEffect("Doodads\\Cinematic\\Lightningbolt\\Lightningbolt", data.AnglePoints[i].x, data.AnglePoints[i].y))
+            end
+            DestroyEffect(AddSpecialEffect("Doodads\\Cinematic\\Lightningbolt\\Lightningbolt", data.Points[1].x,data.Points[1].y))
+            normal_sound("Abilities\\Spells\\Orc\\LightningBolt\\LightningBolt",x,y)
+
+
+
             return true
         end
     end, function()
@@ -4333,7 +4371,6 @@ end
 
 function ChkCross (data, x1, y1, x2, y2, x3, y3, x4, y4)
     --local angle=AngleBetweenXY()
-
     local s1 = { x = x1, y = y1 }
     local e1 = { x = x2, y = y2 }
     local s2 = { x = x3, y = y3 }
@@ -5047,50 +5084,65 @@ end
 --- Created by Bergi.
 --- DateTime: 14.12.2021 1:28
 ---
-function CastLighting(data,max,radius,x,y)
+function CastLighting(data, max, radius, x, y)
     local hero = data.UnitHero
-    local k=0
+    local k = 0
     --local x,y=GetUnitXY(hero)
-    local enemy=FindNewEnemyForLight(hero,radius,x,y)
+    local tableTriangle = {
+        data.AnglePoints[1].x,
+        data.AnglePoints[1].y,
+        data.AnglePoints[2].x,
+        data.AnglePoints[2].y,
+        data.Points[1].x,
+        data.Points[1].y
+    }
+    local enemy = FindNewEnemyForLight(tableTriangle, data, hero, radius, x, y)
+
     if enemy then
-        TimerStart(CreateTimer(),0.3, true, function()
-            enemy=FindNewEnemyForLight(hero,radius,x,y)
-            if FindNewEnemyForLight(hero,radius,x,y) then
-                k=k+1
+        TimerStart(CreateTimer(), 0.3, true, function()
+            enemy = FindNewEnemyForLight(tableTriangle, data, hero, radius, x, y)
+            if FindNewEnemyForLight(tableTriangle, data, hero, radius, x, y) then
+                k = k + 1
             else
                 DestroyTimer(GetExpiredTimer())
             end
-            if k>=max then
+            if k >= max then
                 DestroyTimer(GetExpiredTimer())
             end
         end)
     end
 end
 
-function FindNewEnemyForLight(hero,radius,xs,ys)
+function FindNewEnemyForLight(tableTriangle, data, hero, radius, xs, ys)
     local e = nil
     local k = 0
-    local enemy=nil
-    GroupEnumUnitsInRange(perebor, xs, ys, radius*2, nil)
+    local enemy = nil
+    GroupEnumUnitsInRange(perebor, xs, ys, radius * 2, nil)
     while true do
         e = FirstOfGroup(perebor)
         if e == nil then
             break
         end
-        if UnitAlive(e) and IsUnitEnemy(e,GetOwningPlayer(hero)) and not enemy then
+        if UnitAlive(e) and IsUnitEnemy(e, GetOwningPlayer(hero)) and not enemy then
+
             k = k + 1
-            local x,y=GetUnitXY(e)
-            local eff = AddSpecialEffect("Doodads\\Cinematic\\Lightningbolt\\Lightningbolt", x, y)
-           -- print("где эффект")
-            TimerStart(CreateTimer(),0.5, false, function()
-                DestroyEffect(eff)
-                PauseTimer(GetExpiredTimer())
-                DestroyTimer(GetExpiredTimer())
-            end)
-            UnitDamageTarget( hero, e, 50, true, false, ATTACK_TYPE_NORMAL, DAMAGE_TYPE_NORMAL, WEAPON_TYPE_WHOKNOWS)
-            normal_sound("Abilities\\Spells\\Orc\\LightningBolt\\LightningBolt",x,y) -- не работает
+            local x, y = GetUnitXY(e)
+            if PointInTriangle(x, y, tableTriangle[1], tableTriangle[2], tableTriangle[3], tableTriangle[4], tableTriangle[5], tableTriangle[6]) then
+                local eff = AddSpecialEffect("Doodads\\Cinematic\\Lightningbolt\\Lightningbolt", x, y)
+
+                -- print("где эффект")
+                TimerStart(CreateTimer(), 0.5, false, function()
+                    DestroyEffect(eff)
+                    PauseTimer(GetExpiredTimer())
+                    DestroyTimer(GetExpiredTimer())
+                end)
+
+                UnitDamageTarget(hero, e, 50, true, false, ATTACK_TYPE_NORMAL, DAMAGE_TYPE_NORMAL, WEAPON_TYPE_WHOKNOWS)
+                normal_sound("Abilities\\Spells\\Orc\\LightningBolt\\LightningBolt", x, y) -- не работает
+
+            end
             --normal_sound("SystemGeneric\\ReceiveGold",x,y)
-            enemy=e
+            enemy = e
         end
         GroupRemoveUnit(perebor, e)
     end
@@ -5142,6 +5194,12 @@ function JumpFrame(data, fh, m)
         --BlzFrameSetSize(fh,0.04+size,0.04+size)
     end)
 end
+---
+--- Generated by EmmyLua(https://github.com/EmmyLua)
+--- Created by Bergi.
+--- DateTime: 24.12.2021 4:00
+---
+BugID={}
 ---
 --- Generated by EmmyLua(https://github.com/EmmyLua)
 --- Created by Bergi.

@@ -14,6 +14,7 @@ function InitInputHandler (data)
     data.Effects = {}
     data.sides = {}
     data.previousDirection = 0
+    data.AnglePoints={} --таблица точек, которая хранит углы
 end
 
 function ClearPoints(data)
@@ -25,6 +26,7 @@ function ClearPoints(data)
         DestroyEffect(data.Effects[i])
     end
     data.Effects = {}
+    data.AnglePoints={}
 end
 
 function InputUpdate (data, x, y)
