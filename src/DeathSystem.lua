@@ -20,6 +20,7 @@ function InitDeathEvent()
         local u = GetTriggerUnit() --тот кто умер
         local killer = GetKillingUnit()
         local xu, yu = GetUnitXY(u)
+        EffectFromUnit2Unit("Firebrand Shot Yellow",killer,u)
         for i = 1, #SlimeID do
             if GetUnitTypeId(u) == SlimeID[i] then
                 --print("умер слайм")
