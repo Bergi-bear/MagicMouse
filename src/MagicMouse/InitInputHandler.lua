@@ -42,7 +42,7 @@ function InputUpdate (data, x, y)
         end
         table.insert(data.Points, vector)
         --print("insert OK")
-
+        UnitAddMana(data.UnitHero,-1)
         table.insert(data.Effects, CreateTMPEffect(x, y,"Doodads\\Cinematic\\GlowingRunes\\GlowingRunes"..data.inputEffectNumber )) -- "Abilities\\Spells\\Items\\HealingSalve\\HealingSalveTarget.mdl"--"units\\nightelf\\Wisp\\Wisp"
 
         ShapeDetectorAdd(data.Points[#data.Points],

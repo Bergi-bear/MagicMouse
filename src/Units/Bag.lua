@@ -3,4 +3,4 @@
 --- Created by Bergi.
 --- DateTime: 24.12.2021 4:00
 ---
-BugID={}
+BugID={FourCC('u000'),FourCC('u001'),FourCC('u002')}

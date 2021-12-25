@@ -207,21 +207,19 @@ function UnitAddForceSimple(hero, angle, speed, distance, flag, pushing)
         end
 
         if true then
-           -- print("повышение отзывчивости")
+            -- print("повышение отзывчивости")
             local vector = Vector:new(GetUnitX(hero), GetUnitY(hero), GetUnitZ(hero))
-            local newVector=vector
-            newVector = VectorSum(newVector , vector:yawPitchOffset(speed, angle * (math.pi / 180), 0.0))
+            local newVector = vector
+            newVector = VectorSum(newVector, vector:yawPitchOffset(speed, angle * (math.pi / 180), 0.0))
             SetUnitPositionSmooth(hero, newVector.x, newVector.y)
         end
 
         TimerStart(CreateTimer(), TIMER_PERIOD64, true, function()
             currentdistance = currentdistance + speed
-
-            local vector = Vector:new(GetUnitX(hero), GetUnitY(hero), GetUnitZ(hero))
-            local newVector=vector
-
-            newVector = VectorSum(newVector , vector:yawPitchOffset(speed, angle * (math.pi / 180), 0.0))
-
+            local x, y = GetUnitXY(hero)
+            local vector = Vector:new(x, y, GetUnitZ(hero))
+            local newVector = vector
+            newVector = VectorSum(newVector, vector:yawPitchOffset(speed, angle * (math.pi / 180), 0.0))
 
             local makeJump = false
             if IsUnitType(hero, UNIT_TYPE_HERO) then
@@ -250,9 +248,10 @@ function UnitAddForceSimple(hero, angle, speed, distance, flag, pushing)
             end
 
             if GetUnitTypeId(hero) ~= HeroID and GetUnitTypeId(pushing) == HeroID then
+
                 local PerepadZ = GetTerrainZ(MoveXY(x, y, 120, angle)) - GetTerrainZ(x, y)
                 --print(PerepadZ)
-                if (PointContentDestructable(newX, newY, 120, false) or PerepadZ > 20) and not damageOnWall then
+                if (PointContentDestructable(newVector.x, newVector.y, 120, false) or PerepadZ > 20) and not damageOnWall then
                     local data = HERO[GetPlayerId(GetOwningPlayer(pushing))]
                     local bonus = 0
                     if not data.WallHitCount then
@@ -273,9 +272,13 @@ function UnitAddForceSimple(hero, angle, speed, distance, flag, pushing)
                         DestroyTimer(GetExpiredTimer())
                     end)
                     --print(data.WallHitCount)
+                    local fh = GetFHByName(data, "Murloc Mutant Card")
+                    if fh then
+                        local ch = GetFrameCharges(fh)
+                        bonus=bonus+50*ch
+                    end
 
-
-                    local damage = 100 + bonus
+                    local damage = 50 + bonus
                     if not data.WallDamage then
                         data.WallDamage = 0
                     end
@@ -424,7 +427,6 @@ function PlayerSeeNoiseInRangeTimed(duration, x, y)
         if PlayerIsPlaying[i] then
             local data = HERO[i]
             local hero = data.UnitHero
-
             if IsUnitInRangeXY(hero, x, y, 500) then
                 CameraSetEQNoiseForPlayer(GetOwningPlayer(hero), 3)
                 TimerStart(CreateTimer(), duration, false, function()
@@ -523,38 +525,91 @@ end
 --- DateTime: 16.12.2021 21:48
 ---
 function CreateDownInterface(data)
-    AddDownInterfaceElement(data, "line", 50)
-    AddDownInterfaceElement(data, "circle", 100)
-    AddDownInterfaceElement(data, "curve", 150)
-    AddDownInterfaceElement(data, "triangle", 200)
-    AddDownInterfaceElement(data, "wave", 200)
-    AddDownInterfaceElement(data, "squae", 200)
-    AddDownInterfaceElement(data, "smallrocks", 20)
-    AddDownInterfaceElement(data, "CircleHeal", 200)
-    AddDownInterfaceElement(data, "clock", 200)
-    AddDownInterfaceElement(data, "icewall", 100)
-    AddDownInterfaceElement(data, "deathcross", 300)
-    AddDownInterfaceElement(data, "grandcross", 250)
-    AddDownInterfaceElement(data, "z", 200)
-    AddDownInterfaceElement(data, "m", 500)
-    AddDownInterfaceElement(data, "curvecircle", 300)
-    AddDownInterfaceElement(data, "golem", 500)
-
+    local container = BlzCreateFrameByType('BACKDROP', 'FaceButtonIcon', BlzGetOriginFrame(ORIGIN_FRAME_GAME_UI, 0), '', 0)
+    AddDownInterfaceElement(data, container, "line", 50)
+    AddDownInterfaceElement(data, container, "circle", 100)
+    AddDownInterfaceElement(data, container, "curve", 150)
+    AddDownInterfaceElement(data, container, "triangle", 200)
+    AddDownInterfaceElement(data, container, "wave", 200)
+    AddDownInterfaceElement(data, container, "squae", 200)
+    AddDownInterfaceElement(data, container, "smallrocks", 20)
+    AddDownInterfaceElement(data, container, "CircleHeal", 200)
+    AddDownInterfaceElement(data, container, "clock", 200)
+    AddDownInterfaceElement(data, container, "icewall", 100)
+    AddDownInterfaceElement(data, container, "deathcross", 300)
+    AddDownInterfaceElement(data, container, "grandcross", 250)
+    AddDownInterfaceElement(data, container, "z", 200)
+    AddDownInterfaceElement(data, container, "m", 500)
+    AddDownInterfaceElement(data, container, "curvecircle", 300)
+    AddDownInterfaceElement(data, container, "golem", 500)
+    BlzFrameSetVisible(container, GetLocalPlayer() == Player(data.pid))
+    CreateHideButton(data,container)
 end
 
-function AddDownInterfaceElement(data, name, weight)
+function AddDownInterfaceElement(data, parent, name, weight)
     local step = 0.039
     if not data.nextElement then
         data.nextElement = 0
         data.SpellsName = {}-- таблица содержит фреймы
         data.SpellsFH = {}
         data.WeightSpellTable = {} --таблица весов
-        data.PreviousCast=""
+        data.PreviousCast = ""
     end
     table.insert(data.WeightSpellTable, weight)
     data.nextElement = data.nextElement + 1
     data.SpellsName[data.nextElement] = name
-    data.SpellsFH[data.nextElement] = CreateSimpleFrameGlue(data.nextElement * step, 0.02, name)
+    data.SpellsFH[data.nextElement] = CreateSimpleFrameGlue(data.nextElement * step, 0.02, name, parent)
+end
+
+function CreateHideButton(data, container)
+    local texture = "ReplaceableTextures\\CommandButtons\\BTNCryptFiendBurrow.blp"
+    local texture2="ReplaceableTextures\\CommandButtons\\BTNCryptFiendUnBurrow.blp"
+    local SelfFrame = BlzCreateFrameByType('GLUEBUTTON', 'FaceButton', BlzGetOriginFrame(ORIGIN_FRAME_GAME_UI, 0), 'ScoreScreenTabButtonTemplate', 0)
+    local buttonIconFrame = BlzCreateFrameByType('BACKDROP', 'FaceButtonIcon', SelfFrame, '', 0)
+
+    BlzFrameSetParent(SelfFrame, BlzGetFrameByName("ConsoleUIBackdrop", 0))
+    BlzFrameSetParent(buttonIconFrame, BlzGetFrameByName("ConsoleUIBackdrop", 0))
+    BlzFrameSetAllPoints(buttonIconFrame, SelfFrame)
+    BlzFrameSetTexture(buttonIconFrame, texture, 0, true)
+    BlzFrameSetSize(SelfFrame, GNext, GNext)
+    BlzFrameSetVisible(SelfFrame,GetLocalPlayer() == Player(data.pid))
+    --BlzFrameSetPoint(SelfFrame, FRAMEPOINT_RIGHT, parent, FRAMEPOINT_RIGHT, GNext, 0.00)
+    BlzFrameSetAbsPoint(SelfFrame, FRAMEPOINT_CENTER, -0.11, GNext / 2)
+
+    local ClickTrig = CreateTrigger()
+    BlzTriggerRegisterFrameEvent(ClickTrig, SelfFrame, FRAMEEVENT_CONTROL_CLICK)
+    TriggerAddAction(ClickTrig, function()
+        BlzFrameSetEnable(BlzGetTriggerFrame(), false)
+        BlzFrameSetEnable(BlzGetTriggerFrame(), true)
+        if BlzFrameIsVisible(container) then
+            BlzFrameSetVisible(container,false)
+            BlzFrameSetTexture(buttonIconFrame, texture2, 0, true)
+        else
+            BlzFrameSetVisible(container,GetLocalPlayer() == GetTriggerPlayer())
+            BlzFrameSetTexture(buttonIconFrame, texture, 0, true)
+        end
+        StopUnitMoving(data)
+    end)
+
+    local TrigMOUSE_ENTER = CreateTrigger()
+    BlzTriggerRegisterFrameEvent(TrigMOUSE_ENTER, SelfFrame, FRAMEEVENT_MOUSE_ENTER)
+    TriggerAddAction(TrigMOUSE_ENTER, function()
+        --print("показать подсказку ",flag)
+    end)
+    local TrigMOUSE_LEAVE = CreateTrigger()
+    BlzTriggerRegisterFrameEvent(TrigMOUSE_LEAVE, SelfFrame, FRAMEEVENT_MOUSE_LEAVE)
+    TriggerAddAction(TrigMOUSE_LEAVE, function()
+        --print("убрать подсказку")
+    end)
+
+    ---Подсказка
+    local text = BlzCreateFrameByType("TEXT", "ButtonChargesText", SelfFrame, "", 0)
+    BlzFrameSetParent(text, BlzGetFrameByName("ConsoleUIBackdrop", 0))
+    BlzFrameSetText(text, "Скрыть")
+    BlzFrameSetScale(text, 1)
+    BlzFrameSetPoint(text, FRAMEPOINT_TOP, SelfFrame, FRAMEPOINT_TOP, 0.00, 0.01)
+
+    return SelfFrame, buttonIconFrame
 end
 ---
 --- Generated by EmmyLua(https://github.com/EmmyLua)
@@ -563,6 +618,7 @@ end
 ---
 function CreateTMPEffect(x,y, effect)
     --SetFogStateRadius(Player(0), FOG_OF_WAR_VISIBLE, x, y, 400, true)
+
     return AddSpecialEffect(effect,x,y)
 end
 ---
@@ -634,7 +690,7 @@ function OnPostDamage()
 
 
     for i = 1, #SlimeID do
-        if GetUnitTypeId(target) == SlimeID[i] and damage>50 then
+        if GetUnitTypeId(target) == SlimeID[i] and damage > 50 then
             if UnitAlive(target) then
                 normal_sound(SlimeSound[2], GetUnitXY(target))
                 --print("получил")
@@ -725,6 +781,25 @@ function OnPostDamage()
     else
         --print("наш герой получил урон")
 
+    end
+    if GetUnitTypeId(target) ~= HeroID and GetUnitTypeId(caster) == HeroID then
+        --Функция должна быть в самом низу
+        AddDamage2Show(target, GetEventDamage())
+        local data = GetUnitData(caster)
+        data.StatDamageDealing = data.StatDamageDealing + GetEventDamage()
+        local showData = ShowDamageTable[GetHandleId(target)]
+        local matchShow = showData.damage
+        if matchShow >= 1 then
+            if not showData.tag then
+                showData.tag = FlyTextTagCriticalStrike(target, R2I(matchShow), GetOwningPlayer(caster), true)
+            else
+
+                SetTextTagText(showData.tag, R2I(matchShow), 0.024 + (showData.k))
+                SetTextTagVelocity(showData.tag, 0, 0.01)
+                SetTextTagLifespan(showData.tag, 99)
+
+            end
+        end
     end
 
 
@@ -931,33 +1006,33 @@ function InitDeathEvent()
         local u = GetTriggerUnit() --тот кто умер
         local killer = GetKillingUnit()
         local xu, yu = GetUnitXY(u)
-        EffectFromUnit2Unit("Firebrand Shot Yellow",killer,u)
-        for i = 1, #SlimeID do
-            if GetUnitTypeId(u) == SlimeID[i] then
-                --print("умер слайм")
-                normal_sound(SlimeSound[4], xu, yu, 50)
-                TimerStart(CreateTimer(), 15, false, function()
-                    local x, y = GetRandomReal(GetRectMinX(gg_rct_Bound01), GetRectMaxX(gg_rct_Bound01)), GetRandomReal(GetRectMinY(gg_rct_Bound01), GetRectMaxY(gg_rct_Bound01))
-                    --print(x,y)
-                    local new = CreateUnit(Player(10), SlimeID[i], x, y, 0)
-                    SlimeAddMoveEvent(new)
-                end)
-                --CreateItemPrefab(xu,yu,"Slime Card")
-                CreateItemPrefabPool(xu, yu, "Slime Card", "Slime Jelly", "Slime Egg")
+        if IsUnitEnemy(u,GetOwningPlayer(killer)) then
+            EffectFromUnit2Unit("Firebrand Shot Yellow",killer,u)
+            for i = 1, #SlimeID do
+                if GetUnitTypeId(u) == SlimeID[i] then
+                    --print("умер слайм")
+                    normal_sound(SlimeSound[4], xu, yu, 50)
+                    TimerStart(CreateTimer(), 15, false, function()
+                        local x, y = GetRandomReal(GetRectMinX(gg_rct_Bound01), GetRectMaxX(gg_rct_Bound01)), GetRandomReal(GetRectMinY(gg_rct_Bound01), GetRectMaxY(gg_rct_Bound01))
+                        --print(x,y)
+                        local new = CreateUnit(Player(10), SlimeID[i], x, y, 0)
+                        SlimeAddMoveEvent(new)
+                    end)
+                    --CreateItemPrefab(xu,yu,"Slime Card")
+                    CreateItemPrefabPool(GetUnitData(killer),xu, yu, "Slime Card", "Slime Jelly", "Slime Egg")
+                end
             end
-        end
-        for i = 1, #BugID do
-            if GetUnitTypeId(u) == SlimeID[i] then
-                --print("умер слайм")
-                --normal_sound(SlimeSound[4], xu, yu, 50)
-                TimerStart(CreateTimer(), 15, false, function()
-                    local x, y = GetRandomReal(GetRectMinX(gg_rct_Bound01), GetRectMaxX(gg_rct_Bound01)), GetRandomReal(GetRectMinY(gg_rct_Bound01), GetRectMaxY(gg_rct_Bound01))
-                    --print(x,y)
-                    local new = CreateUnit(Player(10), SlimeID[i], x, y, 0)
-                    SlimeAddMoveEvent(new)
-                end)
-                --CreateItemPrefab(xu,yu,"Slime Card")
-                CreateItemPrefabPool(xu, yu, "Slime Card", "Slime Jelly", "Slime Egg")
+            for i = 1, #BugID do
+                if GetUnitTypeId(u) == BugID[i] then
+                    TimerStart(CreateTimer(), 15, false, function()
+                        local x, y = GetRandomReal(GetRectMinX(gg_rct_Bound02), GetRectMaxX(gg_rct_Bound02)), GetRandomReal(GetRectMinY(gg_rct_Bound02), GetRectMaxY(gg_rct_Bound02))
+                        --print(x,y)
+                        local new = CreateUnit(Player(10), BugID[i], x, y, 0)
+
+                    end)
+                    --CreateItemPrefab(xu,yu,"Slime Card")
+                    CreateItemPrefabPool(GetUnitData(killer),xu, yu, "Bag Card", "Shell")
+                end
             end
         end
     end)
@@ -978,6 +1053,7 @@ function SetDNCForPlayer(hero,state)
     else
         dncLocal=data.DNC
     end
+    data.DNC=dncLocal
     SetDayNightModels(dncLocal,dncLocal)
 end
 ---
@@ -1046,6 +1122,10 @@ function HealUnit(hero, amount, flag, eff)
         return OverHeal
     end
 end
+
+function UnitAddMana(target,amount)
+    SetUnitState(target,UNIT_STATE_MANA,GetUnitState(target,UNIT_STATE_MANA)+amount)
+end
 ---
 --- Generated by EmmyLua(https://github.com/EmmyLua)
 --- Created by Bergi.
@@ -1088,6 +1168,7 @@ end
 --- DateTime: 01.12.2021 18:06
 ---
 HERO = {}
+PlayerIsPlaying={}
 function InitHEROTable()
     for i = 0, bj_MAX_PLAYER_SLOTS - 1 do
         HERO[i] = {
@@ -2240,7 +2321,7 @@ function UnitDamageArea(u, damage, x, y, range, flag)
     return isdamage, hero, k, all
 end
 
-function CreateSimpleFrameGlue(posX, PosY, texture)
+function CreateSimpleFrameGlue(posX, PosY, texture,parent)
     --, call,callENTER,callLEAVE
     local NextPoint = 0.039
     if not texture then
@@ -2248,7 +2329,7 @@ function CreateSimpleFrameGlue(posX, PosY, texture)
     else
 
     end
-    local SelfFrame = BlzCreateFrameByType('GLUEBUTTON', 'FaceButton', BlzGetOriginFrame(ORIGIN_FRAME_GAME_UI, 0), 'ScoreScreenTabButtonTemplate', 0)
+    local SelfFrame = BlzCreateFrameByType('GLUEBUTTON', 'FaceButton', parent, 'ScoreScreenTabButtonTemplate', 0)
     local buttonIconFrame = BlzCreateFrameByType('BACKDROP', 'FaceButtonIcon', SelfFrame, '', 0)
 
     BlzFrameSetParent(SelfFrame, BlzGetFrameByName("ConsoleUIBackdrop", 0))
@@ -2272,9 +2353,10 @@ function CreateSimpleFrameGlue(posX, PosY, texture)
     BlzTriggerRegisterFrameEvent(ClickTrig, SelfFrame, FRAMEEVENT_CONTROL_CLICK)
     TriggerAddAction(ClickTrig, function()
         --call()
+        local data=HERO[GetPlayerId(GetTriggerPlayer())]
         BlzFrameSetEnable(BlzGetTriggerFrame(), false)
         BlzFrameSetEnable(BlzGetTriggerFrame(), true)
-        --StopUnitMoving(data)
+        StopUnitMoving(data)
     end)
 
     local TrigMOUSE_ENTER = CreateTrigger()
@@ -2505,7 +2587,11 @@ function EffectFromUnit2Unit(effModel, hero,enemy)
         if DistanceBetweenXY(x, y, xEnd, yEnd) <= 50 or d>=100 then
             DestroyTimer(GetExpiredTimer())
             DestroyEffect(eff)
-            UnitAddGold(hero,R2I(BlzGetUnitMaxHP(enemy)/100))
+            local gain=BlzGetUnitMaxHP(enemy)/100
+            if gain<1 then
+                gain=1
+            end
+            UnitAddGold(hero,R2I(gain))
             --print("долетел")
         end
     end)
@@ -2591,7 +2677,8 @@ end
 function ItemActivatorList(data,name)
     if name=="Apple" then
         HealUnit(data.UnitHero,10)
-    elseif true then
+    elseif name=="Slime Jelly" then
+        HealUnit(data.UnitHero,50)
     else
         print("попытка активировать предмет не из базы данных",name)
     end
@@ -2617,8 +2704,20 @@ function AddItem2Hero(data, name)
     end
     --print("меняю текстуру на",BDItems[name].ico)
     data.ItemSlotName[m]=name
+    PassiveEffectPerAdd(data,name)
     BlzFrameSetTexture(freeFrameSlot, BDItems[name].ico, 0, true)
     return true
+end
+
+function PassiveEffectPerAdd(data,name)
+    if name=="Slime Card" then
+        --print("получена карта слайма")
+        AddMaxLife(data.UnitHero,50)
+    elseif true then
+
+    else
+
+    end
 end
 ---
 --- Generated by EmmyLua(https://github.com/EmmyLua)
@@ -2634,7 +2733,7 @@ BDItems = {
         cost         = "100",
         lvl          = 1,
         short        = "HP UP",
-        drop         = 5,
+        drop         = 2,
     },
     ["Slime Jelly"] = {
         descriptions = "Исцеляет на 50 единиц при подборе",
@@ -2643,16 +2742,17 @@ BDItems = {
         cost         = "100",
         lvl          = 1,
         short        = "Heal",
-        drop         = 50,
+        drop         = 20,
+        canUsed      = true,
     },
     ["Slime Egg"]   = {
-        descriptions = "Слайм всегда сражается на вашей стороне",
+        descriptions = "Призывает слайма который всегда сражается на вашей стороне, стаки увеличивает здоровье слайма",
         effModel     = "",
         ico          = "ReplaceableTextures\\CommandButtons\\BTNPhoenixEgg.blp",
         cost         = "100",
         lvl          = 1,
         short        = "Summon Slime",
-        drop         = 20,
+        drop         = 2,
     },
     ["Apple"]       = {
         descriptions = "Восстанавливает 10 здоровья",
@@ -2664,6 +2764,42 @@ BDItems = {
         drop         = 20,
         canUsed      = true,
     },
+    ["Bag Card"]    = {
+        descriptions = "Заклинание Sand Storm, будет призывать по 1 жуку за каждую карту в инвентаре, при убийстве врагов",
+        effModel     = "SpecialItemWhite",
+        ico          = "card",
+        cost         = "100",
+        lvl          = 1,
+        short        = "Summon Per Kill",
+        drop         = 2,
+    },
+    ["Shell"]       = {
+        descriptions = "+1 брони за каждый стак",
+        effModel     = "SpecialItemWhite",
+        ico          = "card",
+        cost         = "100",
+        lvl          = 1,
+        short        = "Armor Up",
+        drop         = 5,
+    },
+    ["Rat Card"]    = {
+        descriptions = "Увеличивает любой шанс дропа на 1% за каждый стак",
+        effModel     = "SpecialItemWhite",
+        ico          = "card",
+        cost         = "100",
+        lvl          = 1,
+        short        = "Drop Up",
+        drop         = 2,
+    },
+    ["Murloc Mutant Card"]    = {
+        descriptions = "Волна наносит 50 доп урона за каждый стак, если толкает юнита в стену",
+        effModel     = "SpecialItemWhite",
+        ico          = "card",
+        cost         = "100",
+        lvl          = 1,
+        short        = "Drop Up",
+        drop         = 2,
+    },
 }
 ---
 --- Generated by EmmyLua(https://github.com/EmmyLua)
@@ -2671,6 +2807,33 @@ BDItems = {
 --- DateTime: 18.12.2021 22:35
 ---
 function CatchItem(data)
+    --local tempTable = AllItemsTable
+    local k=#AllItemsTable
+    if k>0 then
+        while true do
+            --print(i,#AllItemsTable)
+            local dataItems = AllItemsTable[k]
+            local x, y = dataItems[3], dataItems[4]
+            local d = DistanceBetweenXY(x, y, GetUnitXY(data.UnitHero))
+            if d <= 150 then
+                if AddItem2Hero(data,dataItems[2]) then
+                    --DestroyEffect(AddSpecialEffect("Abilities\\Spells\\Human\\HolyBolt\\HolyBoltSpecialArt", x, y))
+                    normal_sound("Sound\\Interface\\PickUpItem",GetUnitXY(data.UnitHero))
+                    DestroyEffect(dataItems[1])
+                    table.remove(AllItemsTable,k)
+                end
+                --приходится обрывать цикл чтобы не было проблем
+            end
+            k=k-1
+            if k<=0 then
+              --  print("перебор предметов окончен")
+                break
+            end
+        end
+    end
+end
+
+function CatchItemFor(data)
     --local tempTable = AllItemsTable
     for i = 1, #AllItemsTable do
         if i<=#AllItemsTable then
@@ -2690,7 +2853,6 @@ function CatchItem(data)
             end
         end
     end
-   -- AllItemsTable = tempTable
 end
 ---
 --- Generated by EmmyLua(https://github.com/EmmyLua)
@@ -2757,6 +2919,51 @@ function CreateTabActions()
         data.ReleaseTAB = false
     end)
 end
+
+function CreateActionBox(data,parent)
+
+    local texture = "ReplaceableTextures\\CommandButtons\\BTNSpellSteal.blp"
+    local SelfFrame = BlzCreateFrameByType('GLUEBUTTON', 'FaceButton', parent, 'ScoreScreenTabButtonTemplate', 0)
+    local buttonIconFrame = BlzCreateFrameByType('BACKDROP', 'FaceButtonIcon', SelfFrame, '', 0)
+
+    BlzFrameSetParent(SelfFrame, BlzGetFrameByName("ConsoleUIBackdrop", 0))
+    BlzFrameSetParent(buttonIconFrame, BlzGetFrameByName("ConsoleUIBackdrop", 0))
+    BlzFrameSetAllPoints(buttonIconFrame, SelfFrame)
+    BlzFrameSetTexture(buttonIconFrame, texture, 0, true)
+    BlzFrameSetSize(SelfFrame, GNext, GNext)
+    --
+    BlzFrameSetPoint(SelfFrame, FRAMEPOINT_RIGHT, parent, FRAMEPOINT_RIGHT, GNext, 0.00)
+    --BlzFrameSetAbsPoint(SelfFrame, FRAMEPOINT_CENTER, 0.8 + GNext / 2, GNext / 2)
+
+    local ClickTrig = CreateTrigger()
+    BlzTriggerRegisterFrameEvent(ClickTrig, SelfFrame, FRAMEEVENT_CONTROL_CLICK)
+    TriggerAddAction(ClickTrig, function()
+        BlzFrameSetEnable(BlzGetTriggerFrame(), false)
+        BlzFrameSetEnable(BlzGetTriggerFrame(), true)
+        StopUnitMoving(data)
+        CatchItem(data)
+    end)
+
+    local TrigMOUSE_ENTER = CreateTrigger()
+    BlzTriggerRegisterFrameEvent(TrigMOUSE_ENTER, SelfFrame, FRAMEEVENT_MOUSE_ENTER)
+    TriggerAddAction(TrigMOUSE_ENTER, function()
+        --print("показать подсказку ",flag)
+    end)
+    local TrigMOUSE_LEAVE = CreateTrigger()
+    BlzTriggerRegisterFrameEvent(TrigMOUSE_LEAVE, SelfFrame, FRAMEEVENT_MOUSE_LEAVE)
+    TriggerAddAction(TrigMOUSE_LEAVE, function()
+        --print("убрать подсказку")
+    end)
+
+    ---Подсказка
+    local text = BlzCreateFrameByType("TEXT", "ButtonChargesText", SelfFrame, "", 0)
+    BlzFrameSetParent(text, BlzGetFrameByName("ConsoleUIBackdrop", 0))
+    BlzFrameSetText(text, "E")
+    BlzFrameSetScale(text, 1)
+    BlzFrameSetPoint(text, FRAMEPOINT_TOP, SelfFrame, FRAMEPOINT_TOP, 0.00, 0.01)
+
+    return SelfFrame, buttonIconFrame
+end
 ---
 --- Generated by EmmyLua(https://github.com/EmmyLua)
 --- Created by Bergi.
@@ -2764,7 +2971,9 @@ end
 ---
 function InitInventory(data)
     local BoxFrame = CreateInventoryBox(data)
-    CreateInventoryButton(data, nil, BoxFrame)
+
+    local invFH = CreateInventoryButton(data, nil, BoxFrame)
+    CreateActionBox(data, invFH)
     BlzFrameSetVisible(BoxFrame, false)
 end
 function CreateInventoryButton(data, texture, BoxFrame)
@@ -2991,6 +3200,21 @@ function MakeFrameCharged(fh, ch)
     return text
 end
 
+function GetFHByName(data, name)
+    local find=false
+    for i = 1, #data.ItemSlot do
+        if data.ItemSlotName[i] == name then
+            --local ch = GetFrameCharges(data.ItemSlotTexture[i])
+            --print(ch)
+            --SetFrameCharges(data.ItemSlotTexture[i], ch + 1)
+            --print("у вас уже есть предмет данного типа, пополняем заряды", ch + 1)
+            return data.ItemSlotTexture[i], i
+        end
+    end
+       if not find then
+        return false
+    end
+end
 ---
 --- Generated by EmmyLua(https://github.com/EmmyLua)
 --- Created by Bergi.
@@ -3017,17 +3241,48 @@ function CreateItemPrefab(x,y,name,fromEffect)
     table.insert(AllItemsTable,t)
 end
 
-function CreateItemPrefabPool(x,y,...)
+function CreateItemPrefabPool(data,x,y,...)
     local pool ={...}
     for i=1, #pool do
         local drop=BDItems[pool[i]].drop
         local dice=GetRandomInt(1,100)
         --print(drop,dice)
+        local fh=GetFHByName(data,"Rat Card")
+        if fh then
+            local ch=GetFrameCharges(fh)
+            drop=drop+ch
+        end
         if dice<=drop then
             local xn,yn=MoveXY(x,y,GetRandomInt(1,50),GetRandomInt(0,360))
             CreateItemPrefab(xn,yn,pool[i])
         end
     end
+end
+---
+--- Generated by EmmyLua(https://github.com/EmmyLua)
+--- Created by Bergi.
+--- DateTime: 25.12.2021 16:44
+---
+function AddMaxLife(hero, amount)
+    local maxHP = BlzGetUnitMaxHP(hero)
+    if IsUnitType(hero,UNIT_TYPE_HERO) then
+        local data=GetUnitData(hero)
+        amount=R2I(amount*data.MaxLifeBonus)
+        if data.HealForHeart then
+            HealUnit(hero,maxHP)
+        end
+    end
+
+    BlzSetUnitMaxHP(hero, maxHP + amount)
+    if IsUnitType(hero,UNIT_TYPE_HERO) then
+        TimerStart(CreateTimer(), 1, false, function()
+            FlyTextTagHealXY(GetUnitX(hero), GetUnitY(hero), "+" .. R2I(amount)..L(" Макс ХП"," Max HP"), GetOwningPlayer(hero))
+            DestroyTimer(GetExpiredTimer())
+        end)
+    else
+        HealUnit(hero)
+    end
+    --HealUnit(hero, amount)
 end
 ---
 --- Generated by EmmyLua(https://github.com/EmmyLua)
@@ -3073,7 +3328,7 @@ function InputUpdate (data, x, y)
         end
         table.insert(data.Points, vector)
         --print("insert OK")
-
+        UnitAddMana(data.UnitHero,-1)
         table.insert(data.Effects, CreateTMPEffect(x, y,"Doodads\\Cinematic\\GlowingRunes\\GlowingRunes"..data.inputEffectNumber )) -- "Abilities\\Spells\\Items\\HealingSalve\\HealingSalveTarget.mdl"--"units\\nightelf\\Wisp\\Wisp"
 
         ShapeDetectorAdd(data.Points[#data.Points],
@@ -3096,7 +3351,11 @@ function DetectShape(angles, sides, data)
     for i = 1, #Shapes do --перебор всех возможных фигур
         if (Shapes[i]:check(sum, angles, sides, data)) then
             --print("проверка фигур ",i)
+            UnitAddMana(data.UnitHero,30)
             return
+        else
+            --print("ни 1 фигура не была найдена")
+            UnitAddMana(data.UnitHero,-1)
         end
     end
 end
@@ -3470,17 +3729,20 @@ function CreateHPBar(data)
     local x, y = -0.1, 0.58
     local hero = data.UnitHero
 
-    local into = BlzCreateFrameByType('BACKDROP', 'FaceButtonIcon', BoxBarParent, '', 0)
-    BlzFrameSetTexture(into, "into", 0, true)
-    BlzFrameSetSize(into, GNext*5, GNext)
-    BlzFrameSetAbsPoint(into, FRAMEPOINT_LEFT, x, y)
+
     --BlzFrameSetAlpha(into, 128)
 
     local chargesBox = BlzCreateFrameByType('BACKDROP', 'FaceButtonIcon', BoxBarParent, '', 0)
-    BlzFrameSetTexture(chargesBox, "HPElement", 0, true)
+    BlzFrameSetTexture(chargesBox, "Replaceabletextures\\Teamcolor\\Teamcolor06.blp", 0, true) --HPElement
     BlzFrameSetSize(chargesBox, GNext, GNext)
-    BlzFrameSetAbsPoint(chargesBox, FRAMEPOINT_LEFT, x+0.004, y)
+    BlzFrameSetAbsPoint(chargesBox, FRAMEPOINT_LEFT, x + 0.004, y)
     BlzFrameSetAlpha(chargesBox, 128)
+
+    local into = BlzCreateFrameByType('BACKDROP', 'FaceButtonIcon', BoxBarParent, '', 0)
+    BlzFrameSetTexture(into, "into", 0, true)
+    BlzFrameSetSize(into, GNext * 5, GNext)
+    BlzFrameSetAbsPoint(into, FRAMEPOINT_LEFT, x, y)
+    BlzFrameSetAlpha(into, 50)
 
     local textCurrent = BlzCreateFrameByType("TEXT", "ButtonChargesText", BoxBarParent, "", 0)
     BlzFrameSetPoint(textCurrent, FRAMEPOINT_LEFT, into, FRAMEPOINT_LEFT, 0.002, 0)
@@ -3499,21 +3761,75 @@ function CreateHPBar(data)
         hp = GetUnitLifePercent(hero)
         if not UnitAlive(hero) then
             hp = 0
-            -- print("Юнит мерт, сводим бар до нуля")
-            --BlzFrameSetSize(into, 0, 0)
+            --print("Юнит мерт, сводим бар до нуля",hp)
+            BlzFrameSetSize(into, 0, 0)
             --BlzFrameSetVisible(into, false)
-            --BlzFrameSetText(textCurrent, hp)
-            --BlzFrameSetText(textMax, R2I(BlzGetUnitMaxHP(hero)))
+            BlzFrameSetText(textCurrent, hp)
+            BlzFrameSetText(textMax, R2I(BlzGetUnitMaxHP(hero)))
         else
             --BlzFrameSetVisible(into, GetLocalPlayer() == GetOwningPlayer(hero))
             BlzFrameSetText(textCurrent, R2I(GetUnitState(hero, UNIT_STATE_LIFE)))
             BlzFrameSetText(textMax, R2I(BlzGetUnitMaxHP(hero)))
-            BlzFrameSetSize(chargesBox, 4.82 * hp * GNext / 100, GNext)
+            BlzFrameSetSize(chargesBox, 4.82 * hp * GNext / 100, GNext * 0.5)
+            BlzFrameSetAlpha(chargesBox, 20)
         end
     end)
-
-
 end
+
+
+function CreateMANABar(data)
+    local BoxBarParent = BlzCreateFrameByType('BACKDROP', 'FaceButtonIcon', BlzGetOriginFrame(ORIGIN_FRAME_GAME_UI, 0), '', 0)
+    BlzFrameSetVisible(BoxBarParent, GetLocalPlayer() == Player(data.pid))
+    local x, y = -0.1, 0.56
+    local hero = data.UnitHero
+
+
+    --BlzFrameSetAlpha(into, 128)
+
+    local chargesBox = BlzCreateFrameByType('BACKDROP', 'FaceButtonIcon', BoxBarParent, '', 0)
+    BlzFrameSetTexture(chargesBox, "Replaceabletextures\\Teamcolor\\Teamcolor01.blp", 0, true) --HPElement
+    BlzFrameSetSize(chargesBox, GNext, GNext)
+    BlzFrameSetAbsPoint(chargesBox, FRAMEPOINT_LEFT, x + 0.004, y)
+    BlzFrameSetAlpha(chargesBox, 128)
+
+    local into = BlzCreateFrameByType('BACKDROP', 'FaceButtonIcon', BoxBarParent, '', 0)
+    BlzFrameSetTexture(into, "into", 0, true)
+    BlzFrameSetSize(into, GNext * 5, GNext)
+    BlzFrameSetAbsPoint(into, FRAMEPOINT_LEFT, x, y)
+    BlzFrameSetAlpha(into, 50)
+
+    local textCurrent = BlzCreateFrameByType("TEXT", "ButtonChargesText", BoxBarParent, "", 0)
+    BlzFrameSetPoint(textCurrent, FRAMEPOINT_LEFT, into, FRAMEPOINT_LEFT, 0.002, 0)
+    local textMax = BlzCreateFrameByType("TEXT", "ButtonChargesText", BoxBarParent, "", 0)
+    BlzFrameSetPoint(textMax, FRAMEPOINT_RIGHT, into, FRAMEPOINT_RIGHT, -0.002, 0)
+
+
+    --
+    BlzFrameSetParent(chargesBox, BlzGetFrameByName("ConsoleUIBackdrop", 0))
+    BlzFrameSetParent(textCurrent, BlzGetFrameByName("ConsoleUIBackdrop", 0))
+    BlzFrameSetParent(textMax, BlzGetFrameByName("ConsoleUIBackdrop", 0))
+    BlzFrameSetParent(into, BlzGetFrameByName("ConsoleUIBackdrop", 0))
+
+    TimerStart(CreateTimer(), 0.05, true, function()
+        local hp = 0
+        hp = GetUnitManaPercent(hero)
+        if not UnitAlive(hero) then
+            hp = 0
+            --print("Юнит мерт, сводим бар до нуля",hp)
+            BlzFrameSetSize(into, 0, 0)
+            --BlzFrameSetVisible(into, false)
+            BlzFrameSetText(textCurrent, hp)
+            BlzFrameSetText(textMax, R2I(BlzGetUnitMaxMana(hero)))
+        else
+            --BlzFrameSetVisible(into, GetLocalPlayer() == GetOwningPlayer(hero))
+            BlzFrameSetText(textCurrent, R2I(GetUnitState(hero, UNIT_STATE_MANA)))
+            BlzFrameSetText(textMax, R2I(BlzGetUnitMaxMana(hero)))
+            BlzFrameSetSize(chargesBox, 4.82 * hp * GNext / 100, GNext * 0.5)
+            BlzFrameSetAlpha(chargesBox, 20)
+        end
+    end)
+end
+
 
 function GetSegmentCount(max)
     local step = 100
@@ -3576,6 +3892,7 @@ end
 function CreatePeonForPlayer(data)
     --print("1")
     if IsPlayerSlotState(Player(data.pid),PLAYER_SLOT_STATE_PLAYING) and GetPlayerController(Player(data.pid)) == MAP_CONTROL_USER then
+        PlayerIsPlaying[data.pid] = true
         --print("создание пеона")
         CreateDownInterface(data)
         local x,y=GetPlayerStartLocationX(Player(data.pid)),GetPlayerStartLocationY(Player(data.pid))
@@ -3586,6 +3903,7 @@ function CreatePeonForPlayer(data)
         InitWASD(data.UnitHero)
         InitInventory(data)
         CreateHPBar(data)
+        CreateMANABar(data)
         SetDNCForPlayer(data.UnitHero,"Environment\\DNC\\DNCAshenvale\\DNCAshenvaleTerrain\\DNCAshenvaleTerrain.mdl")
     end
 end
@@ -4510,7 +4828,7 @@ function CastWave(data, x, y, x2, y2)
            -- print("попадание волной")
             DestroyEffect(AddSpecialEffect("Abilities\\Spells\\Other\\CrushingWave\\CrushingWaveDamage.mdl", GetUnitXY(enemy)))
         end
-        UnitAddForceSimple(enemy, angle, speed, 100)
+        UnitAddForceSimple(enemy, angle, speed, 100,nil,data.UnitHero)
         --BlzSetSpecialEffectPosition(eff, newVector.x, newVector.y, z + 50)
         curDist = curDist + speed
         if curDist > d - 150 then
@@ -5181,6 +5499,17 @@ function SandStorm(data, x, y)
     TimerStart(CreateTimer(), TIMER_PERIOD64, true, function()
         local _, _, _, units = UnitDamageArea(data.UnitHero, 1, x, y, 250)
         for i = 1, #units do
+            if not UnitAlive(units[i]) then
+                local fh =GetFHByName(data,"Bag Card")
+                if fh then
+                    local ch=GetFrameCharges(fh)
+                    for _=1,ch do
+                        local new = CreateUnit(GetOwningPlayer(data.UnitHero), BugID[GetRandomInt(1,#BugID)], GetUnitX(units[i]), GetUnitY(units[i]), 0)
+                        UnitApplyTimedLife(new, FourCC('BTLF'), 15)
+                    end
+                    --print("умер от SS создаём жуков",ch)
+                end
+            end
             local xu, yu = GetUnitXY(units[i])
             local z = 0
             local d = DistanceBetweenXY(x, y, xu, yu) - 2
@@ -5371,7 +5700,7 @@ end
 --- Created by Bergi.
 --- DateTime: 24.12.2021 4:00
 ---
-BugID={}
+BugID={FourCC('u000'),FourCC('u001'),FourCC('u002')}
 ---
 --- Generated by EmmyLua(https://github.com/EmmyLua)
 --- Created by Bergi.

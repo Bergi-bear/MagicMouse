@@ -147,3 +147,21 @@ STRING 27
 LE
 }
 
+STRING 28
+// Abilities: Agyv (Error), Name (Name)
+{
+Error
+}
+
+STRING 29
+// Abilities: Agyv (Error), Tip (Tooltip - Normal)
+{
+Error
+}
+
+STRING 30
+// Abilities: Agyv (Error), Ubertip (Tooltip - Normal - Extended)
+{
+Error
+}
+

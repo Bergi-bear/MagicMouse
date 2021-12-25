@@ -14,5 +14,6 @@ function SetDNCForPlayer(hero,state)
     else
         dncLocal=data.DNC
     end
+    data.DNC=dncLocal
     SetDayNightModels(dncLocal,dncLocal)
 end

@@ -1,4 +1,4 @@
-function CreateSimpleFrameGlue(posX, PosY, texture)
+function CreateSimpleFrameGlue(posX, PosY, texture,parent)
     --, call,callENTER,callLEAVE
     local NextPoint = 0.039
     if not texture then
@@ -6,7 +6,7 @@ function CreateSimpleFrameGlue(posX, PosY, texture)
     else
 
     end
-    local SelfFrame = BlzCreateFrameByType('GLUEBUTTON', 'FaceButton', BlzGetOriginFrame(ORIGIN_FRAME_GAME_UI, 0), 'ScoreScreenTabButtonTemplate', 0)
+    local SelfFrame = BlzCreateFrameByType('GLUEBUTTON', 'FaceButton', parent, 'ScoreScreenTabButtonTemplate', 0)
     local buttonIconFrame = BlzCreateFrameByType('BACKDROP', 'FaceButtonIcon', SelfFrame, '', 0)
 
     BlzFrameSetParent(SelfFrame, BlzGetFrameByName("ConsoleUIBackdrop", 0))
@@ -30,9 +30,10 @@ function CreateSimpleFrameGlue(posX, PosY, texture)
     BlzTriggerRegisterFrameEvent(ClickTrig, SelfFrame, FRAMEEVENT_CONTROL_CLICK)
     TriggerAddAction(ClickTrig, function()
         --call()
+        local data=HERO[GetPlayerId(GetTriggerPlayer())]
         BlzFrameSetEnable(BlzGetTriggerFrame(), false)
         BlzFrameSetEnable(BlzGetTriggerFrame(), true)
-        --StopUnitMoving(data)
+        StopUnitMoving(data)
     end)
 
     local TrigMOUSE_ENTER = CreateTrigger()

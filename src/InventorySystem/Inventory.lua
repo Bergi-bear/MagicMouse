@@ -5,7 +5,9 @@
 ---
 function InitInventory(data)
     local BoxFrame = CreateInventoryBox(data)
-    CreateInventoryButton(data, nil, BoxFrame)
+
+    local invFH = CreateInventoryButton(data, nil, BoxFrame)
+    CreateActionBox(data, invFH)
     BlzFrameSetVisible(BoxFrame, false)
 end
 function CreateInventoryButton(data, texture, BoxFrame)
@@ -230,4 +232,20 @@ function MakeFrameCharged(fh, ch)
     BlzFrameSetPoint(text, FRAMEPOINT_CENTER, chargesBox, FRAMEPOINT_CENTER, 0.0, 0.0)
     BlzFrameSetText(text, I2S(R2I(ch)))
     return text
+end
+
+function GetFHByName(data, name)
+    local find=false
+    for i = 1, #data.ItemSlot do
+        if data.ItemSlotName[i] == name then
+            --local ch = GetFrameCharges(data.ItemSlotTexture[i])
+            --print(ch)
+            --SetFrameCharges(data.ItemSlotTexture[i], ch + 1)
+            --print("у вас уже есть предмет данного типа, пополняем заряды", ch + 1)
+            return data.ItemSlotTexture[i], i
+        end
+    end
+       if not find then
+        return false
+    end
 end

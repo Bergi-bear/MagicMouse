@@ -24,12 +24,17 @@ function CreateItemPrefab(x,y,name,fromEffect)
     table.insert(AllItemsTable,t)
 end
 
-function CreateItemPrefabPool(x,y,...)
+function CreateItemPrefabPool(data,x,y,...)
     local pool ={...}
     for i=1, #pool do
         local drop=BDItems[pool[i]].drop
         local dice=GetRandomInt(1,100)
         --print(drop,dice)
+        local fh=GetFHByName(data,"Rat Card")
+        if fh then
+            local ch=GetFrameCharges(fh)
+            drop=drop+ch
+        end
         if dice<=drop then
             local xn,yn=MoveXY(x,y,GetRandomInt(1,50),GetRandomInt(0,360))
             CreateItemPrefab(xn,yn,pool[i])

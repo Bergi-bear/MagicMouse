@@ -6,6 +6,7 @@
 function CreatePeonForPlayer(data)
     --print("1")
     if IsPlayerSlotState(Player(data.pid),PLAYER_SLOT_STATE_PLAYING) and GetPlayerController(Player(data.pid)) == MAP_CONTROL_USER then
+        PlayerIsPlaying[data.pid] = true
         --print("создание пеона")
         CreateDownInterface(data)
         local x,y=GetPlayerStartLocationX(Player(data.pid)),GetPlayerStartLocationY(Player(data.pid))
@@ -16,6 +17,7 @@ function CreatePeonForPlayer(data)
         InitWASD(data.UnitHero)
         InitInventory(data)
         CreateHPBar(data)
+        CreateMANABar(data)
         SetDNCForPlayer(data.UnitHero,"Environment\\DNC\\DNCAshenvale\\DNCAshenvaleTerrain\\DNCAshenvaleTerrain.mdl")
     end
 end

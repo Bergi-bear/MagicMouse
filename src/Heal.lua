@@ -64,3 +64,7 @@ function HealUnit(hero, amount, flag, eff)
         return OverHeal
     end
 end
+
+function UnitAddMana(target,amount)
+    SetUnitState(target,UNIT_STATE_MANA,GetUnitState(target,UNIT_STATE_MANA)+amount)
+end

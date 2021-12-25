@@ -31,21 +31,19 @@ function UnitAddForceSimple(hero, angle, speed, distance, flag, pushing)
         end
 
         if true then
-           -- print("повышение отзывчивости")
+            -- print("повышение отзывчивости")
             local vector = Vector:new(GetUnitX(hero), GetUnitY(hero), GetUnitZ(hero))
-            local newVector=vector
-            newVector = VectorSum(newVector , vector:yawPitchOffset(speed, angle * (math.pi / 180), 0.0))
+            local newVector = vector
+            newVector = VectorSum(newVector, vector:yawPitchOffset(speed, angle * (math.pi / 180), 0.0))
             SetUnitPositionSmooth(hero, newVector.x, newVector.y)
         end
 
         TimerStart(CreateTimer(), TIMER_PERIOD64, true, function()
             currentdistance = currentdistance + speed
-
-            local vector = Vector:new(GetUnitX(hero), GetUnitY(hero), GetUnitZ(hero))
-            local newVector=vector
-
-            newVector = VectorSum(newVector , vector:yawPitchOffset(speed, angle * (math.pi / 180), 0.0))
-
+            local x, y = GetUnitXY(hero)
+            local vector = Vector:new(x, y, GetUnitZ(hero))
+            local newVector = vector
+            newVector = VectorSum(newVector, vector:yawPitchOffset(speed, angle * (math.pi / 180), 0.0))
 
             local makeJump = false
             if IsUnitType(hero, UNIT_TYPE_HERO) then
@@ -74,9 +72,10 @@ function UnitAddForceSimple(hero, angle, speed, distance, flag, pushing)
             end
 
             if GetUnitTypeId(hero) ~= HeroID and GetUnitTypeId(pushing) == HeroID then
+
                 local PerepadZ = GetTerrainZ(MoveXY(x, y, 120, angle)) - GetTerrainZ(x, y)
                 --print(PerepadZ)
-                if (PointContentDestructable(newX, newY, 120, false) or PerepadZ > 20) and not damageOnWall then
+                if (PointContentDestructable(newVector.x, newVector.y, 120, false) or PerepadZ > 20) and not damageOnWall then
                     local data = HERO[GetPlayerId(GetOwningPlayer(pushing))]
                     local bonus = 0
                     if not data.WallHitCount then
@@ -97,9 +96,13 @@ function UnitAddForceSimple(hero, angle, speed, distance, flag, pushing)
                         DestroyTimer(GetExpiredTimer())
                     end)
                     --print(data.WallHitCount)
+                    local fh = GetFHByName(data, "Murloc Mutant Card")
+                    if fh then
+                        local ch = GetFrameCharges(fh)
+                        bonus=bonus+50*ch
+                    end
 
-
-                    local damage = 100 + bonus
+                    local damage = 50 + bonus
                     if not data.WallDamage then
                         data.WallDamage = 0
                     end
@@ -248,7 +251,6 @@ function PlayerSeeNoiseInRangeTimed(duration, x, y)
         if PlayerIsPlaying[i] then
             local data = HERO[i]
             local hero = data.UnitHero
-
             if IsUnitInRangeXY(hero, x, y, 500) then
                 CameraSetEQNoiseForPlayer(GetOwningPlayer(hero), 3)
                 TimerStart(CreateTimer(), duration, false, function()

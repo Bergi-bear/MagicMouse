@@ -27,7 +27,7 @@ function CastWave(data, x, y, x2, y2)
            -- print("попадание волной")
             DestroyEffect(AddSpecialEffect("Abilities\\Spells\\Other\\CrushingWave\\CrushingWaveDamage.mdl", GetUnitXY(enemy)))
         end
-        UnitAddForceSimple(enemy, angle, speed, 100)
+        UnitAddForceSimple(enemy, angle, speed, 100,nil,data.UnitHero)
         --BlzSetSpecialEffectPosition(eff, newVector.x, newVector.y, z + 50)
         curDist = curDist + speed
         if curDist > d - 150 then

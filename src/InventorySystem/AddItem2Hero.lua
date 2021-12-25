@@ -19,6 +19,18 @@ function AddItem2Hero(data, name)
     end
     --print("меняю текстуру на",BDItems[name].ico)
     data.ItemSlotName[m]=name
+    PassiveEffectPerAdd(data,name)
     BlzFrameSetTexture(freeFrameSlot, BDItems[name].ico, 0, true)
     return true
+end
+
+function PassiveEffectPerAdd(data,name)
+    if name=="Slime Card" then
+        --print("получена карта слайма")
+        AddMaxLife(data.UnitHero,50)
+    elseif true then
+
+    else
+
+    end
 end

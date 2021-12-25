@@ -20,33 +20,33 @@ function InitDeathEvent()
         local u = GetTriggerUnit() --тот кто умер
         local killer = GetKillingUnit()
         local xu, yu = GetUnitXY(u)
-        EffectFromUnit2Unit("Firebrand Shot Yellow",killer,u)
-        for i = 1, #SlimeID do
-            if GetUnitTypeId(u) == SlimeID[i] then
-                --print("умер слайм")
-                normal_sound(SlimeSound[4], xu, yu, 50)
-                TimerStart(CreateTimer(), 15, false, function()
-                    local x, y = GetRandomReal(GetRectMinX(gg_rct_Bound01), GetRectMaxX(gg_rct_Bound01)), GetRandomReal(GetRectMinY(gg_rct_Bound01), GetRectMaxY(gg_rct_Bound01))
-                    --print(x,y)
-                    local new = CreateUnit(Player(10), SlimeID[i], x, y, 0)
-                    SlimeAddMoveEvent(new)
-                end)
-                --CreateItemPrefab(xu,yu,"Slime Card")
-                CreateItemPrefabPool(xu, yu, "Slime Card", "Slime Jelly", "Slime Egg")
+        if IsUnitEnemy(u,GetOwningPlayer(killer)) then
+            EffectFromUnit2Unit("Firebrand Shot Yellow",killer,u)
+            for i = 1, #SlimeID do
+                if GetUnitTypeId(u) == SlimeID[i] then
+                    --print("умер слайм")
+                    normal_sound(SlimeSound[4], xu, yu, 50)
+                    TimerStart(CreateTimer(), 15, false, function()
+                        local x, y = GetRandomReal(GetRectMinX(gg_rct_Bound01), GetRectMaxX(gg_rct_Bound01)), GetRandomReal(GetRectMinY(gg_rct_Bound01), GetRectMaxY(gg_rct_Bound01))
+                        --print(x,y)
+                        local new = CreateUnit(Player(10), SlimeID[i], x, y, 0)
+                        SlimeAddMoveEvent(new)
+                    end)
+                    --CreateItemPrefab(xu,yu,"Slime Card")
+                    CreateItemPrefabPool(GetUnitData(killer),xu, yu, "Slime Card", "Slime Jelly", "Slime Egg")
+                end
             end
-        end
-        for i = 1, #BugID do
-            if GetUnitTypeId(u) == SlimeID[i] then
-                --print("умер слайм")
-                --normal_sound(SlimeSound[4], xu, yu, 50)
-                TimerStart(CreateTimer(), 15, false, function()
-                    local x, y = GetRandomReal(GetRectMinX(gg_rct_Bound01), GetRectMaxX(gg_rct_Bound01)), GetRandomReal(GetRectMinY(gg_rct_Bound01), GetRectMaxY(gg_rct_Bound01))
-                    --print(x,y)
-                    local new = CreateUnit(Player(10), SlimeID[i], x, y, 0)
-                    SlimeAddMoveEvent(new)
-                end)
-                --CreateItemPrefab(xu,yu,"Slime Card")
-                CreateItemPrefabPool(xu, yu, "Slime Card", "Slime Jelly", "Slime Egg")
+            for i = 1, #BugID do
+                if GetUnitTypeId(u) == BugID[i] then
+                    TimerStart(CreateTimer(), 15, false, function()
+                        local x, y = GetRandomReal(GetRectMinX(gg_rct_Bound02), GetRectMaxX(gg_rct_Bound02)), GetRandomReal(GetRectMinY(gg_rct_Bound02), GetRectMaxY(gg_rct_Bound02))
+                        --print(x,y)
+                        local new = CreateUnit(Player(10), BugID[i], x, y, 0)
+
+                    end)
+                    --CreateItemPrefab(xu,yu,"Slime Card")
+                    CreateItemPrefabPool(GetUnitData(killer),xu, yu, "Bag Card", "Shell")
+                end
             end
         end
     end)

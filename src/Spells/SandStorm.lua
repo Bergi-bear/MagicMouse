@@ -9,6 +9,17 @@ function SandStorm(data, x, y)
     TimerStart(CreateTimer(), TIMER_PERIOD64, true, function()
         local _, _, _, units = UnitDamageArea(data.UnitHero, 1, x, y, 250)
         for i = 1, #units do
+            if not UnitAlive(units[i]) then
+                local fh =GetFHByName(data,"Bag Card")
+                if fh then
+                    local ch=GetFrameCharges(fh)
+                    for _=1,ch do
+                        local new = CreateUnit(GetOwningPlayer(data.UnitHero), BugID[GetRandomInt(1,#BugID)], GetUnitX(units[i]), GetUnitY(units[i]), 0)
+                        UnitApplyTimedLife(new, FourCC('BTLF'), 15)
+                    end
+                    --print("умер от SS создаём жуков",ch)
+                end
+            end
             local xu, yu = GetUnitXY(units[i])
             local z = 0
             local d = DistanceBetweenXY(x, y, xu, yu) - 2

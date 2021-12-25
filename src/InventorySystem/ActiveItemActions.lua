@@ -38,7 +38,8 @@ end
 function ItemActivatorList(data,name)
     if name=="Apple" then
         HealUnit(data.UnitHero,10)
-    elseif true then
+    elseif name=="Slime Jelly" then
+        HealUnit(data.UnitHero,50)
     else
         print("попытка активировать предмет не из базы данных",name)
     end

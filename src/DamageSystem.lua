@@ -22,7 +22,7 @@ function OnPostDamage()
 
 
     for i = 1, #SlimeID do
-        if GetUnitTypeId(target) == SlimeID[i] and damage>50 then
+        if GetUnitTypeId(target) == SlimeID[i] and damage > 50 then
             if UnitAlive(target) then
                 normal_sound(SlimeSound[2], GetUnitXY(target))
                 --print("получил")
@@ -113,6 +113,25 @@ function OnPostDamage()
     else
         --print("наш герой получил урон")
 
+    end
+    if GetUnitTypeId(target) ~= HeroID and GetUnitTypeId(caster) == HeroID then
+        --Функция должна быть в самом низу
+        AddDamage2Show(target, GetEventDamage())
+        local data = GetUnitData(caster)
+        data.StatDamageDealing = data.StatDamageDealing + GetEventDamage()
+        local showData = ShowDamageTable[GetHandleId(target)]
+        local matchShow = showData.damage
+        if matchShow >= 1 then
+            if not showData.tag then
+                showData.tag = FlyTextTagCriticalStrike(target, R2I(matchShow), GetOwningPlayer(caster), true)
+            else
+
+                SetTextTagText(showData.tag, R2I(matchShow), 0.024 + (showData.k))
+                SetTextTagVelocity(showData.tag, 0, 0.01)
+                SetTextTagLifespan(showData.tag, 99)
+
+            end
+        end
     end
 
 
