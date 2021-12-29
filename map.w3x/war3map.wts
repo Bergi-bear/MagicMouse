@@ -165,3 +165,75 @@ STRING 30
 Error
 }
 
+STRING 31
+// Destructibles: B004 (Darkness), Name (Name)
+{
+Darkness
+}
+
+STRING 32
+// Doodads: D009 (hole 32x32), Name (Name)
+{
+hole 32x32
+}
+
+STRING 33
+// Doodads: D00A (hole 16x16), Name (Name)
+{
+hole 16x16
+}
+
+STRING 34
+// Doodads: D00B (hole 8x8), Name (Name)
+{
+hole 8x8
+}
+
+STRING 35
+// Doodads: D00C (WallCave), Name (Name)
+{
+WallCave
+}
+
+STRING 36
+// Doodads: D00D (WallCaveTransLeft), Name (Name)
+{
+WallCaveTransLeft
+}
+
+STRING 37
+// Doodads: D00E (WallCaveCaveLeft), Name (Name)
+{
+WallCaveCaveLeft
+}
+
+STRING 38
+// Doodads: D00F (WallCaveCaveInner), Name (Name)
+{
+WallCaveCaveInner
+}
+
+STRING 39
+// Doodads: D00G (WallCaveCaveOuter), Name (Name)
+{
+WallCaveCaveOuter
+}
+
+STRING 40
+// Doodads: D00H (WallCaveCaveRight), Name (Name)
+{
+WallCaveCaveRight
+}
+
+STRING 41
+// Doodads: D00I (WallCaveTransRight), Name (Name)
+{
+WallCaveTransRight
+}
+
+STRING 42
+// Doodads: D00J (WallCaveCaveMiddle), Name (Name)
+{
+WallCaveCaveMiddle
+}
+

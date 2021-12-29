@@ -18,6 +18,7 @@ function CreatePeonForPlayer(data)
         InitInventory(data)
         CreateHPBar(data)
         CreateMANABar(data)
+        CreateStatPanel(data)
         SetDNCForPlayer(data.UnitHero,"Environment\\DNC\\DNCAshenvale\\DNCAshenvaleTerrain\\DNCAshenvaleTerrain.mdl")
     end
 end

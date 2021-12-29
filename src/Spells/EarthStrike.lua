@@ -9,9 +9,13 @@ function EarthStrike(data, angle, x, y)
     local nx, ny = GetDestructableX(block), GetDestructableY(block)
     local eff = CreateEffectFromDeep(data, effModel, -200, nx, ny)
     BlzSetSpecialEffectYaw(eff, math.rad(angle))
-    DelayRemoveEarthStrike(block, eff, 5)
+    --print(GetHandleId(eff))
+    PathBlock[GetHandleId(eff)]=block
+    DelayRemoveEarthStrike(eff, 5)
+    table.insert(AllRocks,eff)
 end
 
+PathBlock={}
 function CreateEffectFromDeep(data, effModel, deep, x, y)
     local eff = AddSpecialEffect(effModel, x, y)
     BlzSetSpecialEffectZ(eff, deep)
@@ -26,11 +30,13 @@ function CreateEffectFromDeep(data, effModel, deep, x, y)
     end)
     return eff
 end
-
-function DelayRemoveEarthStrike(block, eff, delay)
+AllRocks={}
+function DelayRemoveEarthStrike(eff, delay)
+    local block=PathBlock[GetHandleId(eff)]
     local x,y= BlzGetLocalSpecialEffectX(eff), BlzGetLocalSpecialEffectY(eff)
-    TimerStart(CreateTimer(), 1, true, function()
-        delay = delay - 1
+    local period=TIMER_PERIOD
+    TimerStart(CreateTimer(), period, true, function()
+        delay = delay - period
         if delay <= 0 then
             DestroyTimer(GetExpiredTimer())
             RemoveDestructable(block)

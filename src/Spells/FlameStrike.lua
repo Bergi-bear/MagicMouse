@@ -8,6 +8,9 @@ function FlameStrike(data, x, y, r)
     if damage<=250 then
         damage=200
     end
+    if ChkStoneForGolem(data,x,y,r) then
+        return
+    end
     UnitDamageArea(data.UnitHero, damage, x, y, r)
     StunArea(data.UnitHero,x,y,r,1)
     local interval = 0.1
