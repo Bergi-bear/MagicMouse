@@ -9,6 +9,7 @@ function InitMenu()
     ReturnFPS()
     MenuFrame()
     CreateAndStartClock()
+    DrawSelectionPortrait(true)
 end
 function ReturnFPS()
     local fps = BlzGetFrameByName("ResourceBarFrame", 0)
@@ -112,4 +113,15 @@ function HideToolTips()
     BlzFrameSetAbsPoint(BlzGetOriginFrame(ORIGIN_FRAME_TOOLTIP, 0), FRAMEPOINT_CENTER, 0.75, 0.55)
     BlzFrameSetAlpha(BlzGetOriginFrame(ORIGIN_FRAME_TOOLTIP, 0), 0)
     BlzFrameSetAlpha(BlzGetOriginFrame(ORIGIN_FRAME_UBERTOOLTIP, 0), 0)
+end
+
+function DrawSelectionPortrait(state)
+
+    local Portrait =BlzGetOriginFrame(ORIGIN_FRAME_PORTRAIT, 0)-- BlzGetFrameByName("Portrait",0)
+
+    BlzFrameClearAllPoints(Portrait)
+    BlzFrameSetSize(Portrait, 0.08, 0.08)
+   -- BlzFrameSetParent(Portrait, BlzGetFrameByName("ConsoleUIBackdrop", 0))
+    BlzFrameSetAbsPoint(Portrait, FRAMEPOINT_CENTER, -0.0, 0.59)
+    BlzFrameSetVisible(Portrait, state)
 end

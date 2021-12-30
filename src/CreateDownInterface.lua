@@ -45,7 +45,7 @@ function CreateHideButton(data, container)
     local texture2="ReplaceableTextures\\CommandButtons\\BTNCryptFiendUnBurrow.blp"
     local SelfFrame = BlzCreateFrameByType('GLUEBUTTON', 'FaceButton', BlzGetOriginFrame(ORIGIN_FRAME_GAME_UI, 0), 'ScoreScreenTabButtonTemplate', 0)
     local buttonIconFrame = BlzCreateFrameByType('BACKDROP', 'FaceButtonIcon', SelfFrame, '', 0)
-
+    data.ShowDownPanel=true
     BlzFrameSetParent(SelfFrame, BlzGetFrameByName("ConsoleUIBackdrop", 0))
     BlzFrameSetParent(buttonIconFrame, BlzGetFrameByName("ConsoleUIBackdrop", 0))
     BlzFrameSetAllPoints(buttonIconFrame, SelfFrame)
@@ -55,17 +55,29 @@ function CreateHideButton(data, container)
     --BlzFrameSetPoint(SelfFrame, FRAMEPOINT_RIGHT, parent, FRAMEPOINT_RIGHT, GNext, 0.00)
     BlzFrameSetAbsPoint(SelfFrame, FRAMEPOINT_CENTER, -0.11, GNext / 2)
 
+
+        ---Подсказка
+    local text = BlzCreateFrameByType("TEXT", "ButtonChargesText", SelfFrame, "", 0)
+    BlzFrameSetParent(text, BlzGetFrameByName("ConsoleUIBackdrop", 0))
+    BlzFrameSetText(text, "Скрыть")
+    BlzFrameSetScale(text, 1)
+    BlzFrameSetPoint(text, FRAMEPOINT_TOP, SelfFrame, FRAMEPOINT_TOP, 0.00, 0.01)
+
     local ClickTrig = CreateTrigger()
     BlzTriggerRegisterFrameEvent(ClickTrig, SelfFrame, FRAMEEVENT_CONTROL_CLICK)
     TriggerAddAction(ClickTrig, function()
         BlzFrameSetEnable(BlzGetTriggerFrame(), false)
         BlzFrameSetEnable(BlzGetTriggerFrame(), true)
-        if BlzFrameIsVisible(container) then
+        if data.ShowDownPanel then
+            data.ShowDownPanel=false
             BlzFrameSetVisible(container,false)
             BlzFrameSetTexture(buttonIconFrame, texture2, 0, true)
+            BlzFrameSetText(text, "Показать")
         else
+            data.ShowDownPanel=true
             BlzFrameSetVisible(container,GetLocalPlayer() == GetTriggerPlayer())
             BlzFrameSetTexture(buttonIconFrame, texture, 0, true)
+            BlzFrameSetText(text, "Скрыть")
         end
         StopUnitMoving(data)
     end)
@@ -81,12 +93,7 @@ function CreateHideButton(data, container)
         --print("убрать подсказку")
     end)
 
-    ---Подсказка
-    local text = BlzCreateFrameByType("TEXT", "ButtonChargesText", SelfFrame, "", 0)
-    BlzFrameSetParent(text, BlzGetFrameByName("ConsoleUIBackdrop", 0))
-    BlzFrameSetText(text, "Скрыть")
-    BlzFrameSetScale(text, 1)
-    BlzFrameSetPoint(text, FRAMEPOINT_TOP, SelfFrame, FRAMEPOINT_TOP, 0.00, 0.01)
+
 
     return SelfFrame, buttonIconFrame
 end

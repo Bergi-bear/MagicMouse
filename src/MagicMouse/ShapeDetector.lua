@@ -14,11 +14,13 @@ function DetectShape(angles, sides, data)
     for i = 1, #Shapes do --перебор всех возможных фигур
         if (Shapes[i]:check(sum, angles, sides, data)) then
             --print("проверка фигур ",i)
-            UnitAddMana(data.UnitHero,30)
+            --UnitAddMana(data.UnitHero,30)
             return
         else
             --print("ни 1 фигура не была найдена")
-            UnitAddMana(data.UnitHero,-1)
+            if #data.Points >1 then
+                UnitAddMana(data.UnitHero,-1)
+            end
         end
     end
 end

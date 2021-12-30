@@ -9,7 +9,8 @@ function CreateStatPanel(data)
     local x, y = -0.1, 0.5
     local nameStats = {
         "spellDamage",
-        "armor"
+        "armor",
+        "manaRegen"
     }
     for i = 1, #nameStats do
         CreateStatElement(data, container, x, y - (i - 1) * GNext / 2, nameStats[i])
@@ -29,15 +30,20 @@ function CreateStatElement(data, parent, x, y, name)
     BlzFrameSetText(text, "base")
     BlzFrameSetParent(text, BlzGetFrameByName("ConsoleUIBackdrop", 0))
     if name == "armor" then
-        TimerStart(CreateTimer(), 0.05, true, function()
+        TimerStart(CreateTimer(), 0.5, true, function()
             BlzFrameSetText(text, BlzGetUnitArmor(data.UnitHero))
         end)
     elseif name == "spellDamage" then
         if not data.spellDamage then
             data.spellDamage = 1.1
         end
-        TimerStart(CreateTimer(), 0.05, true, function()
+        TimerStart(CreateTimer(), 0.5, true, function()
             BlzFrameSetText(text, data.spellDamage)
+        end)
+    elseif name == "manaRegen" then
+        BlzFrameSetTexture(frame, "ReplaceableTextures\\CommandButtons\\BTNBrilliance.blp", 0, true)
+        TimerStart(CreateTimer(), 0.5, true, function()
+            BlzFrameSetText(text, BlzGetUnitRealField(data.UnitHero,UNIT_RF_MANA_REGENERATION))
         end)
     end
 end

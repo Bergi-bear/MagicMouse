@@ -12,7 +12,11 @@ function CreateFlyFrame(data, parent, textTip)
     BlzFrameSetScale(text, 1.4)
     BlzFrameSetPoint(text, FRAMEPOINT_TOP, parent, FRAMEPOINT_TOP, 0.00, y)
     BlzFrameSetTextColor(text, BlzConvertColor(255, 140, 140, 255))
-    --BlzFrameSetVisible(text,GetLocalPlayer() == Player(data.pid))
+    if data.ShowDownPanel then
+        BlzFrameSetVisible(text,GetLocalPlayer() == Player(data.pid))
+    else
+         BlzFrameSetVisible(text,false)
+    end
     local a=0
     TimerStart(CreateTimer(), TIMER_PERIOD64, true, function()
         a=a+10

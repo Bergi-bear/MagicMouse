@@ -19,7 +19,8 @@ function TriggerCastByName(data, nameCast)
             end
             local burn=data.WeightSpellTable[i]*data.CastCount
             if burn >=1000 then
-                print("Можно получить урон, если спамить одно заклинание")
+                --print("Можно получить урон, если спамить одно заклинание")
+                CreateWarningMessage(data,"Warning: Don't spam")
             end
             CreateFlyFrame(data, fh, "-"..burn)
 			JumpFrame(data, fh, i)

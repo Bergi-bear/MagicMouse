@@ -19,6 +19,7 @@ function CreatePeonForPlayer(data)
         CreateHPBar(data)
         CreateMANABar(data)
         CreateStatPanel(data)
+        CreateWarningMessage(data,"Message1234567890AAAA")
         SetDNCForPlayer(data.UnitHero,"Environment\\DNC\\DNCAshenvale\\DNCAshenvaleTerrain\\DNCAshenvaleTerrain.mdl")
     end
 end

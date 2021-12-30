@@ -6,7 +6,7 @@
 function CreateHPBar(data)
     local BoxBarParent = BlzCreateFrameByType('BACKDROP', 'FaceButtonIcon', BlzGetOriginFrame(ORIGIN_FRAME_GAME_UI, 0), '', 0)
     BlzFrameSetVisible(BoxBarParent, GetLocalPlayer() == Player(data.pid))
-    local x, y = -0.1, 0.58
+    local x, y = -0.08, 0.585
     local hero = data.UnitHero
 
 
@@ -60,7 +60,7 @@ end
 function CreateMANABar(data)
     local BoxBarParent = BlzCreateFrameByType('BACKDROP', 'FaceButtonIcon', BlzGetOriginFrame(ORIGIN_FRAME_GAME_UI, 0), '', 0)
     BlzFrameSetVisible(BoxBarParent, GetLocalPlayer() == Player(data.pid))
-    local x, y = -0.1, 0.56
+    local x, y = -0.08, 0.585-GNext/2
     local hero = data.UnitHero
 
 

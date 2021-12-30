@@ -22,6 +22,11 @@ function OnPostDamage()
 
 
     for i = 1, #SlimeID do
+        if GetUnitAbilityLevel(target, FourCC("Awan")) > 0 then
+            UnitRemoveAbility(target, FourCC("Awan"))
+            UnitRemoveAbility(target, FourCC("Abun"))
+            IssueTargetOrder(target, "attack", caster)
+        end
         if GetUnitTypeId(target) == SlimeID[i] and damage > 50 then
             if UnitAlive(target) then
                 normal_sound(SlimeSound[2], GetUnitXY(target))
