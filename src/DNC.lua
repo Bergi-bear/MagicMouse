@@ -16,4 +16,9 @@ function SetDNCForPlayer(hero,state)
     end
     data.DNC=dncLocal
     SetDayNightModels(dncLocal,dncLocal)
+    if state=="" then
+        CreateEnteringFrame(data, "Канализация")
+    else
+        CreateEnteringFrame(data, "Луга слаймов")
+    end
 end
