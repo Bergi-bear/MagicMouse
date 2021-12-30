@@ -184,6 +184,12 @@ function InitWASD(hero)
             if not FREE_CAMERA then
                 SetCameraQuickPosition(GetUnitX(hero), GetUnitY(hero))
                 SetCameraTargetControllerNoZForPlayer(GetOwningPlayer(hero), hero, 10, 10, true) -- не дергается
+                --print(GetCameraField(CAMERA_FIELD_ZOFFSET))
+                local z=GetUnitZ(hero)
+
+                SetCameraField(CAMERA_FIELD_ZOFFSET, z, 0.1)
+
+
             else
                 --print("камера освобождена")
             end

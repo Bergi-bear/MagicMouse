@@ -22,7 +22,7 @@ function CreateDownInterface(data)
     AddDownInterfaceElement(data, container, "curvecircle", 300)
     AddDownInterfaceElement(data, container, "golem", 500)
     BlzFrameSetVisible(container, GetLocalPlayer() == Player(data.pid))
-    CreateHideButton(data,container)
+    CreateHideButton(data, container)
 end
 
 function AddDownInterfaceElement(data, parent, name, weight)
@@ -41,22 +41,21 @@ function AddDownInterfaceElement(data, parent, name, weight)
 end
 
 function CreateHideButton(data, container)
-    local texture = "ReplaceableTextures\\CommandButtons\\BTNCryptFiendBurrow.blp"
-    local texture2="ReplaceableTextures\\CommandButtons\\BTNCryptFiendUnBurrow.blp"
+    local texture2 = "dds\\toleft"--"ReplaceableTextures\\CommandButtons\\BTNCryptFiendBurrow.blp"
+    local texture = "dds\\toright"--"ReplaceableTextures\\CommandButtons\\BTNCryptFiendUnBurrow.blp"
     local SelfFrame = BlzCreateFrameByType('GLUEBUTTON', 'FaceButton', BlzGetOriginFrame(ORIGIN_FRAME_GAME_UI, 0), 'ScoreScreenTabButtonTemplate', 0)
     local buttonIconFrame = BlzCreateFrameByType('BACKDROP', 'FaceButtonIcon', SelfFrame, '', 0)
-    data.ShowDownPanel=true
+    data.ShowDownPanel = true
     BlzFrameSetParent(SelfFrame, BlzGetFrameByName("ConsoleUIBackdrop", 0))
     BlzFrameSetParent(buttonIconFrame, BlzGetFrameByName("ConsoleUIBackdrop", 0))
     BlzFrameSetAllPoints(buttonIconFrame, SelfFrame)
     BlzFrameSetTexture(buttonIconFrame, texture, 0, true)
     BlzFrameSetSize(SelfFrame, GNext, GNext)
-    BlzFrameSetVisible(SelfFrame,GetLocalPlayer() == Player(data.pid))
+    BlzFrameSetVisible(SelfFrame, GetLocalPlayer() == Player(data.pid))
     --BlzFrameSetPoint(SelfFrame, FRAMEPOINT_RIGHT, parent, FRAMEPOINT_RIGHT, GNext, 0.00)
     BlzFrameSetAbsPoint(SelfFrame, FRAMEPOINT_CENTER, -0.11, GNext / 2)
 
-
-        ---Подсказка
+    ---Подсказка
     local text = BlzCreateFrameByType("TEXT", "ButtonChargesText", SelfFrame, "", 0)
     BlzFrameSetParent(text, BlzGetFrameByName("ConsoleUIBackdrop", 0))
     BlzFrameSetText(text, "Скрыть")
@@ -69,13 +68,13 @@ function CreateHideButton(data, container)
         BlzFrameSetEnable(BlzGetTriggerFrame(), false)
         BlzFrameSetEnable(BlzGetTriggerFrame(), true)
         if data.ShowDownPanel then
-            data.ShowDownPanel=false
-            BlzFrameSetVisible(container,false)
+            data.ShowDownPanel = false
+            BlzFrameSetVisible(container, false)
             BlzFrameSetTexture(buttonIconFrame, texture2, 0, true)
             BlzFrameSetText(text, "Показать")
         else
-            data.ShowDownPanel=true
-            BlzFrameSetVisible(container,GetLocalPlayer() == GetTriggerPlayer())
+            data.ShowDownPanel = true
+            BlzFrameSetVisible(container, GetLocalPlayer() == GetTriggerPlayer())
             BlzFrameSetTexture(buttonIconFrame, texture, 0, true)
             BlzFrameSetText(text, "Скрыть")
         end
@@ -92,8 +91,6 @@ function CreateHideButton(data, container)
     TriggerAddAction(TrigMOUSE_LEAVE, function()
         --print("убрать подсказку")
     end)
-
-
 
     return SelfFrame, buttonIconFrame
 end
