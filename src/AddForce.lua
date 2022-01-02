@@ -99,7 +99,7 @@ function UnitAddForceSimple(hero, angle, speed, distance, flag, pushing)
                     local fh = GetFHByName(data, "Murloc Mutant Card")
                     if fh then
                         local ch = GetFrameCharges(fh)
-                        bonus=bonus+50*ch
+                        bonus = bonus + 50 * ch
                     end
 
                     local damage = 50 + bonus
@@ -282,4 +282,23 @@ function MiniChargeOnArea(data)
         GroupRemoveUnit(perebor, e)
     end
     return has
+end
+
+function Chk2Way(x, y, x1, x2)
+    local wayClean = true
+    local step = 40
+    local d = DistanceBetweenXY(x, y, x1, x2)
+    local angle = AngleBetweenXY(x, y, x1, x2) / bj_DEGTORAD
+    local k = d // step
+    for i = 1, k do
+        local nx, ny = MoveXY(x, y, step * (i - 1), angle)
+        if not IsTerrainPathable(nx, ny, PATHING_TYPE_WALKABILITY) then
+           -- print("проходима")
+
+        else
+            --print(" не проходима")
+            wayClean = false
+        end
+    end
+    return wayClean
 end

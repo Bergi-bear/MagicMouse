@@ -267,3 +267,15 @@ STRING 49
 Spore
 }
 
+STRING 51
+// Destructibles: B005 (Мост пафинг), Name (Name)
+{
+Мост пафинг
+}
+
+STRING 53
+// Destructibles: B006 (Мост Окклюзия), Name (Name)
+{
+Мост Окклюзия
+}
+

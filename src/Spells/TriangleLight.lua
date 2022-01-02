@@ -46,7 +46,7 @@ function FindNewEnemyForLight(tableTriangle, data, hero, radius, xs, ys)
 
             k = k + 1
             local x, y = GetUnitXY(e)
-            if PointInTriangle(x, y, tableTriangle[1], tableTriangle[2], tableTriangle[3], tableTriangle[4], tableTriangle[5], tableTriangle[6]) then
+            if  true then --PointInTriangle(x, y, tableTriangle[1], tableTriangle[2], tableTriangle[3], tableTriangle[4], tableTriangle[5], tableTriangle[6])
                 local eff = AddSpecialEffect("Doodads\\Cinematic\\Lightningbolt\\Lightningbolt", x, y)
 
                 -- print("где эффект")

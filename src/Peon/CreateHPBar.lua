@@ -56,11 +56,10 @@ function CreateHPBar(data)
     end)
 end
 
-
 function CreateMANABar(data)
     local BoxBarParent = BlzCreateFrameByType('BACKDROP', 'FaceButtonIcon', BlzGetOriginFrame(ORIGIN_FRAME_GAME_UI, 0), '', 0)
     BlzFrameSetVisible(BoxBarParent, GetLocalPlayer() == Player(data.pid))
-    local x, y = -0.08, 0.585-GNext/2
+    local x, y = -0.08, 0.585 - GNext / 2
     local hero = data.UnitHero
 
 
@@ -110,57 +109,67 @@ function CreateMANABar(data)
     end)
 end
 
-
-function GetSegmentCount(max)
-    local step = 100
-    local k = 0
-    while true do
-        max = max - step
-        k = k + 1
-        if max < step then
-            break
-        end
-
-    end
-    --print(k,max -step)
-    return k, max - step
-end
-
-function CreateHPBarOLD(hero, parent, visionData)
-    local intoBar = "Replaceabletextures\\Teamcolor\\Teamcolor00.blp"
-
-    if GetLocalPlayer() ~= Player(visionData.pid) then
-        intoBar = "Replaceabletextures\\Teamcolor\\Teamcolor05.blp"
-    end
-
-    local into = BlzCreateFrameByType('BACKDROP', 'FaceButtonIcon', parent, '', 0)
-    BlzFrameSetParent(into, BlzGetFrameByName("ConsoleUIBackdrop", 0))
-    BlzFrameSetTexture(into, intoBar, 0, true)
-    BlzFrameClearAllPoints(into)
-    BlzFrameSetPoint(into, FRAMEPOINT_LEFT, parent, FRAMEPOINT_LEFT, 0.02, 0.0)
-
-    --BlzFrameSetVisible(into, GetLocalPlayer() == Player(visionData.pid))
+function CreateEXPBar(data)
+    local BoxBarParent = BlzCreateFrameByType('BACKDROP', 'FaceButtonIcon', BlzGetOriginFrame(ORIGIN_FRAME_GAME_UI, 0), '', 0)
+    BlzFrameSetVisible(BoxBarParent, GetLocalPlayer() == Player(data.pid))
+    local x, y = -0.08, 0.585 - GNext
+    local hero = data.UnitHero
 
 
-    local textCurrent = BlzCreateFrameByType("TEXT", "ButtonChargesText", into, "", 0)
+    --BlzFrameSetAlpha(into, 128)
+
+    local chargesBox = BlzCreateFrameByType('BACKDROP', 'FaceButtonIcon', BoxBarParent, '', 0)
+    BlzFrameSetTexture(chargesBox, "Replaceabletextures\\Teamcolor\\Teamcolor03.blp", 0, true) --HPElement
+    BlzFrameSetSize(chargesBox, GNext, GNext)
+    BlzFrameSetAbsPoint(chargesBox, FRAMEPOINT_LEFT, x + 0.004, y)
+    BlzFrameSetAlpha(chargesBox, 128)
+
+    local into = BlzCreateFrameByType('BACKDROP', 'FaceButtonIcon', BoxBarParent, '', 0)
+    BlzFrameSetTexture(into, "into", 0, true)
+    BlzFrameSetSize(into, GNext * 5, GNext)
+    BlzFrameSetAbsPoint(into, FRAMEPOINT_LEFT, x, y)
+    BlzFrameSetAlpha(into, 50)
+
+    local textCurrent = BlzCreateFrameByType("TEXT", "ButtonChargesText", BoxBarParent, "", 0)
     BlzFrameSetPoint(textCurrent, FRAMEPOINT_LEFT, into, FRAMEPOINT_LEFT, 0.002, 0)
-    local textMax = BlzCreateFrameByType("TEXT", "ButtonChargesText", into, "", 0)
-    BlzFrameSetPoint(textMax, FRAMEPOINT_LEFT, into, FRAMEPOINT_LEFT, 0.082, 0)
+    local textMax = BlzCreateFrameByType("TEXT", "ButtonChargesText", BoxBarParent, "", 0)
+    BlzFrameSetPoint(textMax, FRAMEPOINT_RIGHT, into, FRAMEPOINT_RIGHT, -0.002, 0)
+
+
+    --
+    BlzFrameSetParent(chargesBox, BlzGetFrameByName("ConsoleUIBackdrop", 0))
+    BlzFrameSetParent(textCurrent, BlzGetFrameByName("ConsoleUIBackdrop", 0))
+    BlzFrameSetParent(textMax, BlzGetFrameByName("ConsoleUIBackdrop", 0))
+    BlzFrameSetParent(into, BlzGetFrameByName("ConsoleUIBackdrop", 0))
+
     TimerStart(CreateTimer(), 0.05, true, function()
         local hp = 0
-        hp = GetUnitLifePercent(hero)
+        hp = StatePercent(data.curExp-ExpTable[data.curHeroLvl],ExpTable[data.curHeroLvl+1]-ExpTable[data.curHeroLvl])
+
+        --print(hp)
+
         if not UnitAlive(hero) then
             hp = 0
-            -- print("Юнит мерт, сводим бар до нуля")
-            BlzFrameSetSize(into, 0, 0)
+            --print("Юнит мерт, сводим бар до нуля",hp)
+           -- BlzFrameSetSize(into, 0, 0)
             --BlzFrameSetVisible(into, false)
-            BlzFrameSetText(textCurrent, hp)
-            BlzFrameSetText(textMax, R2I(BlzGetUnitMaxHP(hero)))
+            --BlzFrameSetText(textCurrent, hp)
+            --BlzFrameSetText(textMax, R2I(BlzGetUnitMaxMana(hero)))
         else
             --BlzFrameSetVisible(into, GetLocalPlayer() == GetOwningPlayer(hero))
-            BlzFrameSetText(textCurrent, R2I(GetUnitState(hero, UNIT_STATE_LIFE)))
-            BlzFrameSetText(textMax, R2I(BlzGetUnitMaxHP(hero)))
-            BlzFrameSetSize(into, hp * 0.1 / 100, 0.02 * 0.95 / 2)
+            BlzFrameSetText(textCurrent, R2I(data.curExp))
+            BlzFrameSetText(textMax, R2I(ExpTable[data.curHeroLvl+1]))
+            BlzFrameSetSize(chargesBox, 4.82 * hp * GNext / 100, GNext * 0.5)
+            BlzFrameSetAlpha(chargesBox, 20)
         end
     end)
+end
+
+
+function StatePercent(value,maxValue)
+	--  Return 0 for null units.
+	if (maxValue == 0) then
+		return 0.0
+	end
+	return value / maxValue * 100.0
 end

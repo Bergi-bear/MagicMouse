@@ -16,6 +16,7 @@ do
             --SetFogStateRadius(Player(0), FOG_OF_WAR_VISIBLE, 0, 0, 2500, true)
             --local m =
             FogModifierStart(CreateFogModifierRect(Player(0), FOG_OF_WAR_VISIBLE, bj_mapInitialPlayableArea, true, false))
+
             perebor = CreateGroup()
             InitHEROTable()
             InitMenu()

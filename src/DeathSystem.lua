@@ -26,7 +26,9 @@ function InitDeathEvent()
                 --print("Есть герой")
 
                 if killer then
-                    print(GetUnitName(killer),GetUnitName(u))
+                    --print(GetUnitName(killer),GetUnitName(u))
+                    local exp=BlzGetUnitMaxHP(u)/10
+                    AddExp(GetUnitData(killer),exp)
                     EffectFromUnit2Unit("Firebrand Shot Yellow",GetUnitData(killer).UnitHero,u)
                 end
             else
