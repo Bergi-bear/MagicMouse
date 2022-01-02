@@ -56,6 +56,7 @@ function CreateUnitsForPlayer10()
     u = BlzCreateUnitWithSkin(p, FourCC("n001"), 2649.5, -1742.5, 142.113, FourCC("n001"))
     u = BlzCreateUnitWithSkin(p, FourCC("n001"), 2819.2, -1494.8, 220.898, FourCC("n001"))
     u = BlzCreateUnitWithSkin(p, FourCC("n001"), 2898.1, -1706.8, 77.313, FourCC("n001"))
+    u = BlzCreateUnitWithSkin(p, FourCC("n004"), 7399.5, -2133.7, 215.599, FourCC("n004"))
     u = BlzCreateUnitWithSkin(p, FourCC("u001"), 170.6, -4542.0, 185.147, FourCC("u001"))
     u = BlzCreateUnitWithSkin(p, FourCC("u000"), -721.0, -6085.3, 355.012, FourCC("u000"))
     u = BlzCreateUnitWithSkin(p, FourCC("u001"), -468.9, -4526.2, 185.147, FourCC("u001"))
@@ -155,6 +156,18 @@ function CreateUnitsForPlayer10()
     u = BlzCreateUnitWithSkin(p, FourCC("u000"), -766.1, -9439.1, 355.012, FourCC("u000"))
     u = BlzCreateUnitWithSkin(p, FourCC("u003"), -137.0, -11724.2, 85.160, FourCC("u003"))
     SetUnitColor(u, ConvertPlayerColor(4))
+    u = BlzCreateUnitWithSkin(p, FourCC("n005"), 4427.0, -526.1, 246.130, FourCC("n005"))
+    u = BlzCreateUnitWithSkin(p, FourCC("n005"), 4929.7, 518.6, 246.130, FourCC("n005"))
+    u = BlzCreateUnitWithSkin(p, FourCC("n005"), 4835.2, 471.9, -58.977, FourCC("n005"))
+    u = BlzCreateUnitWithSkin(p, FourCC("n005"), 5669.7, 480.9, 246.130, FourCC("n005"))
+    u = BlzCreateUnitWithSkin(p, FourCC("n005"), 5841.8, 746.8, 246.130, FourCC("n005"))
+    u = BlzCreateUnitWithSkin(p, FourCC("n005"), 4272.6, 848.9, 246.130, FourCC("n005"))
+    u = BlzCreateUnitWithSkin(p, FourCC("n005"), 4673.9, 1092.5, 246.130, FourCC("n005"))
+    u = BlzCreateUnitWithSkin(p, FourCC("n005"), 4862.0, 1829.7, 246.130, FourCC("n005"))
+    u = BlzCreateUnitWithSkin(p, FourCC("n005"), 5293.2, 2139.6, 246.130, FourCC("n005"))
+    u = BlzCreateUnitWithSkin(p, FourCC("n005"), 6105.4, 2303.7, 246.130, FourCC("n005"))
+    u = BlzCreateUnitWithSkin(p, FourCC("n005"), 7150.2, 969.6, 246.130, FourCC("n005"))
+    u = BlzCreateUnitWithSkin(p, FourCC("n005"), 7508.8, 1042.6, 246.130, FourCC("n005"))
 end
 
 function CreatePlayerBuildings()
@@ -171,7 +184,7 @@ end
 
 function CreateRegions()
     local we
-    gg_rct_Bound01 = Rect(-2432.0, -2752.0, 2400.0, 2208.0)
+    gg_rct_Bound01 = Rect(-2432.0, -2752.0, 2240.0, 2208.0)
     gg_rct_Slime2Culvert = Rect(-64.0, -3392.0, 64.0, -3264.0)
     gg_rct_Bound02 = Rect(-2464.0, -10912.0, 2368.0, -4640.0)
     gg_rct_Culver2Slime = Rect(-288.0, -4256.0, 0.0, -4128.0)
@@ -181,7 +194,7 @@ function CreateRegions()
     gg_rct_SlimeRight = Rect(2912.0, -480.0, 3040.0, -288.0)
     gg_rct_ForestLeft = Rect(4192.0, -352.0, 4288.0, -128.0)
     gg_rct_Forest2Slime = Rect(4064.0, -288.0, 4192.0, -160.0)
-    gg_rct_Bound03 = Rect(4992.0, -3360.0, 10528.0, 1984.0)
+    gg_rct_Bound03 = Rect(5088.0, -2592.0, 10528.0, 1984.0)
 end
 
 --CUSTOM_CODE
@@ -661,8 +674,6 @@ function CreateEnteringFrame(data, name)
                 BlzDestroyFrame(text)
                 DestroyTimer(GetExpiredTimer())
             end
-
-
         end)
     end
 end
@@ -1154,8 +1165,19 @@ function InitDeathEvent()
         local u = GetTriggerUnit() --тот кто умер
         local killer = GetKillingUnit()
         local xu, yu = GetUnitXY(u)
+
         if IsUnitEnemy(u,GetOwningPlayer(killer)) then
-            EffectFromUnit2Unit("Firebrand Shot Yellow",killer,u)
+            if HERO[GetPlayerId(GetOwningPlayer(killer))].UnitHero then
+                --print("Есть герой")
+
+                if killer then
+                    print(GetUnitName(killer),GetUnitName(u))
+                    EffectFromUnit2Unit("Firebrand Shot Yellow",GetUnitData(killer).UnitHero,u)
+                end
+            else
+                --print("нет героя")
+            end
+
             for i = 1, #SlimeID do
                 if GetUnitTypeId(u) == SlimeID[i] then
                     --print("умер слайм")

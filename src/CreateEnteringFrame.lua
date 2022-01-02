@@ -23,8 +23,6 @@ function CreateEnteringFrame(data, name)
                 BlzDestroyFrame(text)
                 DestroyTimer(GetExpiredTimer())
             end
-
-
         end)
     end
 end

@@ -20,8 +20,19 @@ function InitDeathEvent()
         local u = GetTriggerUnit() --тот кто умер
         local killer = GetKillingUnit()
         local xu, yu = GetUnitXY(u)
+
         if IsUnitEnemy(u,GetOwningPlayer(killer)) then
-            EffectFromUnit2Unit("Firebrand Shot Yellow",killer,u)
+            if HERO[GetPlayerId(GetOwningPlayer(killer))].UnitHero then
+                --print("Есть герой")
+
+                if killer then
+                    print(GetUnitName(killer),GetUnitName(u))
+                    EffectFromUnit2Unit("Firebrand Shot Yellow",GetUnitData(killer).UnitHero,u)
+                end
+            else
+                --print("нет героя")
+            end
+
             for i = 1, #SlimeID do
                 if GetUnitTypeId(u) == SlimeID[i] then
                     --print("умер слайм")

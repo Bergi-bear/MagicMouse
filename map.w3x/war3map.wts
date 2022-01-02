@@ -237,3 +237,33 @@ STRING 42
 WallCaveCaveMiddle
 }
 
+STRING 44
+// Doodads: D00K (Деревянный забор), Name (Name)
+{
+Деревянный забор
+}
+
+STRING 45
+// Doodads: D00L (Китайская стена), Name (Name)
+{
+Китайская стена
+}
+
+STRING 47
+// Doodads: D00M (Большие корни), Name (Name)
+{
+Большие корни
+}
+
+STRING 48
+// Doodads: D00N (Сакура), Name (Name)
+{
+Сакура
+}
+
+STRING 49
+// Units: n005 (Spore), Name (Name)
+{
+Spore
+}
+
