@@ -1,5 +1,5 @@
 function CreateAndForceBullet(hero, angle, speed, effectmodel, xs, ys, damage, maxDistance, delay)
-    local CollisionRange = 80
+    local CollisionRange = 90
     if not damage then
         damage = 200
     end
@@ -189,6 +189,11 @@ function CreateAndForceBullet(hero, angle, speed, effectmodel, xs, ys, damage, m
             end
             DestroyEffect(bullet)
             DestroyTimer(GetExpiredTimer())
+            if effectmodel == "Abilities\\Weapons\\FireBallMissile\\FireBallMissile.mdl" then
+                --print("взрыв")
+                --UnitDamageArea(heroCurrent, damage, x, y, CollisionRange*2)
+            end
+            --старое
             if effectmodel == "stoneshild" then
                 if GetUnitData(hero).ShieldThrow then
                     --print("щит возвращается обратно")

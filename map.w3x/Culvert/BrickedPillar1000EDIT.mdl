@@ -1,5 +1,5 @@
 //This model was converted from MDX by ogre-lord's Java MDX API and Retera's Java MDL API
-// Saved by Retera's MDL Toolkit on Fri Dec 24 20:28:35 MSK 2021
+// Saved by Retera's MDL Toolkit on Tue Jan 04 17:43:48 MSK 2022
 Version {
 	FormatVersion 1000,
 }
@@ -19,14 +19,14 @@ Sequences 1 {
 		BoundsRadius 276.5835,
 	}
 }
-Textures 7 {
+Textures 6 {
 	Bitmap {
 		Image "GrayBrickSeamless.blp",
 		WrapWidth,
 		WrapHeight,
 	}
-		Bitmap {
-		Image "Doodads/Cityscape/Structures/CityWallCorner/CityWallCorner_Normal.tif",
+	Bitmap {
+		Image "GrayBrickSeamless_normal.dds",
 		WrapWidth,
 		WrapHeight,
 	}
@@ -50,11 +50,6 @@ Textures 7 {
 		WrapWidth,
 		WrapHeight,
 	}
-		Bitmap {
-		Image "GrayBrickSeamless_normal.dds",
-		WrapWidth,
-		WrapHeight,
-	}
 }
 Materials 4 {
 	Material {
@@ -65,7 +60,7 @@ Materials 4 {
 		}
 		Layer {
 			FilterMode None,
-			static TextureID 6,
+			static TextureID 1,
 		}
 		Layer {
 			FilterMode None,
@@ -98,7 +93,7 @@ Materials 4 {
 		}
 		Layer {
 			FilterMode None,
-			static TextureID 6,
+			static TextureID 1,
 		}
 		Layer {
 			FilterMode None,
@@ -117,7 +112,7 @@ Materials 4 {
 			static TextureID 5,
 		}
 	}
-		Material {
+	Material {
 		Shader "Shader_HD_DefaultUnit",
 		Layer {
 			FilterMode None,
@@ -125,7 +120,7 @@ Materials 4 {
 		}
 		Layer {
 			FilterMode None,
-			static TextureID 6,
+			static TextureID 1,
 		}
 		Layer {
 			FilterMode None,

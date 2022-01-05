@@ -41,6 +41,10 @@ function OnPostDamage()
             --print("нанёс")
         end
     end
+    if GetUnitTypeId(target) == FourCC("n005")  and damage > 50 then
+        normal_sound("MP3\\RO\\Spore\\Hit", GetUnitXY(target))
+        --print("писк грибочка")
+    end
 
     if GetUnitTypeId(caster) == HeroID and caster ~= target then
         local data = HERO[GetPlayerId(GetOwningPlayer(caster))]

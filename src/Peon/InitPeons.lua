@@ -18,6 +18,7 @@ function CreatePeonForPlayer(data)
         SuspendHeroXP(data.UnitHero,true)
         InitWASD(data.UnitHero)
         InitInventory(data)
+
         CreateHPBar(data)
         CreateMANABar(data)
 

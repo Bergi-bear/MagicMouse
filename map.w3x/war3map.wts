@@ -183,12 +183,6 @@ STRING 33
 hole 16x16
 }
 
-STRING 34
-// Doodads: D00B (hole 8x8), Name (Name)
-{
-hole 8x8
-}
-
 STRING 35
 // Doodads: D00C (WallCave), Name (Name)
 {
@@ -277,5 +271,52 @@ STRING 53
 // Destructibles: B006 (Мост Окклюзия), Name (Name)
 {
 Мост Окклюзия
+}
+
+STRING 54
+// Doodads: D00O (Колонна2), Name (Name)
+{
+Колонна2
+}
+
+STRING 55
+// Doodads: YCx1 (16x16), Name (Name)
+{
+16x16
+}
+
+STRING 56
+// Doodads: YCx4 (4x4), Name (Name)
+{
+4x4
+}
+
+STRING 57
+// Doodads: YCx3 (8x8), Name (Name)
+{
+8x8
+}
+
+STRING 58
+// Doodads: D00P (Вода), Name (Name)
+{
+Вода
+}
+
+STRING 59
+// Destructibles: DTfx (Плита напольная), Name (Name)
+{
+Плита напольная
+}
+
+STRING 60
+// Destructibles: B007 (Настенная), Name (Name)
+{
+Настенная
+}
+
+STRING 61
+{
+All OK
 }
 

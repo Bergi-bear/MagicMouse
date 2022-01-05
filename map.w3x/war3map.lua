@@ -1,3 +1,4 @@
+udg_Button3Quest = false
 gg_rct_Bound01 = nil
 gg_rct_Slime2Culvert = nil
 gg_rct_Bound02 = nil
@@ -9,22 +10,36 @@ gg_rct_SlimeRight = nil
 gg_rct_ForestLeft = nil
 gg_rct_Forest2Slime = nil
 gg_rct_Bound03 = nil
-gg_trg_Slime2Forest = nil
-gg_trg_Forest2Slime = nil
-gg_trg_Slime2Culvert = nil
-gg_trg_Culver2Slime = nil
 gg_rct_OkkBridge = nil
-gg_trg_OkkBridge = nil
-gg_dest_B006_3500 = nil
-gg_trg_OkkBridge_Copy = nil
 gg_rct_ForestUP = nil
 gg_rct_Forest2Cave = nil
 gg_rct_CaveDown = nil
 gg_rct_Cave2Forest = nil
 gg_rct_Bound04 = nil
-gg_trg_Cave2Forest = nil
+gg_rct_Secret2Culvert = nil
+gg_rct_SercretRight = nil
+gg_rct_Culvert2Secret = nil
+gg_rct_CulvertLeft = nil
+gg_rct_Bound05 = nil
+gg_trg_OkkBridge = nil
+gg_trg_OkkBridge_Copy = nil
 gg_trg_Forest2Cave = nil
+gg_trg_Cave2Forest = nil
+gg_trg_Slime2Forest = nil
+gg_trg_Forest2Slime = nil
+gg_trg_Slime2Culvert = nil
+gg_trg_Culver2Slime = nil
+gg_trg_Culver2Secret = nil
+gg_trg_Secret2Culvert = nil
+gg_trg_DeadB2 = nil
+gg_dest_B006_3500 = nil
+gg_dest_B007_4047 = nil
+gg_dest_B007_4045 = nil
+gg_dest_B007_4044 = nil
+gg_rct_Bound06 = nil
+gg_rct_ChkSecret = nil
 function InitGlobals()
+    udg_Button3Quest = false
 end
 
 function CreateAllDestructables()
@@ -32,6 +47,9 @@ function CreateAllDestructables()
     local t
     local life
     gg_dest_B006_3500 = BlzCreateDestructableZWithSkin(FourCC("B006"), 8412.5, 550.5, 64.8, 180.433, 0.548, 0, FourCC("B006"))
+    gg_dest_B007_4045 = BlzCreateDestructableZWithSkin(FourCC("B007"), -4994.3, -10693.6, 199.0, 270.000, 1.000, 0, FourCC("B007"))
+    gg_dest_B007_4044 = BlzCreateDestructableZWithSkin(FourCC("B007"), -5594.0, -10700.8, 199.0, 270.000, 1.000, 0, FourCC("B007"))
+    gg_dest_B007_4047 = BlzCreateDestructableZWithSkin(FourCC("B007"), -4399.1, -10702.9, 199.0, 270.000, 1.000, 0, FourCC("B007"))
 end
 
 function CreateUnitsForPlayer10()
@@ -53,7 +71,6 @@ function CreateUnitsForPlayer10()
     u = BlzCreateUnitWithSkin(p, FourCC("n001"), -1731.5, 2383.6, 220.898, FourCC("n001"))
     u = BlzCreateUnitWithSkin(p, FourCC("n001"), -1652.7, 2171.6, 77.313, FourCC("n001"))
     u = BlzCreateUnitWithSkin(p, FourCC("n000"), -2744.7, -1312.9, 81.619, FourCC("n000"))
-    u = BlzCreateUnitWithSkin(p, FourCC("n000"), 1750.5, 99.0, 332.083, FourCC("n000"))
     u = BlzCreateUnitWithSkin(p, FourCC("n000"), 2110.2, 269.2, 180.357, FourCC("n000"))
     u = BlzCreateUnitWithSkin(p, FourCC("n000"), 1839.6, 282.6, 238.498, FourCC("n000"))
     u = BlzCreateUnitWithSkin(p, FourCC("n001"), -1994.1, -2191.7, 142.113, FourCC("n001"))
@@ -135,11 +152,8 @@ function CreateUnitsForPlayer10()
     u = BlzCreateUnitWithSkin(p, FourCC("u002"), -2906.4, -10986.3, 355.858, FourCC("u002"))
     u = BlzCreateUnitWithSkin(p, FourCC("u001"), 1612.3, -8682.0, 185.147, FourCC("u001"))
     u = BlzCreateUnitWithSkin(p, FourCC("u001"), 1747.2, -10935.0, 185.147, FourCC("u001"))
-    u = BlzCreateUnitWithSkin(p, FourCC("u001"), 301.2, -10661.5, 185.147, FourCC("u001"))
-    u = BlzCreateUnitWithSkin(p, FourCC("u001"), -212.5, -11228.3, 185.147, FourCC("u001"))
-    u = BlzCreateUnitWithSkin(p, FourCC("u001"), -67.4, -10415.2, 185.147, FourCC("u001"))
     u = BlzCreateUnitWithSkin(p, FourCC("u001"), -1530.9, -10830.9, 185.147, FourCC("u001"))
-    u = BlzCreateUnitWithSkin(p, FourCC("u001"), -2931.4, -11466.2, 185.147, FourCC("u001"))
+    u = BlzCreateUnitWithSkin(p, FourCC("u001"), -2348.2, -11176.8, 185.147, FourCC("u001"))
     u = BlzCreateUnitWithSkin(p, FourCC("u001"), -1772.2, -11462.6, 185.147, FourCC("u001"))
     u = BlzCreateUnitWithSkin(p, FourCC("u000"), -321.7, -6067.9, 355.012, FourCC("u000"))
     u = BlzCreateUnitWithSkin(p, FourCC("u000"), 93.9, -6063.4, 355.012, FourCC("u000"))
@@ -172,7 +186,7 @@ function CreateUnitsForPlayer10()
     u = BlzCreateUnitWithSkin(p, FourCC("u000"), -53.2, -9450.2, 355.012, FourCC("u000"))
     u = BlzCreateUnitWithSkin(p, FourCC("u000"), -332.4, -9463.0, 355.012, FourCC("u000"))
     u = BlzCreateUnitWithSkin(p, FourCC("u000"), -766.1, -9439.1, 355.012, FourCC("u000"))
-    u = BlzCreateUnitWithSkin(p, FourCC("u003"), -137.0, -11724.2, 85.160, FourCC("u003"))
+    u = BlzCreateUnitWithSkin(p, FourCC("u003"), -198.9, -11558.7, 85.160, FourCC("u003"))
     SetUnitColor(u, ConvertPlayerColor(4))
     u = BlzCreateUnitWithSkin(p, FourCC("n005"), 4427.0, -526.1, 246.130, FourCC("n005"))
     u = BlzCreateUnitWithSkin(p, FourCC("n005"), 4929.7, 518.6, 246.130, FourCC("n005"))
@@ -219,6 +233,13 @@ function CreateRegions()
     gg_rct_CaveDown = Rect(10624.0, 3232.0, 10880.0, 3360.0)
     gg_rct_Cave2Forest = Rect(10688.0, 3104.0, 10816.0, 3232.0)
     gg_rct_Bound04 = Rect(5184.0, 3808.0, 10624.0, 8384.0)
+    gg_rct_Secret2Culvert = Rect(-4096.0, -11456.0, -3968.0, -11328.0)
+    gg_rct_SercretRight = Rect(-4160.0, -11488.0, -4096.0, -11296.0)
+    gg_rct_Culvert2Secret = Rect(-3200.0, -11520.0, -3072.0, -11392.0)
+    gg_rct_CulvertLeft = Rect(-3072.0, -11520.0, -3008.0, -11392.0)
+    gg_rct_Bound05 = Rect(-5024.0, -11200.0, -4992.0, -11168.0)
+    gg_rct_Bound06 = Rect(-5024.0, -11168.0, -4992.0, -9920.0)
+    gg_rct_ChkSecret = Rect(-5952.0, -11680.0, -4064.0, -10624.0)
 end
 
 --CUSTOM_CODE
@@ -906,6 +927,10 @@ function OnPostDamage()
             --print("нанёс")
         end
     end
+    if GetUnitTypeId(target) == FourCC("n005")  and damage > 50 then
+        normal_sound("MP3\\RO\\Spore\\Hit", GetUnitXY(target))
+        --print("писк грибочка")
+    end
 
     if GetUnitTypeId(caster) == HeroID and caster ~= target then
         local data = HERO[GetPlayerId(GetOwningPlayer(caster))]
@@ -1209,15 +1234,15 @@ function InitDeathEvent()
         local killer = GetKillingUnit()
         local xu, yu = GetUnitXY(u)
 
-        if IsUnitEnemy(u,GetOwningPlayer(killer)) then
+        if IsUnitEnemy(u, GetOwningPlayer(killer)) then
             if HERO[GetPlayerId(GetOwningPlayer(killer))].UnitHero then
                 --print("Есть герой")
 
                 if killer then
                     --print(GetUnitName(killer),GetUnitName(u))
-                    local exp=BlzGetUnitMaxHP(u)/10
-                    AddExp(GetUnitData(killer),exp)
-                    EffectFromUnit2Unit("Firebrand Shot Yellow",GetUnitData(killer).UnitHero,u)
+                    local exp = BlzGetUnitMaxHP(u) / 10
+                    AddExp(GetUnitData(killer), exp)
+                    EffectFromUnit2Unit("Firebrand Shot Yellow", GetUnitData(killer).UnitHero, u)
                 end
             else
                 --print("нет героя")
@@ -1234,7 +1259,7 @@ function InitDeathEvent()
                         SlimeAddMoveEvent(new)
                     end)
                     --CreateItemPrefab(xu,yu,"Slime Card")
-                    CreateItemPrefabPool(GetUnitData(killer),xu, yu, "Slime Card", "Slime Jelly", "Slime Egg")
+                    CreateItemPrefabPool(GetUnitData(killer), xu, yu, "Slime Card", "Slime Jelly", "Slime Egg")
                 end
             end
             for i = 1, #BugID do
@@ -1246,8 +1271,20 @@ function InitDeathEvent()
 
                     end)
                     --CreateItemPrefab(xu,yu,"Slime Card")
-                    CreateItemPrefabPool(GetUnitData(killer),xu, yu, "Bag Card", "Shell")
+                    CreateItemPrefabPool(GetUnitData(killer), xu, yu, "Bag Card", "Shell")
                 end
+            end
+            if GetUnitTypeId(u) == FourCC("n005") then --грибочек
+
+                normal_sound("MP3\\RO\\Spore\\Death", xu, yu, 50)
+                TimerStart(CreateTimer(), 15, false, function()
+                    local x, y = GetRandomReal(GetRectMinX(gg_rct_Bound03), GetRectMaxX(gg_rct_Bound03)), GetRandomReal(GetRectMinY(gg_rct_Bound03), GetRectMaxY(gg_rct_Bound03))
+                    --print(x,y)
+                    local new = CreateUnit(Player(10), FourCC("n005"), x, y, 0)
+                    SporeAddMoveEvent(new)
+                end)
+
+                --CreateItemPrefabPool(GetUnitData(killer), xu, yu, "Spore Card", "Spore", "Spore Hat","Mycelium")
             end
         end
     end)
@@ -1320,18 +1357,36 @@ function InitExpSystem(data)
     if not data.curHeroLvl then
         data.curHeroLvl = 1
     end
+    CreateLevelInfo(data)
 end
 
 function AddExp(data, exp)
-    FlyTextTagManaBurn(data.UnitHero,"+ "..R2I(exp).." exp",Player(data.pid))
+    FlyTextTagManaBurn(data.UnitHero, "+ " .. R2I(exp) .. " exp", Player(data.pid))
     data.curExp = data.curExp + exp
-    if data.curExp>=ExpTable[data.curHeroLvl+1] then
+    if data.curExp >= ExpTable[data.curHeroLvl + 1] then
         --print("повышение уровня")
-        data.curHeroLvl=data.curHeroLvl+1
-        SetHeroLevel(data.UnitHero,data.curHeroLvl,true)
+        --SuspendHeroXP(data.UnitHero, false)
+        data.curHeroLvl = data.curHeroLvl + 1
+        SetHeroLevel(data.UnitHero, data.curHeroLvl, true)
+        BlzFrameSetText(data.FHHeroLvl,"Level "..data.curHeroLvl)
+        --SuspendHeroXP(data.UnitHero, true)
     end
 end
 
+function CreateLevelInfo(data)
+    local ico = "UI\\Widgets\\Console\\Human\\CommandButton\\human-button-lvls-overlay"
+    local frame = BlzCreateFrameByType('BACKDROP', 'FaceButtonIcon', BlzGetOriginFrame(ORIGIN_FRAME_GAME_UI, 0), '', 0)
+    BlzFrameSetParent(frame, BlzGetFrameByName("ConsoleUIBackdrop", 0))
+    BlzFrameSetTexture(frame, ico, 0, true)
+    BlzFrameSetSize(frame, GNext *1.8, GNext / 2)
+    BlzFrameSetAbsPoint(frame, FRAMEPOINT_CENTER, -0.107, 0.545)
+    local text = BlzCreateFrameByType("TEXT", "ButtonChargesText", frame, "", 0)
+    BlzFrameSetPoint(text, FRAMEPOINT_CENTER, frame, FRAMEPOINT_CENTER, 0.0, 0.0)
+    BlzFrameSetText(text, "Noope")
+    BlzFrameSetParent(text, BlzGetFrameByName("ConsoleUIBackdrop", 0))
+    data.FHHeroLvl=text
+    BlzFrameSetVisible(frame, GetLocalPlayer() == Player(data.pid))
+end
 ---
 --- Generated by EmmyLua(https://github.com/EmmyLua)
 --- Created by Bergi.
@@ -4018,7 +4073,7 @@ end
 function CreateHPBar(data)
     local BoxBarParent = BlzCreateFrameByType('BACKDROP', 'FaceButtonIcon', BlzGetOriginFrame(ORIGIN_FRAME_GAME_UI, 0), '', 0)
     BlzFrameSetVisible(BoxBarParent, GetLocalPlayer() == Player(data.pid))
-    local x, y = -0.08, 0.585
+    local x, y = -0.08, 0.588
     local hero = data.UnitHero
 
 
@@ -4034,7 +4089,7 @@ function CreateHPBar(data)
     BlzFrameSetTexture(into, "into", 0, true)
     BlzFrameSetSize(into, GNext * 5, GNext)
     BlzFrameSetAbsPoint(into, FRAMEPOINT_LEFT, x, y)
-    BlzFrameSetAlpha(into, 50)
+    BlzFrameSetAlpha(into, 128)
 
     local textCurrent = BlzCreateFrameByType("TEXT", "ButtonChargesText", BoxBarParent, "", 0)
     BlzFrameSetPoint(textCurrent, FRAMEPOINT_LEFT, into, FRAMEPOINT_LEFT, 0.002, 0)
@@ -4063,7 +4118,7 @@ function CreateHPBar(data)
             BlzFrameSetText(textCurrent, R2I(GetUnitState(hero, UNIT_STATE_LIFE)))
             BlzFrameSetText(textMax, R2I(BlzGetUnitMaxHP(hero)))
             BlzFrameSetSize(chargesBox, 4.82 * hp * GNext / 100, GNext * 0.5)
-            BlzFrameSetAlpha(chargesBox, 20)
+            BlzFrameSetAlpha(chargesBox, 128)
         end
     end)
 end
@@ -4071,7 +4126,7 @@ end
 function CreateMANABar(data)
     local BoxBarParent = BlzCreateFrameByType('BACKDROP', 'FaceButtonIcon', BlzGetOriginFrame(ORIGIN_FRAME_GAME_UI, 0), '', 0)
     BlzFrameSetVisible(BoxBarParent, GetLocalPlayer() == Player(data.pid))
-    local x, y = -0.08, 0.585 - GNext / 2
+    local x, y = -0.08, 0.588 - GNext / 2
     local hero = data.UnitHero
 
 
@@ -4087,7 +4142,7 @@ function CreateMANABar(data)
     BlzFrameSetTexture(into, "into", 0, true)
     BlzFrameSetSize(into, GNext * 5, GNext)
     BlzFrameSetAbsPoint(into, FRAMEPOINT_LEFT, x, y)
-    BlzFrameSetAlpha(into, 50)
+    BlzFrameSetAlpha(into, 128)
 
     local textCurrent = BlzCreateFrameByType("TEXT", "ButtonChargesText", BoxBarParent, "", 0)
     BlzFrameSetPoint(textCurrent, FRAMEPOINT_LEFT, into, FRAMEPOINT_LEFT, 0.002, 0)
@@ -4116,7 +4171,7 @@ function CreateMANABar(data)
             BlzFrameSetText(textCurrent, R2I(GetUnitState(hero, UNIT_STATE_MANA)))
             BlzFrameSetText(textMax, R2I(BlzGetUnitMaxMana(hero)))
             BlzFrameSetSize(chargesBox, 4.82 * hp * GNext / 100, GNext * 0.5)
-            BlzFrameSetAlpha(chargesBox, 20)
+            BlzFrameSetAlpha(chargesBox, 128)
         end
     end)
 end
@@ -4124,7 +4179,7 @@ end
 function CreateEXPBar(data)
     local BoxBarParent = BlzCreateFrameByType('BACKDROP', 'FaceButtonIcon', BlzGetOriginFrame(ORIGIN_FRAME_GAME_UI, 0), '', 0)
     BlzFrameSetVisible(BoxBarParent, GetLocalPlayer() == Player(data.pid))
-    local x, y = -0.08, 0.585 - GNext
+    local x, y = -0.08, 0.588 - GNext
     local hero = data.UnitHero
 
 
@@ -4140,7 +4195,7 @@ function CreateEXPBar(data)
     BlzFrameSetTexture(into, "into", 0, true)
     BlzFrameSetSize(into, GNext * 5, GNext)
     BlzFrameSetAbsPoint(into, FRAMEPOINT_LEFT, x, y)
-    BlzFrameSetAlpha(into, 50)
+    BlzFrameSetAlpha(into, 128)
 
     local textCurrent = BlzCreateFrameByType("TEXT", "ButtonChargesText", BoxBarParent, "", 0)
     BlzFrameSetPoint(textCurrent, FRAMEPOINT_LEFT, into, FRAMEPOINT_LEFT, 0.002, 0)
@@ -4158,7 +4213,7 @@ function CreateEXPBar(data)
         local hp = 0
         hp = StatePercent(data.curExp-ExpTable[data.curHeroLvl],ExpTable[data.curHeroLvl+1]-ExpTable[data.curHeroLvl])
 
-        print(hp)
+        --print(hp)
 
         if not UnitAlive(hero) then
             hp = 0
@@ -4172,7 +4227,7 @@ function CreateEXPBar(data)
             BlzFrameSetText(textCurrent, R2I(data.curExp))
             BlzFrameSetText(textMax, R2I(ExpTable[data.curHeroLvl+1]))
             BlzFrameSetSize(chargesBox, 4.82 * hp * GNext / 100, GNext * 0.5)
-            BlzFrameSetAlpha(chargesBox, 20)
+            BlzFrameSetAlpha(chargesBox, 128)
         end
     end)
 end
@@ -4205,6 +4260,7 @@ function CreatePeonForPlayer(data)
         SuspendHeroXP(data.UnitHero,true)
         InitWASD(data.UnitHero)
         InitInventory(data)
+
         CreateHPBar(data)
         CreateMANABar(data)
 
@@ -5316,7 +5372,7 @@ function ChkStoneForGolem(data, xs, ys, r)
     return false
 end
 function CreateAndForceBullet(hero, angle, speed, effectmodel, xs, ys, damage, maxDistance, delay)
-    local CollisionRange = 80
+    local CollisionRange = 90
     if not damage then
         damage = 200
     end
@@ -5506,6 +5562,11 @@ function CreateAndForceBullet(hero, angle, speed, effectmodel, xs, ys, damage, m
             end
             DestroyEffect(bullet)
             DestroyTimer(GetExpiredTimer())
+            if effectmodel == "Abilities\\Weapons\\FireBallMissile\\FireBallMissile.mdl" then
+                --print("взрыв")
+                --UnitDamageArea(heroCurrent, damage, x, y, CollisionRange*2)
+            end
+            --старое
             if effectmodel == "stoneshild" then
                 if GetUnitData(hero).ShieldThrow then
                     --print("щит возвращается обратно")
@@ -6116,15 +6177,37 @@ function InitGameSlimes()
         --print(GetUnitName(t[i]), i)
         SlimeAddMoveEvent(t[i])
     end
+    local _, _, t = FindUnitOfType(FourCC("n005"))
+    for i = 1, #t do
+        --print(GetUnitName(t[i]), i)
+        SporeAddMoveEvent(t[i])
+    end
 end
 function SlimeAddMoveEvent(unit)
     local x, y = GetUnitXY(unit)
-    TimerStart(CreateTimer(), GetRandomReal(0.2,0.4), true, function()
+    TimerStart(CreateTimer(), GetRandomReal(0.2, 0.4), true, function()
         if x == GetUnitX(unit) then
 
         else
             --print("движется")
-            normal_sound(SlimeSound[3], x, y,50)
+            normal_sound(SlimeSound[3], x, y, 50)
+        end
+        x = GetUnitX(unit)
+
+        if not UnitAlive(unit) then
+            DestroyTimer(GetExpiredTimer())
+        end
+    end)
+end
+
+function SporeAddMoveEvent(unit)
+    local x, y = GetUnitXY(unit)
+    TimerStart(CreateTimer(), GetRandomReal(0.3, 0.5), true, function()
+        if x == GetUnitX(unit) then
+
+        else
+            --print("движется")
+            normal_sound("MP3\\RO\\Spore\\walk", x, y, 50)
         end
         x = GetUnitX(unit)
 
@@ -6142,6 +6225,42 @@ function CreateEnterPoint(EnterRect)
 
 end
 --CUSTOM_CODE
+function Trig_OkkBridge_Conditions()
+    if (not (IsUnitType(GetTriggerUnit(), UNIT_TYPE_HERO) == true)) then
+        return false
+    end
+    return true
+end
+
+function Trig_OkkBridge_Actions()
+    ShowDestructableBJ(false, gg_dest_B006_3500)
+end
+
+function InitTrig_OkkBridge()
+    gg_trg_OkkBridge = CreateTrigger()
+    TriggerRegisterEnterRectSimple(gg_trg_OkkBridge, gg_rct_OkkBridge)
+    TriggerAddCondition(gg_trg_OkkBridge, Condition(Trig_OkkBridge_Conditions))
+    TriggerAddAction(gg_trg_OkkBridge, Trig_OkkBridge_Actions)
+end
+
+function Trig_OkkBridge_Copy_Conditions()
+    if (not (IsUnitType(GetTriggerUnit(), UNIT_TYPE_HERO) == true)) then
+        return false
+    end
+    return true
+end
+
+function Trig_OkkBridge_Copy_Actions()
+    ShowDestructableBJ(true, gg_dest_B006_3500)
+end
+
+function InitTrig_OkkBridge_Copy()
+    gg_trg_OkkBridge_Copy = CreateTrigger()
+    TriggerRegisterLeaveRectSimple(gg_trg_OkkBridge_Copy, gg_rct_OkkBridge)
+    TriggerAddCondition(gg_trg_OkkBridge_Copy, Condition(Trig_OkkBridge_Copy_Conditions))
+    TriggerAddAction(gg_trg_OkkBridge_Copy, Trig_OkkBridge_Copy_Actions)
+end
+
 function Trig_Forest2Cave_Conditions()
     if (not (IsUnitType(GetTriggerUnit(), UNIT_TYPE_HERO) == true)) then
         return false
@@ -6180,42 +6299,6 @@ function InitTrig_Cave2Forest()
     TriggerRegisterEnterRectSimple(gg_trg_Cave2Forest, gg_rct_Cave2Forest)
     TriggerAddCondition(gg_trg_Cave2Forest, Condition(Trig_Cave2Forest_Conditions))
     TriggerAddAction(gg_trg_Cave2Forest, Trig_Cave2Forest_Actions)
-end
-
-function Trig_OkkBridge_Conditions()
-    if (not (IsUnitType(GetTriggerUnit(), UNIT_TYPE_HERO) == true)) then
-        return false
-    end
-    return true
-end
-
-function Trig_OkkBridge_Actions()
-    ShowDestructableBJ(false, gg_dest_B006_3500)
-end
-
-function InitTrig_OkkBridge()
-    gg_trg_OkkBridge = CreateTrigger()
-    TriggerRegisterEnterRectSimple(gg_trg_OkkBridge, gg_rct_OkkBridge)
-    TriggerAddCondition(gg_trg_OkkBridge, Condition(Trig_OkkBridge_Conditions))
-    TriggerAddAction(gg_trg_OkkBridge, Trig_OkkBridge_Actions)
-end
-
-function Trig_OkkBridge_Copy_Conditions()
-    if (not (IsUnitType(GetTriggerUnit(), UNIT_TYPE_HERO) == true)) then
-        return false
-    end
-    return true
-end
-
-function Trig_OkkBridge_Copy_Actions()
-    ShowDestructableBJ(true, gg_dest_B006_3500)
-end
-
-function InitTrig_OkkBridge_Copy()
-    gg_trg_OkkBridge_Copy = CreateTrigger()
-    TriggerRegisterLeaveRectSimple(gg_trg_OkkBridge_Copy, gg_rct_OkkBridge)
-    TriggerAddCondition(gg_trg_OkkBridge_Copy, Condition(Trig_OkkBridge_Copy_Conditions))
-    TriggerAddAction(gg_trg_OkkBridge_Copy, Trig_OkkBridge_Copy_Actions)
 end
 
 function Trig_Slime2Forest_Conditions()
@@ -6298,15 +6381,133 @@ function InitTrig_Culver2Slime()
     TriggerAddAction(gg_trg_Culver2Slime, Trig_Culver2Slime_Actions)
 end
 
+function Trig_Culver2Secret_Conditions()
+    if (not (IsUnitType(GetTriggerUnit(), UNIT_TYPE_HERO) == true)) then
+        return false
+    end
+    return true
+end
+
+function Trig_Culver2Secret_Func003C()
+    if (not (udg_Button3Quest == false)) then
+        return false
+    end
+    return true
+end
+
+function Trig_Culver2Secret_Actions()
+    SetUnitPositionLoc(GetTriggerUnit(), GetRectCenter(gg_rct_SercretRight))
+        SetDNCForPlayer(GetTriggerUnit(),"")
+    if (Trig_Culver2Secret_Func003C()) then
+        SetCameraBoundsToRectForPlayerBJ(GetOwningPlayer(GetTriggerUnit()), gg_rct_Bound05)
+    else
+        SetCameraBoundsToRectForPlayerBJ(GetOwningPlayer(GetTriggerUnit()), gg_rct_Bound06)
+    end
+end
+
+function InitTrig_Culver2Secret()
+    gg_trg_Culver2Secret = CreateTrigger()
+    TriggerRegisterEnterRectSimple(gg_trg_Culver2Secret, gg_rct_Culvert2Secret)
+    TriggerAddCondition(gg_trg_Culver2Secret, Condition(Trig_Culver2Secret_Conditions))
+    TriggerAddAction(gg_trg_Culver2Secret, Trig_Culver2Secret_Actions)
+end
+
+function Trig_Secret2Culvert_Conditions()
+    if (not (IsUnitType(GetTriggerUnit(), UNIT_TYPE_HERO) == true)) then
+        return false
+    end
+    return true
+end
+
+function Trig_Secret2Culvert_Actions()
+    SetUnitPositionLoc(GetTriggerUnit(), GetRectCenter(gg_rct_CulvertLeft))
+    SetCameraBoundsToRectForPlayerBJ(GetOwningPlayer(GetTriggerUnit()), gg_rct_Bound02)
+        SetDNCForPlayer(GetTriggerUnit(),"")
+end
+
+function InitTrig_Secret2Culvert()
+    gg_trg_Secret2Culvert = CreateTrigger()
+    TriggerRegisterEnterRectSimple(gg_trg_Secret2Culvert, gg_rct_Secret2Culvert)
+    TriggerAddCondition(gg_trg_Secret2Culvert, Condition(Trig_Secret2Culvert_Conditions))
+    TriggerAddAction(gg_trg_Secret2Culvert, Trig_Secret2Culvert_Actions)
+end
+
+function Trig_DeadB2_Conditions()
+    if (not (udg_Button3Quest == false)) then
+        return false
+    end
+    return true
+end
+
+function Trig_DeadB2_Func002Func002C()
+    if (not (udg_Button3Quest == false)) then
+        return false
+    end
+    return true
+end
+
+function Trig_DeadB2_Func002Func008A()
+    SetCameraBoundsToRectForPlayerBJ(GetOwningPlayer(GetEnumUnit()), gg_rct_Bound06)
+end
+
+function Trig_DeadB2_Func002Func009C()
+    if (not (IsDestructableDeadBJ(gg_dest_B007_4044) == true)) then
+        return false
+    end
+    if (not (IsDestructableDeadBJ(gg_dest_B007_4045) == true)) then
+        return false
+    end
+    if (not (IsDestructableDeadBJ(gg_dest_B007_4047) == true)) then
+        return false
+    end
+    return true
+end
+
+function Trig_DeadB2_Func002C()
+    if (not Trig_DeadB2_Func002Func009C()) then
+        return false
+    end
+    return true
+end
+
+function Trig_DeadB2_Actions()
+    if (Trig_DeadB2_Func002C()) then
+        udg_Button3Quest = true
+        KillDestructable(gg_dest_B007_4044)
+        KillDestructable(gg_dest_B007_4045)
+        KillDestructable(gg_dest_B007_4047)
+        DisplayTextToForce(GetPlayersAll(), "TRIGSTR_061")
+        ForGroupBJ(GetUnitsInRectAll(gg_rct_ChkSecret), Trig_DeadB2_Func002Func008A)
+    else
+        TriggerSleepAction(3.00)
+        if (Trig_DeadB2_Func002Func002C()) then
+            DestructableRestoreLife(GetDyingDestructable(), GetDestructableMaxLife(GetDyingDestructable()), true)
+        else
+        end
+    end
+end
+
+function InitTrig_DeadB2()
+    gg_trg_DeadB2 = CreateTrigger()
+    TriggerRegisterDeathEvent(gg_trg_DeadB2, gg_dest_B007_4044)
+    TriggerRegisterDeathEvent(gg_trg_DeadB2, gg_dest_B007_4045)
+    TriggerRegisterDeathEvent(gg_trg_DeadB2, gg_dest_B007_4047)
+    TriggerAddCondition(gg_trg_DeadB2, Condition(Trig_DeadB2_Conditions))
+    TriggerAddAction(gg_trg_DeadB2, Trig_DeadB2_Actions)
+end
+
 function InitCustomTriggers()
-    InitTrig_Forest2Cave()
-    InitTrig_Cave2Forest()
     InitTrig_OkkBridge()
     InitTrig_OkkBridge_Copy()
+    InitTrig_Forest2Cave()
+    InitTrig_Cave2Forest()
     InitTrig_Slime2Forest()
     InitTrig_Forest2Slime()
     InitTrig_Slime2Culvert()
     InitTrig_Culver2Slime()
+    InitTrig_Culver2Secret()
+    InitTrig_Secret2Culvert()
+    InitTrig_DeadB2()
 end
 
 function InitCustomPlayerSlots()
@@ -6344,22 +6545,22 @@ function InitCustomTeams()
 end
 
 function InitAllyPriorities()
-    SetStartLocPrioCount(0, 1)
-    SetStartLocPrio(0, 0, 3, MAP_LOC_PRIO_HIGH)
-    SetStartLocPrioCount(1, 3)
-    SetStartLocPrio(1, 0, 0, MAP_LOC_PRIO_LOW)
-    SetStartLocPrio(1, 1, 2, MAP_LOC_PRIO_HIGH)
-    SetStartLocPrio(1, 2, 3, MAP_LOC_PRIO_LOW)
-    SetStartLocPrioCount(2, 3)
-    SetStartLocPrio(2, 0, 0, MAP_LOC_PRIO_HIGH)
-    SetStartLocPrio(2, 1, 1, MAP_LOC_PRIO_HIGH)
-    SetStartLocPrio(2, 2, 3, MAP_LOC_PRIO_HIGH)
+    SetStartLocPrioCount(0, 3)
+    SetStartLocPrio(0, 0, 1, MAP_LOC_PRIO_HIGH)
+    SetStartLocPrio(0, 1, 2, MAP_LOC_PRIO_LOW)
+    SetStartLocPrio(0, 2, 3, MAP_LOC_PRIO_HIGH)
+    SetStartLocPrioCount(1, 2)
+    SetStartLocPrio(1, 0, 2, MAP_LOC_PRIO_HIGH)
+    SetStartLocPrio(1, 1, 3, MAP_LOC_PRIO_LOW)
+    SetStartLocPrioCount(2, 2)
+    SetStartLocPrio(2, 0, 1, MAP_LOC_PRIO_HIGH)
+    SetStartLocPrio(2, 1, 3, MAP_LOC_PRIO_HIGH)
     SetStartLocPrioCount(3, 1)
-    SetStartLocPrio(3, 0, 0, MAP_LOC_PRIO_HIGH)
+    SetStartLocPrio(3, 0, 2, MAP_LOC_PRIO_HIGH)
 end
 
 function main()
-    SetCameraBounds(-3328.0 + GetCameraMargin(CAMERA_MARGIN_LEFT), -11776.0 + GetCameraMargin(CAMERA_MARGIN_BOTTOM), 11520.0 - GetCameraMargin(CAMERA_MARGIN_RIGHT), 11264.0 - GetCameraMargin(CAMERA_MARGIN_TOP), -3328.0 + GetCameraMargin(CAMERA_MARGIN_LEFT), 11264.0 - GetCameraMargin(CAMERA_MARGIN_TOP), 11520.0 - GetCameraMargin(CAMERA_MARGIN_RIGHT), -11776.0 + GetCameraMargin(CAMERA_MARGIN_BOTTOM))
+    SetCameraBounds(-11520.0 + GetCameraMargin(CAMERA_MARGIN_LEFT), -11776.0 + GetCameraMargin(CAMERA_MARGIN_BOTTOM), 11520.0 - GetCameraMargin(CAMERA_MARGIN_RIGHT), 11264.0 - GetCameraMargin(CAMERA_MARGIN_TOP), -11520.0 + GetCameraMargin(CAMERA_MARGIN_LEFT), 11264.0 - GetCameraMargin(CAMERA_MARGIN_TOP), 11520.0 - GetCameraMargin(CAMERA_MARGIN_RIGHT), -11776.0 + GetCameraMargin(CAMERA_MARGIN_BOTTOM))
     SetDayNightModels("Environment\\DNC\\DNCLordaeron\\DNCLordaeronTerrain\\DNCLordaeronTerrain.mdl", "Environment\\DNC\\DNCLordaeron\\DNCLordaeronUnit\\DNCLordaeronUnit.mdl")
     NewSoundEnvironment("Default")
     SetAmbientDaySound("CityScapeDay")
@@ -6379,7 +6580,7 @@ function config()
     SetPlayers(4)
     SetTeams(4)
     SetGamePlacement(MAP_PLACEMENT_TEAMS_TOGETHER)
-    DefineStartLocation(0, 2816.0, -384.0)
+    DefineStartLocation(0, -2880.0, -11456.0)
     DefineStartLocation(1, -2816.0, -320.0)
     DefineStartLocation(2, -64.0, 2496.0)
     DefineStartLocation(3, 2944.0, 192.0)

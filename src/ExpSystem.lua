@@ -42,6 +42,7 @@ function InitExpSystem(data)
     if not data.curHeroLvl then
         data.curHeroLvl = 1
     end
+    CreateLevelInfo(data)
 end
 
 function AddExp(data, exp)
@@ -49,9 +50,25 @@ function AddExp(data, exp)
     data.curExp = data.curExp + exp
     if data.curExp >= ExpTable[data.curHeroLvl + 1] then
         --print("повышение уровня")
-        SuspendHeroXP(data.UnitHero, false)
+        --SuspendHeroXP(data.UnitHero, false)
         data.curHeroLvl = data.curHeroLvl + 1
         SetHeroLevel(data.UnitHero, data.curHeroLvl, true)
-        SuspendHeroXP(data.UnitHero, true)
+        BlzFrameSetText(data.FHHeroLvl,"Level "..data.curHeroLvl)
+        --SuspendHeroXP(data.UnitHero, true)
     end
+end
+
+function CreateLevelInfo(data)
+    local ico = "UI\\Widgets\\Console\\Human\\CommandButton\\human-button-lvls-overlay"
+    local frame = BlzCreateFrameByType('BACKDROP', 'FaceButtonIcon', BlzGetOriginFrame(ORIGIN_FRAME_GAME_UI, 0), '', 0)
+    BlzFrameSetParent(frame, BlzGetFrameByName("ConsoleUIBackdrop", 0))
+    BlzFrameSetTexture(frame, ico, 0, true)
+    BlzFrameSetSize(frame, GNext *1.8, GNext / 2)
+    BlzFrameSetAbsPoint(frame, FRAMEPOINT_CENTER, -0.107, 0.545)
+    local text = BlzCreateFrameByType("TEXT", "ButtonChargesText", frame, "", 0)
+    BlzFrameSetPoint(text, FRAMEPOINT_CENTER, frame, FRAMEPOINT_CENTER, 0.0, 0.0)
+    BlzFrameSetText(text, "Noope")
+    BlzFrameSetParent(text, BlzGetFrameByName("ConsoleUIBackdrop", 0))
+    data.FHHeroLvl=text
+    BlzFrameSetVisible(frame, GetLocalPlayer() == Player(data.pid))
 end
