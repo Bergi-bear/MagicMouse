@@ -1274,7 +1274,8 @@ function InitDeathEvent()
                     CreateItemPrefabPool(GetUnitData(killer), xu, yu, "Bag Card", "Shell")
                 end
             end
-            if GetUnitTypeId(u) == FourCC("n005") then --грибочек
+            if GetUnitTypeId(u) == FourCC("n005") then
+                --грибочек
 
                 normal_sound("MP3\\RO\\Spore\\Death", xu, yu, 50)
                 TimerStart(CreateTimer(), 15, false, function()
@@ -1285,6 +1286,15 @@ function InitDeathEvent()
                 end)
 
                 --CreateItemPrefabPool(GetUnitData(killer), xu, yu, "Spore Card", "Spore", "Spore Hat","Mycelium")
+            end
+            if GetUnitTypeId(u) == FourCC("n003") then
+                --Мурлок
+                TimerStart(CreateTimer(), 15, false, function()
+                    local x, y = GetRandomReal(GetRectMinX(gg_rct_Bound02), GetRectMaxX(gg_rct_Bound02)), GetRandomReal(GetRectMinY(gg_rct_Bound02), GetRectMaxY(gg_rct_Bound02))
+                    --print(x,y)
+                    local new = CreateUnit(Player(10), FourCC("n003"), x, y, 0)
+                    StartMurlocAI(new)
+                end)
             end
         end
     end)
@@ -1482,7 +1492,10 @@ do
             InitMouseMoveTrigger()
             InitMouseClickEvent()
             CreateWASDActions()
+
             InitGameSlimes()
+            InitMurlocAI()
+
             PlayList()
             CreateEActions()
             CreateTabActions()
@@ -3883,7 +3896,7 @@ function ShapeInit()
 
                     if DistanceBetweenXY(data.Points[1].x, data.Points[1].y, data.Points[#data.Points].x, data.Points[#data.Points].y) > 100 then
                         --print("wave")
-                        CastWave(data, data.Points[1].x, data.Points[1].y, data.Points[#data.Points].x, data.Points[#data.Points].y)
+                        CastWave(data.UnitHero, data.Points[1].x, data.Points[1].y, data.Points[#data.Points].x, data.Points[#data.Points].y)
                         TriggerCastByName(data, "wave")
                         --SandStorm(data,x, y)
                     else
@@ -5192,8 +5205,9 @@ end
 --- DateTime: 16.12.2021 15:45
 ---
 ---Abilities\Spells\Other\CrushingWave\CrushingWaveDamage.mdl
-function CastWave(data, x, y, x2, y2)
+function CastWave(caster, x, y, x2, y2)
     local z = GetTerrainZ(x, y)
+    --CastWaveWBar(data.UnitHero, 3)
     --local eff = AddSpecialEffect("Abilities\\Spells\\Other\\CrushingWave\\CrushingWaveMissile.mdl", x, y)
     local angle = AngleBetweenXY(x, y, x2, y2) / bj_DEGTORAD
     local d = DistanceBetweenXY(x, y, x2, y2)
@@ -5210,12 +5224,14 @@ function CastWave(data, x, y, x2, y2)
         BlzSetSpecialEffectPosition(eff, x, y, z)
         BlzSetSpecialEffectYaw(eff, math.rad(angle))
         BlzPlaySpecialEffect(eff, ANIM_TYPE_BIRTH)
-        local is, enemy = UnitDamageArea(data.UnitHero, 5, x, y, 200)
+        local is, enemy = UnitDamageArea(caster, 5, x, y, 200)
         if is and enemy then
-           -- print("попадание волной")
+            -- print("попадание волной")
             DestroyEffect(AddSpecialEffect("Abilities\\Spells\\Other\\CrushingWave\\CrushingWaveDamage.mdl", GetUnitXY(enemy)))
         end
-        UnitAddForceSimple(enemy, angle, speed, 100,nil,data.UnitHero)
+        if IsUnitType(caster, UNIT_TYPE_HERO) then
+            UnitAddForceSimple(enemy, angle, speed, 100, nil, caster)
+        end
         --BlzSetSpecialEffectPosition(eff, newVector.x, newVector.y, z + 50)
         curDist = curDist + speed
         if curDist > d - 150 then
@@ -5225,6 +5241,47 @@ function CastWave(data, x, y, x2, y2)
         end
     end)
 end
+
+Casters = {}
+function CastWaveWBar(caster, castTime, enemy)
+    if not Casters[GetHandleId(caster)] then
+        --print("первый раз")
+        Casters[GetHandleId(caster)] = {}
+        Casters[GetHandleId(caster)].IsCast = false
+    end
+    local data = Casters[GetHandleId(caster)]
+    if not data.IsCast then
+        data.IsCast = true
+        local baseSpeed = 10
+        local eff = AddSpecialEffect("CastBars\\CircleCrushingWaveCast", GetUnitXY(caster))
+        local x, y = GetUnitXY(caster)
+        local z = GetTerrainZ(x, y) + 230
+        BlzSetSpecialEffectPosition(eff, x, y, z)
+        local scale = baseSpeed / castTime
+        TimerStart(CreateTimer(), TIMER_PERIOD64, true, function()
+            castTime = castTime - TIMER_PERIOD64
+            x, y = GetUnitXY(caster)
+            z = GetTerrainZ(x, y) + 230
+            BlzSetSpecialEffectPosition(eff, x, y, z)
+            BlzSetSpecialEffectTimeScale(eff, scale)
+            if castTime <= 0 or IsUnitStunned(caster) or not UnitAlive(caster) then
+                --print("каст завершен")
+                if castTime <= 0 then
+                    local angle=AngleBetweenXY(x, y, GetUnitX(enemy),GetUnitY(enemy)) / bj_DEGTORAD
+                    local nx,ny=MoveXY(GetUnitX(enemy),GetUnitY(enemy),300,angle)
+                    CastWave(caster, x, y, nx,ny)
+                end
+                data.IsCast = false
+                DestroyTimer(GetExpiredTimer())
+                DestroyEffect(eff)
+            end
+        end)
+    else
+        --print("каст уже идёт")
+    end
+end
+
+
 ---
 --- Generated by EmmyLua(https://github.com/EmmyLua)
 --- Created by Bergi.
@@ -6151,6 +6208,56 @@ end
 --- DateTime: 24.12.2021 4:00
 ---
 BugID={FourCC('u000'),FourCC('u001'),FourCC('u002')}
+---
+--- Generated by EmmyLua(https://github.com/EmmyLua)
+--- Created by Bergi.
+--- DateTime: 07.01.2022 0:29
+---
+function InitMurlocAI()
+    local _, _, t = FindUnitOfType(FourCC("n003"))
+    for i = 1, #t do
+        --print(GetUnitName(t[i]), i)
+        StartMurlocAI(t[i])
+    end
+end
+
+function StartMurlocAI(unit)
+    TimerStart(CreateTimer(), GetRandomReal(3,5), true, function()
+        if not UnitAlive(unit) then
+            DestroyTimer(GetExpiredTimer())
+        else
+            local enemy = FindFirstEnemy(unit, 700)
+            if enemy then
+                -- print("цель найдена")
+                IssueTargetOrder(unit, "attack",enemy)
+                CastWaveWBar(unit, 3, enemy)
+            else
+                IssueImmediateOrder(unit,"stop")
+            end
+        end
+    end)
+end
+
+function FindFirstEnemy(unit, range)
+    local e = nil
+    local result = false
+    local xs, ys = GetUnitXY(unit)
+    -- DestroyEffect(AddSpecialEffect("Abilities\\Spells\\NightElf\\Blink\\BlinkCaster.mdl", xs, ys))
+    GroupEnumUnitsInRange(perebor, xs, ys, range, nil)
+    while true do
+        e = FirstOfGroup(perebor)
+        if e == nil then
+            break
+        end
+
+        if UnitAlive(e) and IsUnitEnemy(e, GetOwningPlayer(unit)) then
+            --print("найден для сетки",GetUnitName(e))
+            result = e
+        end
+        GroupRemoveUnit(perebor, e)
+    end
+    return result
+end
 ---
 --- Generated by EmmyLua(https://github.com/EmmyLua)
 --- Created by Bergi.

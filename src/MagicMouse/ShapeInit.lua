@@ -86,7 +86,7 @@ function ShapeInit()
 
                     if DistanceBetweenXY(data.Points[1].x, data.Points[1].y, data.Points[#data.Points].x, data.Points[#data.Points].y) > 100 then
                         --print("wave")
-                        CastWave(data, data.Points[1].x, data.Points[1].y, data.Points[#data.Points].x, data.Points[#data.Points].y)
+                        CastWave(data.UnitHero, data.Points[1].x, data.Points[1].y, data.Points[#data.Points].x, data.Points[#data.Points].y)
                         TriggerCastByName(data, "wave")
                         --SandStorm(data,x, y)
                     else

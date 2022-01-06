@@ -61,7 +61,8 @@ function InitDeathEvent()
                     CreateItemPrefabPool(GetUnitData(killer), xu, yu, "Bag Card", "Shell")
                 end
             end
-            if GetUnitTypeId(u) == FourCC("n005") then --грибочек
+            if GetUnitTypeId(u) == FourCC("n005") then
+                --грибочек
 
                 normal_sound("MP3\\RO\\Spore\\Death", xu, yu, 50)
                 TimerStart(CreateTimer(), 15, false, function()
@@ -72,6 +73,15 @@ function InitDeathEvent()
                 end)
 
                 --CreateItemPrefabPool(GetUnitData(killer), xu, yu, "Spore Card", "Spore", "Spore Hat","Mycelium")
+            end
+            if GetUnitTypeId(u) == FourCC("n003") then
+                --Мурлок
+                TimerStart(CreateTimer(), 15, false, function()
+                    local x, y = GetRandomReal(GetRectMinX(gg_rct_Bound02), GetRectMaxX(gg_rct_Bound02)), GetRandomReal(GetRectMinY(gg_rct_Bound02), GetRectMaxY(gg_rct_Bound02))
+                    --print(x,y)
+                    local new = CreateUnit(Player(10), FourCC("n003"), x, y, 0)
+                    StartMurlocAI(new)
+                end)
             end
         end
     end)

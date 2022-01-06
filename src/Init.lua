@@ -23,7 +23,10 @@ do
             InitMouseMoveTrigger()
             InitMouseClickEvent()
             CreateWASDActions()
+
             InitGameSlimes()
+            InitMurlocAI()
+
             PlayList()
             CreateEActions()
             CreateTabActions()
