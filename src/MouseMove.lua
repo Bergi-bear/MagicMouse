@@ -19,21 +19,13 @@ function InitMouseMoveTrigger()
         if BlzGetTriggerPlayerMouseX() ~= 0 then
             GetPlayerMouseX[id] = BlzGetTriggerPlayerMouseX()
             GetPlayerMouseY[id] = BlzGetTriggerPlayerMouseY()
-            if HERO[id].MouseMove then
-
-               -- print("не работает?")
-            end
             InputUpdate(HERO[id],GetPlayerMouseX[id],GetPlayerMouseY[id])
             --print("апдейт в движении мыши")
             if HERO[id].LMBIsPressed then
                 --CreateTMPEffect(BlzGetTriggerPlayerMouseX(),BlzGetTriggerPlayerMouseY())
                 --print(BlzGetTriggerPlayerMouseX(),BlzGetTriggerPlayerMouseY())
             end
-            if BlzGetTriggerPlayerMouseX() >= 511 and BlzGetTriggerPlayerMouseX() <= 513 then
-                --print("mouse error")
-            else
 
-            end
 
         else
             -- GetPlayerMouseX[id] = GetPlayerMouseX[id]

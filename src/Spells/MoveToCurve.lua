@@ -31,6 +31,12 @@ function MoveElement2Next(points, element, eff, data)
                 DestroyEffect(eff)
                 DestroyTimer(GetExpiredTimer())
             end
+
+            if UnitDamageArea(data.UnitHero, 100, newVector.x, newVector.y, 90) then
+                DestroyEffect(eff)
+                DestroyTimer(GetExpiredTimer())
+            end
+
             if Distance(newVector, points[element + 1]) <= (speed * 2) + 1  then
                 --print("долетел, следующий пошел")
                 DestroyTimer(GetExpiredTimer())

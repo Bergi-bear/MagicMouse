@@ -15,7 +15,7 @@ function CreateWarningMessage(data, message)
     local text = BlzCreateFrameByType("TEXT", "ButtonChargesText", frame, "", 0)
     BlzFrameSetPoint(text, FRAMEPOINT_CENTER, frame, FRAMEPOINT_CENTER, 0.0, 0.0)
     BlzFrameSetText(text, "Warning: Don't spam")
-
+    data.LastCastName=""
     BlzFrameSetVisible(frame, GetLocalPlayer() == Player(data.pid))
 
     --звук разряженной батарейки

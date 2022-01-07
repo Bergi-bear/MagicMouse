@@ -125,7 +125,7 @@ function ShapeInit()
         if Interval(#sides, 1, 1) and Distance(sides[1].start, sides[#sides].en) > 3 * 128 then
             local x1, y1, x2, y2 = data.Points[1].x, data.Points[1].y, data.Points[#data.Points].x, data.Points[#data.Points].y
             local angle = AngleBetweenXY(x1, y1, x2, y2) / bj_DEGTORAD
-            local effModel = "Abilities\\Weapons\\FireBallMissile\\FireBallMissile.mdl"
+            data.effModelFireBall = "Abilities\\Weapons\\FireBallMissile\\FireBallMissile.mdl"
             --print("Line")
             local distCast = DistanceBetweenXY(x1, y1, GetUnitXY(data.UnitHero))
 
@@ -146,7 +146,7 @@ function ShapeInit()
 
                 else
                     if distCast <= 500 then
-                        CreateAndForceBullet(data.UnitHero, angle, 40, effModel, nil, nil, 200)
+                        CreateAndForceBullet(data.UnitHero, angle, 40, data.effModelFireBall, nil, nil, 200)
                         TriggerCastByName(data, "line")
                     else
                         -- print("Стена льда")
@@ -165,7 +165,7 @@ function ShapeInit()
                     --end
                 else
                     if distCast <= 500 then
-                        CreateAndForceBullet(data.UnitHero, angle, 40, effModel, nil, nil, 200)--"Abilities\\Weapons\\Mortar\\MortarMissile.mdl"
+                        CreateAndForceBullet(data.UnitHero, angle, 40, data.effModelFireBall, nil, nil, 200)--"Abilities\\Weapons\\Mortar\\MortarMissile.mdl"
                         TriggerCastByName(data, "line")
                     else
 

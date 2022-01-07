@@ -19,7 +19,7 @@ end
 
 function ClearPoints(data)
     data.Points = {}
-    --
+    --print("очистка")
     for i = 1, #data.Effects do
         --print("clearEffects",i)
        -- BlzSetSpecialEffectPosition(data.Effects[i],-5000,-5000,0)
@@ -32,8 +32,7 @@ end
 function InputUpdate (data, x, y)
     --local x, y = data.fakeX, data.fakeY --GetPlayerMouseX[data.pid], GetPlayerMouseY[data.pid]
     local vector = Vector:new(x, y, 0)
-
-    if data.LMBIsPressed then
+    if data.LMBIsPressed or (data.LastCastName=="icewall" and data.RMBIsPressed) then
         --print(#Points,Points[#Points])
         if (#data.Points > 0 and
                 DistanceBetweenXY(x, y, data.Points[#data.Points].x, data.Points[#data.Points].y) < nimValueToExtend) then

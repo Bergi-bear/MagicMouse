@@ -66,9 +66,11 @@ function CastWaveWBar(caster, castTime, enemy)
             if castTime <= 0 or IsUnitStunned(caster) or not UnitAlive(caster) then
                 --print("каст завершен")
                 if castTime <= 0 then
-                    local angle=AngleBetweenXY(x, y, GetUnitX(enemy),GetUnitY(enemy)) / bj_DEGTORAD
-                    local nx,ny=MoveXY(GetUnitX(enemy),GetUnitY(enemy),300,angle)
-                    CastWave(caster, x, y, nx,ny)
+                    local angle = AngleBetweenXY(x, y, GetUnitX(enemy), GetUnitY(enemy)) / bj_DEGTORAD
+                    local nx, ny = MoveXY(GetUnitX(enemy), GetUnitY(enemy), 300, angle)
+                    if DistanceBetweenXY(GetUnitX(enemy), GetUnitY(enemy), GetUnitX(caster), GetUnitY(caster)) <= 700 then
+                        CastWave(caster, x, y, nx, ny)
+                    end
                 end
                 data.IsCast = false
                 DestroyTimer(GetExpiredTimer())

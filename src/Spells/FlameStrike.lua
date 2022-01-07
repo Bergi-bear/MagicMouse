@@ -5,6 +5,7 @@
 ---
 function FlameStrike(data, x, y, r)
     local damage = r / 2
+    data.LastFlameStrikeR=r
     if damage<=250 then
         damage=200
     end
@@ -36,11 +37,13 @@ function FlameStrike(data, x, y, r)
 end
 
 function GetRadiusCircle(data, x, y)
+
     local r = 0
     for i = 1, #data.Points do
         r = r + DistanceBetweenXY(x, y, data.Points[i].x, data.Points[i].y)
     end
     r = r / #data.Points
+    data.LastRadius=r
     return r
 end
 

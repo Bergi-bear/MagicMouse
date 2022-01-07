@@ -7,6 +7,7 @@ function CreateIceLine(data)
     local effModel = "Abilities\\Spells\\Undead\\FreezingBreath\\FreezingBreathTargetArt"
     local eff = {}
     local points = data.Points
+    --print(#data.Points)
     for i = 1, #points do
         eff[i]=AddSpecialEffect(effModel, points[i].x, points[i].y)
         --table.insert(eff, ))

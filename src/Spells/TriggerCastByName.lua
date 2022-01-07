@@ -5,34 +5,31 @@
 ---
 function TriggerCastByName(data, nameCast)
     for i = 1, #data.SpellsName do
-		if data.SpellsName[i] == nameCast then
-			--print(nameCast)
-			local fh = data.SpellsFH[i]
-            if data.PreviousCast==nameCast then
+        if data.SpellsName[i] == nameCast then
+            --print(nameCast)
+            data.LastCastName = nameCast
+            local fh = data.SpellsFH[i]
+            if data.PreviousCast == nameCast then
                 --print("каст повторился")
                 if not data.CastCount then
-                    data.CastCount=1
+                    data.CastCount = 1
                 end
-                data.CastCount=data.CastCount+1
+                data.CastCount = data.CastCount + 1
             else
-                data.CastCount=1
+                data.CastCount = 1
             end
-            local burn=data.WeightSpellTable[i]*data.CastCount
-            if burn >=1000 then
+            local burn = data.WeightSpellTable[i] * data.CastCount
+            if burn >= 1000 then
                 --print("Можно получить урон, если спамить одно заклинание")
-                CreateWarningMessage(data,"Warning: Don't spam")
+                CreateWarningMessage(data, "Warning: Don't spam")
             end
-            CreateFlyFrame(data, fh, "-"..burn)
-			JumpFrame(data, fh, i)
-            data.PreviousCast=nameCast
-			return
-		end
+            CreateFlyFrame(data, fh, "-" .. burn)
+            JumpFrame(data, fh, i)
+            data.PreviousCast = nameCast
+            return
+        end
     end
-    print("Заклинания нет в базе данных",nameCast)
-end
-
-function GetFramePositionsByName(data, nameCast)
-
+    --print("Заклинания нет в базе данных", nameCast)
 end
 
 function JumpFrame(data, fh, m)
@@ -59,4 +56,58 @@ function JumpFrame(data, fh, m)
         BlzFrameSetAbsPoint(fh, FRAMEPOINT_CENTER, GNext + GNext * (m - 1), 0.02 + size / 4)
         --BlzFrameSetSize(fh,0.04+size,0.04+size)
     end)
+end
+
+function SpellCastByName(data, name)
+    if not name then
+        name = ""
+    end
+    local x, y = GetPlayerMouseX[data.pid], GetPlayerMouseY[data.pid]
+    if name == "line" then
+        local angle = AngleBetweenXY(GetUnitX(data.UnitHero), GetUnitY(data.UnitHero), x, y) / bj_DEGTORAD
+        CreateAndForceBullet(data.UnitHero, angle, 40, data.effModelFireBall, nil, nil, 200)
+    elseif name == "circle" then
+        FlameStrike(data, x, y, data.LastFlameStrikeR)
+    elseif name == "curve" then
+        local points = {}
+        local vector = Vector:new(GetUnitX(data.UnitHero), GetUnitY(data.UnitHero), 0)
+        table.insert(points, vector)
+        vector = Vector:new(x, y, 0)
+        table.insert(points, vector)
+        MoveToCurve(data, points)
+    elseif name == "triangle" then
+        CastLighting(data, 5, data.LastRadius, x, y)
+    elseif name == "wave" then
+        CastWave(data.UnitHero, data.StartWaveCastX, data.StartWaveCastY, data.EndWaveCastX, data.EndWaveCastY)
+    elseif name == "smallrocks" then
+        EarthStrike(data, GetRandomReal(0, 360), x, y)
+    elseif name == "CircleHeal" then
+        if IsUnitInRangeXY(data.UnitHero, x, y, 250 * 0.7) then
+            --print("лечение")
+            HealUnit(data.UnitHero, 50, nil, "Abilities\\Spells\\Human\\HolyBolt\\HolyBoltSpecialArt")
+            TriggerCastByName(data, "CircleHeal")
+        else
+
+        end
+    elseif name == "icewall" then
+        CreateIceLine(data)
+    elseif name == "z" then
+        Blink2Point(data, x, y)
+    elseif name == "deathcross" then
+        DestroyEffect(AddSpecialEffect("Objects\\Spawnmodels\\Undead\\UndeadBlood\\UndeadBloodAbomination.mdl", x, y))
+        UnitDamageArea(data.UnitHero, 500, x, y, 150)
+
+        HealUnit(data.UnitHero, 100, nil, "Abilities\\Spells\\Human\\HolyBolt\\HolyBoltSpecialArt")
+        local angle = GetUnitFacing(data.UnitHero)
+        local table1 = { MoveX(x, 500, angle), MoveY(y, 500, angle), MoveX(x, 500, angle - 180), MoveY(y, 500, angle - 180) }
+        local table2 = { MoveX(x, 500, angle - 90), MoveY(y, 500, angle - 90), MoveX(x, 500, angle + 90), MoveY(y, 500, angle + 90) }
+        HolyLine(data, table1)
+        HolyLine(data, table2)
+    elseif name == "curvecircle" then
+        SandStorm(data, x, y)
+    elseif name == "golem" then
+        SummonInfernal(data, x, y, 250, 30)
+    end
+
+    TriggerCastByName(data, name)
 end

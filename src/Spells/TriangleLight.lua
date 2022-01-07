@@ -8,19 +8,19 @@ function CastLighting(data, max, radius, x, y)
     local k = 0
     --local x,y=GetUnitXY(hero)
     local tableTriangle = {
-        data.AnglePoints[1].x,
-        data.AnglePoints[1].y,
-        data.AnglePoints[2].x,
-        data.AnglePoints[2].y,
-        data.Points[1].x,
-        data.Points[1].y
+        --data.AnglePoints[1].x,
+        --data.AnglePoints[1].y,
+        --data.AnglePoints[2].x,
+        --data.AnglePoints[2].y,
+        --data.Points[1].x,
+        --data.Points[1].y
     }
-    local enemy = FindNewEnemyForLight(tableTriangle, data, hero, radius, x, y)
+    local enemy = FindNewEnemyForLight(nil, data, hero, radius, x, y)
 
     if enemy then
         TimerStart(CreateTimer(), 0.3, true, function()
-            enemy = FindNewEnemyForLight(tableTriangle, data, hero, radius, x, y)
-            if FindNewEnemyForLight(tableTriangle, data, hero, radius, x, y) then
+            enemy = FindNewEnemyForLight(nil, data, hero, radius, x, y)
+            if FindNewEnemyForLight(nil, data, hero, radius, x, y) then
                 k = k + 1
             else
                 DestroyTimer(GetExpiredTimer())
