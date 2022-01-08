@@ -108,3 +108,49 @@ function CreateActionBox(data,parent)
 
     return SelfFrame, buttonIconFrame
 end
+
+function CreateRmbTips(data,parent)
+
+    local texture = "ReplaceableTextures\\CommandButtons\\BTNWispSplode.blp"
+    local SelfFrame = BlzCreateFrameByType('GLUEBUTTON', 'FaceButton', parent, 'ScoreScreenTabButtonTemplate', 0)
+    local buttonIconFrame = BlzCreateFrameByType('BACKDROP', 'FaceButtonIcon', SelfFrame, '', 0)
+
+    BlzFrameSetParent(SelfFrame, BlzGetFrameByName("ConsoleUIBackdrop", 0))
+    BlzFrameSetParent(buttonIconFrame, BlzGetFrameByName("ConsoleUIBackdrop", 0))
+    BlzFrameSetAllPoints(buttonIconFrame, SelfFrame)
+    BlzFrameSetTexture(buttonIconFrame, texture, 0, true)
+    BlzFrameSetSize(SelfFrame, GNext, GNext)
+    --
+    BlzFrameSetPoint(SelfFrame, FRAMEPOINT_RIGHT, parent, FRAMEPOINT_RIGHT, GNext*2, 0.00)
+    --BlzFrameSetAbsPoint(SelfFrame, FRAMEPOINT_CENTER, 0.8 + GNext / 2, GNext / 2)
+
+    local ClickTrig = CreateTrigger()
+    BlzTriggerRegisterFrameEvent(ClickTrig, SelfFrame, FRAMEEVENT_CONTROL_CLICK)
+    TriggerAddAction(ClickTrig, function()
+        BlzFrameSetEnable(BlzGetTriggerFrame(), false)
+        BlzFrameSetEnable(BlzGetTriggerFrame(), true)
+        StopUnitMoving(data)
+    end)
+
+    local TrigMOUSE_ENTER = CreateTrigger()
+    BlzTriggerRegisterFrameEvent(TrigMOUSE_ENTER, SelfFrame, FRAMEEVENT_MOUSE_ENTER)
+    TriggerAddAction(TrigMOUSE_ENTER, function()
+        --print("показать подсказку ",flag)
+    end)
+    local TrigMOUSE_LEAVE = CreateTrigger()
+    BlzTriggerRegisterFrameEvent(TrigMOUSE_LEAVE, SelfFrame, FRAMEEVENT_MOUSE_LEAVE)
+    TriggerAddAction(TrigMOUSE_LEAVE, function()
+        --print("убрать подсказку")
+    end)
+
+    ---Подсказка
+    local text = BlzCreateFrameByType("TEXT", "ButtonChargesText", SelfFrame, "", 0)
+    BlzFrameSetParent(text, BlzGetFrameByName("ConsoleUIBackdrop", 0))
+    BlzFrameSetText(text, "RMB for\n repeat cast")
+    BlzFrameSetScale(text, 0.8)
+    BlzFrameSetPoint(text, FRAMEPOINT_TOP, SelfFrame, FRAMEPOINT_TOP, 0.00, 0.02)
+
+    return SelfFrame, buttonIconFrame
+end
+
+--

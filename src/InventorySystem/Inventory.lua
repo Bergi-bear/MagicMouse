@@ -8,6 +8,7 @@ function InitInventory(data)
 
     local invFH = CreateInventoryButton(data, nil, BoxFrame)
     CreateActionBox(data, invFH)
+    CreateRmbTips(data, invFH)
     BlzFrameSetVisible(BoxFrame, false)
 end
 function CreateInventoryButton(data, texture, BoxFrame)

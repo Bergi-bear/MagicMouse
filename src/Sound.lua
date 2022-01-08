@@ -22,6 +22,7 @@ function normal_sound (s, x, y, volume)
 end
 
 function PlayList()
+    ClearMapMusicBJ()
     PlayMusicBJ("MP3\\Ancientgroover")
     PlayMusicBJ("MP3\\PeacefulForest")
     PlayMusicBJ("MP3\\TreasureHunter")

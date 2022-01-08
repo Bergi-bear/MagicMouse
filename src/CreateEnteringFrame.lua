@@ -25,4 +25,21 @@ function CreateEnteringFrame(data, name)
             end
         end)
     end
+    if GetLocalPlayer()==Player(data.pid) then
+        ClearMapMusicBJ()
+        StopMusic(true)
+        if name == "Луга слаймов" then
+            PlayMusicBJ("MP3\\Ancientgroover")
+            PlayMusicBJ("MP3\\PronteraTheme")
+        end
+        if name == "Канализация" then
+            --PlayMusicBJ("MP3\\TreasureHunter")
+            PlayMusicBJ("MP3\\Undertheground")
+        end
+        if name == "Бамбуковый лес" then
+            --PlayMusicBJ("MP3\\TreasureHunter")
+            PlayMusicBJ("MP3\\NanoEast")
+        end
+        SetMusicVolumeBJ(100)
+    end
 end

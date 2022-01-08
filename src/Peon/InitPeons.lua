@@ -27,7 +27,7 @@ function CreatePeonForPlayer(data)
 
         CreateStatPanel(data)
         CreateWarningMessage(data,"Message1234567890AAAA")
-        SetDNCForPlayer(data.UnitHero,"Environment\\DNC\\DNCAshenvale\\DNCAshenvaleTerrain\\DNCAshenvaleTerrain.mdl")
+        SetDNCForPlayer(data.UnitHero,"Environment\\DNC\\DNCAshenvale\\DNCAshenvaleTerrain\\DNCAshenvaleTerrain.mdl","Луга слаймов")
     end
 end
 

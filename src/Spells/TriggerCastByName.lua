@@ -96,7 +96,7 @@ function SpellCastByName(data, name)
     elseif name == "deathcross" then
         DestroyEffect(AddSpecialEffect("Objects\\Spawnmodels\\Undead\\UndeadBlood\\UndeadBloodAbomination.mdl", x, y))
         UnitDamageArea(data.UnitHero, 500, x, y, 150)
-
+    elseif name == "grandcross" then
         HealUnit(data.UnitHero, 100, nil, "Abilities\\Spells\\Human\\HolyBolt\\HolyBoltSpecialArt")
         local angle = GetUnitFacing(data.UnitHero)
         local table1 = { MoveX(x, 500, angle), MoveY(y, 500, angle), MoveX(x, 500, angle - 180), MoveY(y, 500, angle - 180) }

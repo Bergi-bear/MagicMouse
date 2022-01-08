@@ -3,22 +3,22 @@
 --- Created by Bergi.
 --- DateTime: 24.12.2021 13:04
 ---
-function SetDNCForPlayer(hero,state)
-    local data=HERO[GetPlayerId(GetOwningPlayer(hero))]
+function SetDNCForPlayer(hero, state, nameZone)
+    local data = HERO[GetPlayerId(GetOwningPlayer(hero))]
     if not data.DNC then
-        data.DNC="Environment\\DNC\\DNCAshenvale\\DNCAshenvaleTerrain\\DNCAshenvaleTerrain.mdl"
+        data.DNC = "Environment\\DNC\\DNCAshenvale\\DNCAshenvaleTerrain\\DNCAshenvaleTerrain.mdl"
     end
-    local dncLocal=state
-    if GetLocalPlayer()==GetOwningPlayer(hero) then
-        dncLocal=state
+    local dncLocal = state
+    if GetLocalPlayer() == GetOwningPlayer(hero) then
+        dncLocal = state
     else
-        dncLocal=data.DNC
+        dncLocal = data.DNC
     end
-    data.DNC=dncLocal
-    SetDayNightModels(dncLocal,dncLocal)
-    if state=="" then
-        CreateEnteringFrame(data, "Канализация")
-    else
-        CreateEnteringFrame(data, "Луга слаймов")
+    data.DNC = dncLocal
+    SetDayNightModels(dncLocal, dncLocal)
+    if not nameZone then
+        nameZone="Неизвестная зона"
     end
+    CreateEnteringFrame(data, nameZone)
+
 end
