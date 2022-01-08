@@ -24,10 +24,9 @@ end
 function PlayList()
     ClearMapMusicBJ()
     PlayMusicBJ("MP3\\Ancientgroover")
-    PlayMusicBJ("MP3\\PeacefulForest")
-    PlayMusicBJ("MP3\\TreasureHunter")
-    PlayMusicBJ("MP3\\Undertheground")
-    PlayMusicBJ("MP3\\NanoEast")
-    PlayMusicBJ("MP3\\PronteraTheme")
-
+    --PlayMusicBJ("MP3\\PeacefulForest")
+    --PlayMusicBJ("MP3\\TreasureHunter")
+    --PlayMusicBJ("MP3\\Undertheground")
+    --PlayMusicBJ("MP3\\NanoEast")
+    --PlayMusicBJ("MP3\\PronteraTheme")
 end
