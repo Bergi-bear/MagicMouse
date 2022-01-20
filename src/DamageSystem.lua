@@ -247,13 +247,13 @@ function PointContentDestructable (x, y, range, iskill, damage, hero)
                                 end
                             else
                                 --print("даём золото за сундук")
-                                if GetDestructableTypeId(d) == FourCC("B008") or GetDestructableTypeId(d) == FourCC("B004") then
+                                if GetDestructableTypeId(d) == FourCC("B008") or GetDestructableTypeId(d) == FourCC("B004")  and false then
                                     UnitAddGold(hero, GetRandomInt(2, 5))
                                     DestroyEffect(AddSpecialEffect("SystemGeneric\\PileofGold.mdl", dx, dy))
                                 end
                             end
                         end
-                        if GetDestructableTypeId(d) == FourCC("B008") then
+                        if GetDestructableTypeId(d) == FourCC("B008") and false then
                             --print("умерла ваза горшок в событии проверки")
                             normal_sound("Abilities\\Spells\\Other\\Transmute\\AlchemistTransmuteDeath1", dx, dy, 60)
                             DestroyEffect(AddSpecialEffect("Objects\\Spawnmodels\\Undead\\ImpaleTargetDust\\ImpaleTargetDust.mdl", dx, dy))

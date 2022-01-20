@@ -249,12 +249,6 @@ STRING 47
 Большие корни
 }
 
-STRING 48
-// Doodads: D00N (Сакура), Name (Name)
-{
-Сакура
-}
-
 STRING 49
 // Units: n005 (Spore), Name (Name)
 {
@@ -318,5 +312,113 @@ STRING 60
 STRING 61
 {
 All OK
+}
+
+STRING 62
+// Destructibles: B008 (Бамбук 4), Name (Name)
+{
+Бамбук 4
+}
+
+STRING 64
+// Doodads: D00N (Дорога1), Name (Name)
+{
+Дорога1
+}
+
+STRING 65
+// Doodads: D00Q (Дорога2), Name (Name)
+{
+Дорога2
+}
+
+STRING 66
+// Doodads: D00R (Дорога3), Name (Name)
+{
+Дорога3
+}
+
+STRING 67
+// Doodads: D00S (Дорога4), Name (Name)
+{
+Дорога4
+}
+
+STRING 68
+// Doodads: D00T (Китайский бледный куст1), Name (Name)
+{
+Китайский бледный куст1
+}
+
+STRING 69
+// Doodads: D00U (Листопад), Name (Name)
+{
+Листопад
+}
+
+STRING 71
+// Doodads: D00W (Сухая трава), Name (Name)
+{
+Сухая трава
+}
+
+STRING 72
+// Doodads: D00X (Песчаная дорожка1), Name (Name)
+{
+Песчаная дорожка1
+}
+
+STRING 73
+// Doodads: D00V (Листва под деревьями), Name (Name)
+{
+Листва под деревьями
+}
+
+STRING 74
+// Doodads: D00Y (Каменные ступеньки), Name (Name)
+{
+Каменные ступеньки
+}
+
+STRING 75
+// Doodads: D00Z (Скелет Ребра), Name (Name)
+{
+Скелет Ребра
+}
+
+STRING 76
+// Doodads: D010 (Камни в пустыне 1), Name (Name)
+{
+Камни в пустыне 1
+}
+
+STRING 77
+// Doodads: D011 (Камни в пустыне 2), Name (Name)
+{
+Камни в пустыне 2
+}
+
+STRING 78
+// Doodads: D012 (Камни в пустыне 3), Name (Name)
+{
+Камни в пустыне 3
+}
+
+STRING 79
+// Doodads: D013 (Камни в пустыне 5), Name (Name)
+{
+Камни в пустыне 5
+}
+
+STRING 80
+// Doodads: D014 (Камни в пустыне 4), Name (Name)
+{
+Камни в пустыне 4
+}
+
+STRING 81
+// Doodads: D015 (BigStone), Name (Name)
+{
+BigStone
 }
 

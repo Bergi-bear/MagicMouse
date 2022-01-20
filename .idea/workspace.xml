@@ -1,0 +1,531 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="f200177b-7ff8-4d01-9907-5d6bfa19dd50" name="Default Changelist" comment="Переходы между зонами">
+      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/map.w3x/BonesEnvironmentTexture.blp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/map.w3x/CactusCatusTexture.blp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/map.w3x/China/Grass/Brunnen.mdx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/map.w3x/China/Grass/NSAW Blaetter.mdx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/map.w3x/China/Grass/NSAW Bush.mdx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/map.w3x/China/Grass/NSAW_Leaf_Fall.mdx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/map.w3x/China/Grass/Sakura.mdx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/map.w3x/China/Grass/TallGrass.mdx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/map.w3x/China/Grass/pa_templefountain_01.mdx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/map.w3x/China/Prop/NSAW Stone.mdx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/map.w3x/China/Prop/NSAW Tree neu 1.mdx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/map.w3x/China/Prop/NSAW Tree neu 2.mdx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/map.w3x/China/Prop/NSAW Tree neu 3.mdx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/map.w3x/China/Prop/NSAW Tree neu 4.mdx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/map.w3x/China/Prop/NSAW Wall 1.mdx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/map.w3x/China/Prop/NSAW Wall 2.mdx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/map.w3x/China/Prop/NSAW Wall 3.mdx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/map.w3x/China/Prop/NSAW_Model_Stonestairs.mdx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/map.w3x/China/Prop/NSAW_Model_Stonestairs_2.mdx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/map.w3x/China/Prop/NSAW_Model_Stonestairs_3.mdx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/map.w3x/China/Prop/NSAW_Model_Stonestairs_4.mdx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/map.w3x/China/Prop/NSAW_Model_Stonestairs_5.mdx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/map.w3x/China/Prop/NSAW_Model_Stonestairs_6.mdx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/map.w3x/China/Prop/NSAW_Model_Stonestairs_akatsuki_1.mdx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/map.w3x/China/Prop/NSAW_Model_Stonestairs_akatsuki_2.mdx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/map.w3x/China/Prop/NSAW_Model_Stonestairs_akatsuki_3.mdx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/map.w3x/China/Prop/NSAW_Model_Stonestairs_akatsuki_4.mdx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/map.w3x/China/Prop/NSAW_Model_Stonestairs_akatsuki_5.mdx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/map.w3x/China/Prop/NSAW_Model_Stonestairs_akatsuki_6.mdx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/map.w3x/China/Prop/NiceRock.mdx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/map.w3x/China/Prop/NiceRock2.mdx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/map.w3x/China/Prop/NiceRock3.mdx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/map.w3x/China/Prop/NiceRock4.mdx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/map.w3x/China/Prop/NiceRock5.mdx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/map.w3x/China/Prop/Stone 3.mdx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/map.w3x/China/Prop/Stone 4.mdx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/map.w3x/China/Prop/Tree-Pilz.mdx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/map.w3x/China/TBSBamboo1.mdx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/map.w3x/CloudSingle.blp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/map.w3x/DOTAHQ_tree_oak_leaves.blp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/map.w3x/Desert/Bone einzelnd.mdx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/map.w3x/Desert/Bone reihe 1.mdx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/map.w3x/Desert/Bone reihe 2.mdx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/map.w3x/Desert/Bone2.mdx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/map.w3x/Desert/Bone3.mdx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/map.w3x/Desert/Bones.mdx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/map.w3x/Desert/CactusCactusModel.mdx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/map.w3x/Desert/CactusCactusModel2.mdx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/map.w3x/ITK_TALLGRASS01.blp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/map.w3x/Kuicilk.blp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/map.w3x/Kuicilk3.blp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/map.w3x/NSAW_Doodad_Wagon.blp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/map.w3x/NSAW_Doodad_Wagon_Water.blp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/map.w3x/NSAW_Doodad_tile_border_1.blp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/map.w3x/NSAW_Doodad_tile_border_2.blp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/map.w3x/NSAW_Leaf_Fall.blp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/map.w3x/NSAW_Model_Stonestairs.blp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/map.w3x/NSAW_Model_Stonestairs_1.blp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/map.w3x/NSAW_Model_Stonestairs_1_akatsuki.blp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/map.w3x/NSAW_Model_Stonestairs_akatsuki.blp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/map.w3x/PA_FOUNTAIN_ROCK1.blp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/map.w3x/PA_FOUNTAIN_ROCK2.blp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/map.w3x/PA_TURTLESHRINE_WATER2.blp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/map.w3x/Road/NSAW_Doodad_Wagon_1.mdx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/map.w3x/Road/NSAW_Doodad_Wagon_2.mdx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/map.w3x/Road/NSAW_Doodad_Wagon_3.mdx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/map.w3x/Road/NSAW_Doodad_Wagon_4.mdx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/map.w3x/Road/NSAW_Doodad_tile_border_1.mdx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/map.w3x/Road/NSAW_Doodad_tile_border_2.mdx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/map.w3x/Road/NSAW_Doodad_tile_border_3.mdx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/map.w3x/Road/NSAW_Doodad_tile_border_4.mdx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/map.w3x/TBSBamboo.blp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/map.w3x/TU_MOUNTAINTREE_CANOPY.blp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/map.w3x/TU_MOUNTAINTREE_TRUNK.blp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/map.w3x/WuLe_shitou1.blp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/map.w3x/crop_cirlces001.blp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/map.w3x/flowers_00.blp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/map.w3x/good_statue008a.blp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/map.w3x/rocks_atlas.blp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/map.w3x/tree_oak_leaves_00.blp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/map.w3x/tree_oak_leaves_10.blp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/map.w3x/tree_oak_leaves_white.blp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/map.w3x/tree_pine_frond_00.blp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/map.w3x/yhs0.blp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build.lua" beforeDir="false" afterPath="$PROJECT_DIR$/build.lua" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/map.w3x/war3map.doo" beforeDir="false" afterPath="$PROJECT_DIR$/map.w3x/war3map.doo" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/map.w3x/war3map.imp" beforeDir="false" afterPath="$PROJECT_DIR$/map.w3x/war3map.imp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/map.w3x/war3map.lua" beforeDir="false" afterPath="$PROJECT_DIR$/map.w3x/war3map.lua" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/map.w3x/war3map.w3b" beforeDir="false" afterPath="$PROJECT_DIR$/map.w3x/war3map.w3b" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/map.w3x/war3map.w3d" beforeDir="false" afterPath="$PROJECT_DIR$/map.w3x/war3map.w3d" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/map.w3x/war3map.w3e" beforeDir="false" afterPath="$PROJECT_DIR$/map.w3x/war3map.w3e" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/map.w3x/war3map.w3i" beforeDir="false" afterPath="$PROJECT_DIR$/map.w3x/war3map.w3i" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/map.w3x/war3map.w3r" beforeDir="false" afterPath="$PROJECT_DIR$/map.w3x/war3map.w3r" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/map.w3x/war3map.w3u" beforeDir="false" afterPath="$PROJECT_DIR$/map.w3x/war3map.w3u" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/map.w3x/war3map.wct" beforeDir="false" afterPath="$PROJECT_DIR$/map.w3x/war3map.wct" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/map.w3x/war3map.wpm" beforeDir="false" afterPath="$PROJECT_DIR$/map.w3x/war3map.wpm" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/map.w3x/war3map.wts" beforeDir="false" afterPath="$PROJECT_DIR$/map.w3x/war3map.wts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/map.w3x/war3mapMap.blp" beforeDir="false" afterPath="$PROJECT_DIR$/map.w3x/war3mapMap.blp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/map.w3x/war3mapUnits.doo" beforeDir="false" afterPath="$PROJECT_DIR$/map.w3x/war3mapUnits.doo" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/DamageSystem.lua" beforeDir="false" afterPath="$PROJECT_DIR$/src/DamageSystem.lua" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/MagicMouse/ShapeDetector.lua" beforeDir="false" afterPath="$PROJECT_DIR$/src/MagicMouse/ShapeDetector.lua" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="NewLua" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="PUSH_TAGS">
+      <GitPushTagMode>
+        <option name="argument" value="--tags" />
+        <option name="title" value="All" />
+      </GitPushTagMode>
+    </option>
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="ProjectId" id="21gZ7xrhMKRSN5MfKcaxmvgI3xp" />
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="ASKED_ADD_EXTERNAL_FILES" value="true" />
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/GoldSystem" />
+    <property name="project.structure.last.edited" value="Project" />
+    <property name="project.structure.proportion" value="0.15" />
+    <property name="project.structure.side.proportion" value="0.2045977" />
+    <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\Bergi\IdeaProjects\MagicMouse\src\GoldSystem" />
+      <recent name="C:\Users\Bergi\IdeaProjects\MagicMouse\src" />
+      <recent name="C:\Users\Bergi\IdeaProjects\MagicMouse\map.w3x" />
+      <recent name="C:\Users\Bergi\IdeaProjects\MagicMouse\src\Peon" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\Bergi\IdeaProjects\MagicMouse\src\Frame" />
+      <recent name="C:\Users\Bergi\IdeaProjects\MagicMouse\src" />
+      <recent name="C:\Users\Bergi\IdeaProjects\MagicMouse\src\InventorySystem" />
+      <recent name="C:\Users\Bergi\IdeaProjects\MagicMouse\src\Spells" />
+      <recent name="C:\Users\Bergi\IdeaProjects\MagicMouse\src\MagicMouse" />
+    </key>
+  </component>
+  <component name="RunManager">
+    <configuration name="Run" type="lua.app" factoryName="Lua Application">
+      <module name="MagicMouse" />
+      <option name="program" value="C:\Users\Bergi\IdeaProjects\cheapack-master\lua53.exe" />
+      <option name="file" value="$PROJECT_DIR$/build.lua" />
+      <option name="workingDir" value="C:\Users\Bergi\IdeaProjects\MagicMouse" />
+      <option name="debuggerType" value="2" />
+      <option name="params" value="" />
+      <option name="charset" value="UTF-8" />
+      <option name="showConsole" value="true" />
+      <method v="2" />
+    </configuration>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="f200177b-7ff8-4d01-9907-5d6bfa19dd50" name="Default Changelist" comment="" />
+      <created>1638364527971</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1638364527971</updated>
+    </task>
+    <task id="LOCAL-00001" summary="EmptyMap">
+      <created>1638367661836</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1638367661836</updated>
+    </task>
+    <task id="LOCAL-00002" summary="Шаблон готов">
+      <created>1638374353513</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1638374353513</updated>
+    </task>
+    <task id="LOCAL-00003" summary="Чуть чуть работает, но больше поломано">
+      <created>1638385562690</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1638385562690</updated>
+    </task>
+    <task id="LOCAL-00004" summary="Удалил библиотеку скорпа, открыл видимость">
+      <created>1638475435293</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1638475435293</updated>
+    </task>
+    <task id="LOCAL-00005" summary="Убрал принты">
+      <created>1638628627958</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1638628627958</updated>
+    </task>
+    <task id="LOCAL-00006" summary="Убрал принты">
+      <created>1638632871315</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1638632871315</updated>
+    </task>
+    <task id="LOCAL-00007" summary="Переделано на мультиплеер">
+      <created>1639225546808</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1639225546808</updated>
+    </task>
+    <task id="LOCAL-00008" summary="Добавлена сборка">
+      <created>1639225893301</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1639225893301</updated>
+    </task>
+    <task id="LOCAL-00009" summary="Первый каст ФАЕРБОЛ!">
+      <created>1639261600379</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1639261600379</updated>
+    </task>
+    <task id="LOCAL-00010" summary="Каст камней и определение курвы">
+      <created>1639271400757</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1639271400757</updated>
+    </task>
+    <task id="LOCAL-00011" summary="Полёт снаряда по дуге">
+      <created>1639305523863</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1639305523863</updated>
+    </task>
+    <task id="LOCAL-00012" summary="Огненный удар и карта">
+      <created>1639350439779</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1639350439779</updated>
+    </task>
+    <task id="LOCAL-00013" summary="Инфералы и музыка">
+      <created>1639357586777</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1639357586777</updated>
+    </task>
+    <task id="LOCAL-00014" summary="Квадратик">
+      <created>1639445051445</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1639445051445</updated>
+    </task>
+    <task id="LOCAL-00015" summary="Крестик">
+      <created>1639525832150</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1639525832150</updated>
+    </task>
+    <task id="LOCAL-00016" summary="Бамбуки">
+      <created>1639651425848</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1639651425848</updated>
+    </task>
+    <task id="LOCAL-00017" summary="2 домика">
+      <created>1639656541397</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1639656541397</updated>
+    </task>
+    <task id="LOCAL-00018" summary="Иконки">
+      <created>1639692279955</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1639692279955</updated>
+    </task>
+    <task id="LOCAL-00019" summary="Гифка линии">
+      <created>1639749670700</created>
+      <option name="number" value="00019" />
+      <option name="presentableId" value="LOCAL-00019" />
+      <option name="project" value="LOCAL" />
+      <updated>1639749670700</updated>
+    </task>
+    <task id="LOCAL-00020" summary="Гифка линии">
+      <created>1639749701749</created>
+      <option name="number" value="00020" />
+      <option name="presentableId" value="LOCAL-00020" />
+      <option name="project" value="LOCAL" />
+      <updated>1639749701749</updated>
+    </task>
+    <task id="LOCAL-00021" summary="Инвентарь">
+      <created>1639866423286</created>
+      <option name="number" value="00021" />
+      <option name="presentableId" value="LOCAL-00021" />
+      <option name="project" value="LOCAL" />
+      <updated>1639866423286</updated>
+    </task>
+    <task id="LOCAL-00022" summary="Инвентарь готов, можно наполнять">
+      <created>1639875899108</created>
+      <option name="number" value="00022" />
+      <option name="presentableId" value="LOCAL-00022" />
+      <option name="project" value="LOCAL" />
+      <updated>1639875899108</updated>
+    </task>
+    <task id="LOCAL-00023" summary="Одолел инвентарь">
+      <created>1639953108780</created>
+      <option name="number" value="00023" />
+      <option name="presentableId" value="LOCAL-00023" />
+      <option name="project" value="LOCAL" />
+      <updated>1639953108781</updated>
+    </task>
+    <task id="LOCAL-00024" summary="Потребление предметов">
+      <created>1640044361428</created>
+      <option name="number" value="00024" />
+      <option name="presentableId" value="LOCAL-00024" />
+      <option name="project" value="LOCAL" />
+      <updated>1640044361428</updated>
+    </task>
+    <task id="LOCAL-00025" summary="Определение каста">
+      <created>1640046820947</created>
+      <option name="number" value="00025" />
+      <option name="presentableId" value="LOCAL-00025" />
+      <option name="project" value="LOCAL" />
+      <updated>1640046820947</updated>
+    </task>
+    <task id="LOCAL-00026" summary="AddHPBar">
+      <created>1640095977772</created>
+      <option name="number" value="00026" />
+      <option name="presentableId" value="LOCAL-00026" />
+      <option name="project" value="LOCAL" />
+      <updated>1640095977772</updated>
+    </task>
+    <task id="LOCAL-00027" summary="Готова канализация">
+      <created>1640208746075</created>
+      <option name="number" value="00027" />
+      <option name="presentableId" value="LOCAL-00027" />
+      <option name="project" value="LOCAL" />
+      <updated>1640208746075</updated>
+    </task>
+    <task id="LOCAL-00028" summary="Золотой жук и треугольник">
+      <created>1640310234349</created>
+      <option name="number" value="00028" />
+      <option name="presentableId" value="LOCAL-00028" />
+      <option name="project" value="LOCAL" />
+      <updated>1640310234349</updated>
+    </task>
+    <task id="LOCAL-00029" summary="Карты нормалей и Флай касты">
+      <created>1640381039750</created>
+      <option name="number" value="00029" />
+      <option name="presentableId" value="LOCAL-00029" />
+      <option name="project" value="LOCAL" />
+      <updated>1640381039750</updated>
+    </task>
+    <task id="LOCAL-00030" summary="AddGoldLibrary">
+      <created>1640391126123</created>
+      <option name="number" value="00030" />
+      <option name="presentableId" value="LOCAL-00030" />
+      <option name="project" value="LOCAL" />
+      <updated>1640391126123</updated>
+    </task>
+    <task id="LOCAL-00031" summary="HpUp">
+      <created>1640469161928</created>
+      <option name="number" value="00031" />
+      <option name="presentableId" value="LOCAL-00031" />
+      <option name="project" value="LOCAL" />
+      <updated>1640469161928</updated>
+    </task>
+    <task id="LOCAL-00032" summary="задел голема">
+      <created>1640820557102</created>
+      <option name="number" value="00032" />
+      <option name="presentableId" value="LOCAL-00032" />
+      <option name="project" value="LOCAL" />
+      <updated>1640820557102</updated>
+    </task>
+    <task id="LOCAL-00033" summary="Warning">
+      <created>1640904297103</created>
+      <option name="number" value="00033" />
+      <option name="presentableId" value="LOCAL-00033" />
+      <option name="project" value="LOCAL" />
+      <updated>1640904297103</updated>
+    </task>
+    <task id="LOCAL-00034" summary="Новая стрелка">
+      <created>1640906374810</created>
+      <option name="number" value="00034" />
+      <option name="presentableId" value="LOCAL-00034" />
+      <option name="project" value="LOCAL" />
+      <updated>1640906374810</updated>
+    </task>
+    <task id="LOCAL-00035" summary="Новая стрелка">
+      <created>1640908049855</created>
+      <option name="number" value="00035" />
+      <option name="presentableId" value="LOCAL-00035" />
+      <option name="project" value="LOCAL" />
+      <updated>1640908049855</updated>
+    </task>
+    <task id="LOCAL-00036" summary="Добавлен Гриб">
+      <created>1641083929758</created>
+      <option name="number" value="00036" />
+      <option name="presentableId" value="LOCAL-00036" />
+      <option name="project" value="LOCAL" />
+      <updated>1641083929758</updated>
+    </task>
+    <task id="LOCAL-00037" summary="Система опыта">
+      <created>1641146210274</created>
+      <option name="number" value="00037" />
+      <option name="presentableId" value="LOCAL-00037" />
+      <option name="project" value="LOCAL" />
+      <updated>1641146210274</updated>
+    </task>
+    <task id="LOCAL-00038" summary="Каст волны">
+      <created>1641510659717</created>
+      <option name="number" value="00038" />
+      <option name="presentableId" value="LOCAL-00038" />
+      <option name="project" value="LOCAL" />
+      <updated>1641510659718</updated>
+    </task>
+    <task id="LOCAL-00039" summary="Быстрые касты">
+      <created>1641581369858</created>
+      <option name="number" value="00039" />
+      <option name="presentableId" value="LOCAL-00039" />
+      <option name="project" value="LOCAL" />
+      <updated>1641581369858</updated>
+    </task>
+    <task id="LOCAL-00040" summary="Переходы между зонами">
+      <created>1641609870693</created>
+      <option name="number" value="00040" />
+      <option name="presentableId" value="LOCAL-00040" />
+      <option name="project" value="LOCAL" />
+      <updated>1641609870693</updated>
+    </task>
+    <task id="LOCAL-00041" summary="Переходы между зонами">
+      <created>1641614628695</created>
+      <option name="number" value="00041" />
+      <option name="presentableId" value="LOCAL-00041" />
+      <option name="project" value="LOCAL" />
+      <updated>1641614628696</updated>
+    </task>
+    <option name="localTasksCounter" value="42" />
+    <servers />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+    <option name="oldMeFiltersMigrated" value="true" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
+    <MESSAGE value="Квадратик" />
+    <MESSAGE value="Крестик" />
+    <MESSAGE value="Бамбуки" />
+    <MESSAGE value="2 домика" />
+    <MESSAGE value="Иконки" />
+    <MESSAGE value="Гифка линии" />
+    <MESSAGE value="Инвентарь" />
+    <MESSAGE value="Инвентарь готов, можно наполнять" />
+    <MESSAGE value="Одолел инвентарь" />
+    <MESSAGE value="Потребление предметов" />
+    <MESSAGE value="Определение каста" />
+    <MESSAGE value="AddHPBar" />
+    <MESSAGE value="Готова канализация" />
+    <MESSAGE value="Золотой жук и треугольник" />
+    <MESSAGE value="Карты нормалей и Флай касты" />
+    <MESSAGE value="AddGoldLibrary" />
+    <MESSAGE value="HpUp" />
+    <MESSAGE value="задел голема" />
+    <MESSAGE value="Warning" />
+    <MESSAGE value="Новая стрелка" />
+    <MESSAGE value="Добавлен Гриб" />
+    <MESSAGE value="Система опыта" />
+    <MESSAGE value="Каст волны" />
+    <MESSAGE value="Быстрые касты" />
+    <MESSAGE value="Переходы между зонами" />
+    <option name="LAST_COMMIT_MESSAGE" value="Переходы между зонами" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="lua-line">
+          <url>file://$PROJECT_DIR$/src/DamageSystem.lua</url>
+          <line>100</line>
+          <option name="timeStamp" value="1" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
+  </component>
+  <component name="XSLT-Support.FileAssociations.UIState">
+    <expand />
+    <select />
+  </component>
+</project>

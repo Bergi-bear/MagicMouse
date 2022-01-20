@@ -216,7 +216,7 @@ end
 
 function CreateRegions()
     local we
-    gg_rct_Bound01 = Rect(-2240.0, -2752.0, 2240.0, 2208.0)
+    gg_rct_Bound01 = Rect(-2144.0, -2752.0, 2176.0, 2016.0)
     gg_rct_Slime2Culvert = Rect(-64.0, -3392.0, 64.0, -3264.0)
     gg_rct_Bound02 = Rect(-2464.0, -10912.0, 2368.0, -4640.0)
     gg_rct_Culver2Slime = Rect(-288.0, -4256.0, 0.0, -4128.0)
@@ -226,7 +226,7 @@ function CreateRegions()
     gg_rct_SlimeRight = Rect(2912.0, -480.0, 3040.0, -288.0)
     gg_rct_ForestLeft = Rect(4192.0, -352.0, 4288.0, -128.0)
     gg_rct_Forest2Slime = Rect(4064.0, -288.0, 4192.0, -160.0)
-    gg_rct_Bound03 = Rect(5088.0, -2592.0, 10528.0, 1984.0)
+    gg_rct_Bound03 = Rect(5088.0, -2592.0, 10528.0, 1664.0)
     gg_rct_OkkBridge = Rect(8160.0, 224.0, 8640.0, 896.0)
     gg_rct_ForestUP = Rect(10528.0, 2240.0, 10784.0, 2368.0)
     gg_rct_Forest2Cave = Rect(10592.0, 2368.0, 10720.0, 2496.0)
@@ -1150,13 +1150,13 @@ function PointContentDestructable (x, y, range, iskill, damage, hero)
                                 end
                             else
                                 --print("даём золото за сундук")
-                                if GetDestructableTypeId(d) == FourCC("B008") or GetDestructableTypeId(d) == FourCC("B004") then
+                                if GetDestructableTypeId(d) == FourCC("B008") or GetDestructableTypeId(d) == FourCC("B004")  and false then
                                     UnitAddGold(hero, GetRandomInt(2, 5))
                                     DestroyEffect(AddSpecialEffect("SystemGeneric\\PileofGold.mdl", dx, dy))
                                 end
                             end
                         end
-                        if GetDestructableTypeId(d) == FourCC("B008") then
+                        if GetDestructableTypeId(d) == FourCC("B008") and false then
                             --print("умерла ваза горшок в событии проверки")
                             normal_sound("Abilities\\Spells\\Other\\Transmute\\AlchemistTransmuteDeath1", dx, dy, 60)
                             DestroyEffect(AddSpecialEffect("Objects\\Spawnmodels\\Undead\\ImpaleTargetDust\\ImpaleTargetDust.mdl", dx, dy))
@@ -3902,7 +3902,6 @@ function GetCenterFigure(data)
     end
     center.x = center.x / #data.Points
     center.y = center.y / #data.Points
-    --DestroyEffect(CreateTMPEffect(center.x, center.y, "Abilities\\Spells\\Human\\HolyBolt\\HolyBoltSpecialArt"))
     return center.x,center.y
 end
 
