@@ -23,6 +23,7 @@ function CreateHPBar(data)
     BlzFrameSetSize(into, GNext * 5, GNext)
     BlzFrameSetAbsPoint(into, FRAMEPOINT_LEFT, x, y)
     BlzFrameSetAlpha(into, 128)
+    BlzFrameSetFocus(into,true)
 
     local textCurrent = BlzCreateFrameByType("TEXT", "ButtonChargesText", BoxBarParent, "", 0)
     BlzFrameSetPoint(textCurrent, FRAMEPOINT_LEFT, into, FRAMEPOINT_LEFT, 0.002, 0)

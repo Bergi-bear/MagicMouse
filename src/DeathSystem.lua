@@ -29,7 +29,7 @@ function InitDeathEvent()
                     --print(GetUnitName(killer),GetUnitName(u))
                     local exp = BlzGetUnitMaxHP(u) / 10
                     AddExp(GetUnitData(killer), exp)
-                    EffectFromUnit2Unit("Firebrand Shot Yellow", GetUnitData(killer).UnitHero, u)
+                    EffectFromUnit2Unit(nil,"Firebrand Shot Yellow", GetUnitData(killer).UnitHero, u,"add gold")
                 end
             else
                 --print("нет героя")

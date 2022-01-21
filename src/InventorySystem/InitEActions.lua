@@ -15,6 +15,8 @@ function CreateEActions()
         local data = HERO[pid]
         if not data.ReleaseE and UnitAlive(data.UnitHero) then
             data.ReleaseE = true
+            --StartEatingApple(data.UnitHero) -- УДАЛИТЬ!!
+
             CatchItem(data)
             --print("нажал Е")
         end

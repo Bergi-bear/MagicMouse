@@ -32,6 +32,7 @@ function InitGameSlimes()
 end
 function SlimeAddMoveEvent(unit)
     local x, y = GetUnitXY(unit)
+    StartSlimeAI(unit)
     TimerStart(CreateTimer(), GetRandomReal(0.2, 0.4), true, function()
         if x == GetUnitX(unit) then
 
@@ -59,6 +60,33 @@ function SporeAddMoveEvent(unit)
         x = GetUnitX(unit)
 
         if not UnitAlive(unit) then
+            DestroyTimer(GetExpiredTimer())
+        end
+    end)
+end
+
+function StartSlimeAI(unit)
+    TimerStart(CreateTimer(), GetRandomReal(8, 15), true, function()
+        if not UnitAlive(unit) then
+            DestroyTimer(GetExpiredTimer())
+        else
+            print("пытаюсь скушать яблоки")
+            StartEatingApple(unit)
+        end
+    end)
+end
+
+function StartEatingApple(unit)
+    local castTime=3
+    local period=0.2
+    TimerStart(CreateTimer(), period, true, function()
+        local x, y = GetUnitXY(unit)
+        local itemEff, xEff, yEff = GetRandomItemInRangeByName(x, y, 500, "Apple")
+        if itemEff then
+            EffectFromPoint2Unit(itemEff, "", unit, xEff, yEff, "eating")
+        end
+        castTime=castTime-period
+        if castTime<=0 then
             DestroyTimer(GetExpiredTimer())
         end
     end)

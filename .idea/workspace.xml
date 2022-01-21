@@ -1,110 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="f200177b-7ff8-4d01-9907-5d6bfa19dd50" name="Default Changelist" comment="Переходы между зонами">
-      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/map.w3x/BonesEnvironmentTexture.blp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/map.w3x/CactusCatusTexture.blp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/map.w3x/China/Grass/Brunnen.mdx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/map.w3x/China/Grass/NSAW Blaetter.mdx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/map.w3x/China/Grass/NSAW Bush.mdx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/map.w3x/China/Grass/NSAW_Leaf_Fall.mdx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/map.w3x/China/Grass/Sakura.mdx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/map.w3x/China/Grass/TallGrass.mdx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/map.w3x/China/Grass/pa_templefountain_01.mdx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/map.w3x/China/Prop/NSAW Stone.mdx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/map.w3x/China/Prop/NSAW Tree neu 1.mdx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/map.w3x/China/Prop/NSAW Tree neu 2.mdx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/map.w3x/China/Prop/NSAW Tree neu 3.mdx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/map.w3x/China/Prop/NSAW Tree neu 4.mdx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/map.w3x/China/Prop/NSAW Wall 1.mdx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/map.w3x/China/Prop/NSAW Wall 2.mdx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/map.w3x/China/Prop/NSAW Wall 3.mdx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/map.w3x/China/Prop/NSAW_Model_Stonestairs.mdx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/map.w3x/China/Prop/NSAW_Model_Stonestairs_2.mdx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/map.w3x/China/Prop/NSAW_Model_Stonestairs_3.mdx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/map.w3x/China/Prop/NSAW_Model_Stonestairs_4.mdx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/map.w3x/China/Prop/NSAW_Model_Stonestairs_5.mdx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/map.w3x/China/Prop/NSAW_Model_Stonestairs_6.mdx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/map.w3x/China/Prop/NSAW_Model_Stonestairs_akatsuki_1.mdx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/map.w3x/China/Prop/NSAW_Model_Stonestairs_akatsuki_2.mdx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/map.w3x/China/Prop/NSAW_Model_Stonestairs_akatsuki_3.mdx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/map.w3x/China/Prop/NSAW_Model_Stonestairs_akatsuki_4.mdx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/map.w3x/China/Prop/NSAW_Model_Stonestairs_akatsuki_5.mdx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/map.w3x/China/Prop/NSAW_Model_Stonestairs_akatsuki_6.mdx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/map.w3x/China/Prop/NiceRock.mdx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/map.w3x/China/Prop/NiceRock2.mdx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/map.w3x/China/Prop/NiceRock3.mdx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/map.w3x/China/Prop/NiceRock4.mdx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/map.w3x/China/Prop/NiceRock5.mdx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/map.w3x/China/Prop/Stone 3.mdx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/map.w3x/China/Prop/Stone 4.mdx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/map.w3x/China/Prop/Tree-Pilz.mdx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/map.w3x/China/TBSBamboo1.mdx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/map.w3x/CloudSingle.blp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/map.w3x/DOTAHQ_tree_oak_leaves.blp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/map.w3x/Desert/Bone einzelnd.mdx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/map.w3x/Desert/Bone reihe 1.mdx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/map.w3x/Desert/Bone reihe 2.mdx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/map.w3x/Desert/Bone2.mdx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/map.w3x/Desert/Bone3.mdx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/map.w3x/Desert/Bones.mdx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/map.w3x/Desert/CactusCactusModel.mdx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/map.w3x/Desert/CactusCactusModel2.mdx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/map.w3x/ITK_TALLGRASS01.blp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/map.w3x/Kuicilk.blp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/map.w3x/Kuicilk3.blp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/map.w3x/NSAW_Doodad_Wagon.blp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/map.w3x/NSAW_Doodad_Wagon_Water.blp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/map.w3x/NSAW_Doodad_tile_border_1.blp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/map.w3x/NSAW_Doodad_tile_border_2.blp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/map.w3x/NSAW_Leaf_Fall.blp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/map.w3x/NSAW_Model_Stonestairs.blp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/map.w3x/NSAW_Model_Stonestairs_1.blp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/map.w3x/NSAW_Model_Stonestairs_1_akatsuki.blp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/map.w3x/NSAW_Model_Stonestairs_akatsuki.blp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/map.w3x/PA_FOUNTAIN_ROCK1.blp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/map.w3x/PA_FOUNTAIN_ROCK2.blp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/map.w3x/PA_TURTLESHRINE_WATER2.blp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/map.w3x/Road/NSAW_Doodad_Wagon_1.mdx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/map.w3x/Road/NSAW_Doodad_Wagon_2.mdx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/map.w3x/Road/NSAW_Doodad_Wagon_3.mdx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/map.w3x/Road/NSAW_Doodad_Wagon_4.mdx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/map.w3x/Road/NSAW_Doodad_tile_border_1.mdx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/map.w3x/Road/NSAW_Doodad_tile_border_2.mdx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/map.w3x/Road/NSAW_Doodad_tile_border_3.mdx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/map.w3x/Road/NSAW_Doodad_tile_border_4.mdx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/map.w3x/TBSBamboo.blp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/map.w3x/TU_MOUNTAINTREE_CANOPY.blp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/map.w3x/TU_MOUNTAINTREE_TRUNK.blp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/map.w3x/WuLe_shitou1.blp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/map.w3x/crop_cirlces001.blp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/map.w3x/flowers_00.blp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/map.w3x/good_statue008a.blp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/map.w3x/rocks_atlas.blp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/map.w3x/tree_oak_leaves_00.blp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/map.w3x/tree_oak_leaves_10.blp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/map.w3x/tree_oak_leaves_white.blp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/map.w3x/tree_pine_frond_00.blp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/map.w3x/yhs0.blp" afterDir="false" />
+    <list default="true" id="f200177b-7ff8-4d01-9907-5d6bfa19dd50" name="Default Changelist" comment="Пустыня и дороги">
       <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/build.lua" beforeDir="false" afterPath="$PROJECT_DIR$/build.lua" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/map.w3x/war3map.doo" beforeDir="false" afterPath="$PROJECT_DIR$/map.w3x/war3map.doo" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/map.w3x/war3map.imp" beforeDir="false" afterPath="$PROJECT_DIR$/map.w3x/war3map.imp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/map.w3x/war3map.lua" beforeDir="false" afterPath="$PROJECT_DIR$/map.w3x/war3map.lua" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/map.w3x/war3map.w3b" beforeDir="false" afterPath="$PROJECT_DIR$/map.w3x/war3map.w3b" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/map.w3x/war3map.w3d" beforeDir="false" afterPath="$PROJECT_DIR$/map.w3x/war3map.w3d" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/map.w3x/war3map.w3e" beforeDir="false" afterPath="$PROJECT_DIR$/map.w3x/war3map.w3e" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/map.w3x/war3map.w3i" beforeDir="false" afterPath="$PROJECT_DIR$/map.w3x/war3map.w3i" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/map.w3x/war3map.w3r" beforeDir="false" afterPath="$PROJECT_DIR$/map.w3x/war3map.w3r" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/map.w3x/war3map.w3u" beforeDir="false" afterPath="$PROJECT_DIR$/map.w3x/war3map.w3u" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/map.w3x/war3map.wct" beforeDir="false" afterPath="$PROJECT_DIR$/map.w3x/war3map.wct" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/map.w3x/war3map.wpm" beforeDir="false" afterPath="$PROJECT_DIR$/map.w3x/war3map.wpm" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/map.w3x/war3map.wts" beforeDir="false" afterPath="$PROJECT_DIR$/map.w3x/war3map.wts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/map.w3x/war3mapMap.blp" beforeDir="false" afterPath="$PROJECT_DIR$/map.w3x/war3mapMap.blp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/map.w3x/war3mapUnits.doo" beforeDir="false" afterPath="$PROJECT_DIR$/map.w3x/war3mapUnits.doo" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/DamageSystem.lua" beforeDir="false" afterPath="$PROJECT_DIR$/src/DamageSystem.lua" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/MagicMouse/ShapeDetector.lua" beforeDir="false" afterPath="$PROJECT_DIR$/src/MagicMouse/ShapeDetector.lua" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/DeathSystem.lua" beforeDir="false" afterPath="$PROJECT_DIR$/src/DeathSystem.lua" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/GoldSystem/EffectFrmoPoint2Point.lua" beforeDir="false" afterPath="$PROJECT_DIR$/src/GoldSystem/EffectFrmoPoint2Point.lua" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/InventorySystem/CatchItem.lua" beforeDir="false" afterPath="$PROJECT_DIR$/src/InventorySystem/CatchItem.lua" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/InventorySystem/InitEActions.lua" beforeDir="false" afterPath="$PROJECT_DIR$/src/InventorySystem/InitEActions.lua" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Peon/CreateHPBar.lua" beforeDir="false" afterPath="$PROJECT_DIR$/src/Peon/CreateHPBar.lua" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Units/Slime.lua" beforeDir="false" afterPath="$PROJECT_DIR$/src/Units/Slime.lua" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -469,7 +377,14 @@
       <option name="project" value="LOCAL" />
       <updated>1641614628696</updated>
     </task>
-    <option name="localTasksCounter" value="42" />
+    <task id="LOCAL-00042" summary="Пустыня и дороги">
+      <created>1642644460245</created>
+      <option name="number" value="00042" />
+      <option name="presentableId" value="LOCAL-00042" />
+      <option name="project" value="LOCAL" />
+      <updated>1642644460245</updated>
+    </task>
+    <option name="localTasksCounter" value="43" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -486,7 +401,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
-    <MESSAGE value="Квадратик" />
     <MESSAGE value="Крестик" />
     <MESSAGE value="Бамбуки" />
     <MESSAGE value="2 домика" />
@@ -511,7 +425,8 @@
     <MESSAGE value="Каст волны" />
     <MESSAGE value="Быстрые касты" />
     <MESSAGE value="Переходы между зонами" />
-    <option name="LAST_COMMIT_MESSAGE" value="Переходы между зонами" />
+    <MESSAGE value="Пустыня и дороги" />
+    <option name="LAST_COMMIT_MESSAGE" value="Пустыня и дороги" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
